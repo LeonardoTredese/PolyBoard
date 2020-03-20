@@ -5,8 +5,8 @@
 
 class Regina: public Torre, public Alfiere{
 public:
-    Regina(Colore _colore, short int _x, short int _y);
-    bool controlloMossa(short int _x, short int _y) const;
+    Regina(Colore _colore);
+    virtual bool controlloMossa(short int xI,short int yI,short int xF,short int yF) const;
 };
 
 #endif

@@ -11,7 +11,7 @@ private:
     const Colore colore;
 public:
     Colore getColore() const;
-    PedinaScacchi(Colore _colore, short int _x, short int _y);
+    PedinaScacchi(Colore _colore);
 };
 
 #endif

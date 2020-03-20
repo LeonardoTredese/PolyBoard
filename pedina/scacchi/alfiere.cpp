@@ -1,8 +1,8 @@
 #include "alfiere.h"
 
-Alfiere::Alfiere(Colore _colore,short int _x,short int _y):PedinaScacchi(_colore,_x,_y){}
+Alfiere::Alfiere(Colore _colore):PedinaScacchi(_colore){}
 
-bool Alfiere::controlloMossa(short int _x,short int _y)const
+bool Alfiere::controlloMossa(short int xI,short int yI,short int xF,short int yF)const
 {
-    return ((_x+_y)==getX()+getY()) || ((_x-_y)==getX()-getY());
+    return (xF+yF==xI+yI || (xF-yF==xI-yI));
 };

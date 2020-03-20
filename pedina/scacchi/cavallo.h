@@ -5,8 +5,8 @@
 class Cavallo: public PedinaScacchi
 {
 public:
-    Cavallo(Colore _colore, short int _x, short int _y);
-    virtual bool controlloMossa(short int _x, short int _y) const;
+    Cavallo(Colore _colore);
+    virtual bool controlloMossa(short int xI, short int yI, short int xF, short int yF) const;
 };
 
 #endif

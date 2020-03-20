@@ -7,8 +7,8 @@ class Pedone: public PedinaScacchi
 private:
     bool primaMossa;
 public:
-    Pedone(Colore _colore, short int _x, short int _y, bool _primaMossa=true);
-    virtual bool controlloMossa(short int _x, short int _y) const;
+    Pedone(Colore _colore, bool _primaMossa=true);
+    virtual bool controlloMossa(short int xI,short int yI,short int xF,short int yF) const;
 };
 
 #endif

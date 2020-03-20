@@ -1,10 +1,8 @@
 #include "cavallo.h"
 
-Cavallo::Cavallo(Colore _colore, short int _x, short int _y):PedinaScacchi(_colore, _x, _y){}
+Cavallo::Cavallo(Colore _colore):PedinaScacchi(_colore){}
 
-bool Cavallo::controlloMossa(short int _x, short int _y) const
+bool Cavallo::controlloMossa(short int xI, short int yI, short int xF, short int yF) const
 {
-    short int x=getX(), y=getY();
-    return (((x+2==_x)||(x-2==_x))&&((y+1==_y)||(y-1==_y))) || (((y+2==_y)||(y-2==_y))&&((x+1==_x)||(x-1==_x)));
-    //che svarion
+    return (((xI+2==xF)||(xI-2==xF))&&((yI+1==yF)||(yI-1==yF))) || (((yI+2==yF)||(yI-2==yF))&&((xI+1==xF)||(xI-1==xF)));
 }

@@ -4,8 +4,8 @@
 
 class Re: public PedinaScacchi{
 public:
-    Re(Colore _colore, short int _x, short int _y);
-    virtual bool controlloMossa(short int _x, short int _y) const;
+    Re(Colore _colore);
+    virtual bool controlloMossa(short int xI,short int yI,short int xF,short int yF) const;
 };
 
 #endif

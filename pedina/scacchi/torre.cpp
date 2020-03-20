@@ -1,8 +1,8 @@
 #include "torre.h"
 
-Torre::Torre(Colore _colore, short int _x, short int _y): PedinaScacchi(_colore, _x, _y) {}
+Torre::Torre(Colore _colore): PedinaScacchi(_colore) {}
 
-bool Torre::controlloMossa(short int _x, short int _y) const
+bool Torre::controlloMossa(short int xI, short int yI, short int xF, short int yF) const
 {
-    return ((_x == getX() && _y != getY()) || (_y == getY() && _x != getX()));
+    return ((xF == xI && yF != yI || (yF == yI && xF != xI);
 }

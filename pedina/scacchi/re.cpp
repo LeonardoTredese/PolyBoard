@@ -1,9 +1,7 @@
 #include "re.h"
 
-Re::Re(Colore _colore, short int _x, short int _y):PedinaScacchi(_colore,_x,_y){}
+Re::Re(Colore _colore):PedinaScacchi(_colore){}
 
-
-bool Re::controlloMossa(short int _x, short int _y) const{
-    short int x=getX(), y=getY();
-    return !(x==_x && y==_y) && ((_x-1==x || _x+1==x || _x==x) && (_y-1==y || _y+1==y || _y==y));
+bool Re::controlloMossa(short int xI,short int yI,short int xF,short int yF) const{
+    return !(xI==xF && yI==yF) && ((xF-1==xI || xF+1==xI || xF==xI) && (yF-1==yI || yF+1==yI || yF==yI));
 }
