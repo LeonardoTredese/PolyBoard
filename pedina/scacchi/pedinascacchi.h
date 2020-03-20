@@ -3,14 +3,15 @@
 #include "../pedina.h"
 
 enum Colore{bianco, nero};
-// BIANCO A SINISTRA E NERO A DESTRA
+
+// BIANCO SOTTO E NERO SOPRA
 // classe astratta, muovi non definito
 class PedinaScacchi: public Pedina{
 private:
     const Colore colore;
 public:
-    bool getColore() const;
-    PedinaScacchi(bool _colore, short int _x, short int _y);
+    Colore getColore() const;
+    PedinaScacchi(Colore _colore, short int _x, short int _y);
 };
 
 #endif
