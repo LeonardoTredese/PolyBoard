@@ -1,4 +1,4 @@
-#include "alfiere.h"
+ #include "alfiere.h"
 
 Alfiere::Alfiere(Colore _colore):PedinaScacchi(_colore){}
 

@@ -6,7 +6,7 @@ class Torre: virtual public PedinaScacchi
 {
 public:
     Torre(Colore _colore);
-    virtual bool controlloMossa(short int xI, short yI, short int xF, short int xF) const;
+    virtual bool controlloMossa(short int xI, short yI, short int xF, short int yF) const;
 };
 
 #endif
