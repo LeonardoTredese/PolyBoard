@@ -6,6 +6,7 @@ class Re: public PedinaScacchi{
 public:
     Re(Colore _colore);
     virtual bool controlloMossa(short int xI,short int yI,short int xF,short int yF) const;
+    virtual Re* clone() const;
 };
 
 #endif

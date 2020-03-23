@@ -6,3 +6,8 @@ bool Torre::controlloMossa(short int xI, short int yI, short int xF, short int y
 {
     return ((xF == xI && yF != yI) || (yF == yI && xF != xI));
 }
+
+Torre* Torre::clone() const
+{
+    return new Torre(*this);
+}

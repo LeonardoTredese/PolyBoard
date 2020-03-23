@@ -15,3 +15,8 @@ bool Pedone::controlloMossa(short int xI,short int yI,short int xF,short int yF)
         else
             return yF==yI+1;
 }
+
+Pedone* Pedone::clone() const
+{
+    return new Pedone(*this);
+}

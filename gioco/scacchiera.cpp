@@ -1,12 +1,56 @@
 #include "scacchiera.h"
 
-Scacchiera::Scacchiera(int _width,int _height): scacchiera(new Pedina*[width*height])
+Scacchiera::Scacchiera(int _width,int _height)
+    : width(_width), height(_height)
 {   
-    if(_width < 2 || height < 2)
+    if(width < 2 || height < 2)
         throw ErroreScacchiera(BOARD_TOO_SMALL);
 
+    scacchiera = new Pedina*[width*height];
     for(int i=0; i < width*height; ++i)
         scacchiera[i] = nullptr;
+}
+
+Pedina*& Scacchiera::elementAt(int x,int y) const
+{
+    return *(scacchiera+y*width+x);
+}
+
+bool Scacchiera::insert(const Pedina& toInsert, int x, int y)
+{
+    if(isFree(x, y))
+    {
+        elementAt(x,y) = toInsert.clone();
+        return true;
+    }
+    return false;
+}
+
+bool Scacchiera::move(int x1, int y1, int x2, int y2) // TODO: RIVEDERE IMPLEMENTAZIONE DOPO DEFINIZIONE DI GIOCO
+{
+    if(isFree(x2,y2))
+    {
+        elementAt(x2,y2)=elementAt(x1,y1);
+        elementAt(x1,y1)=nullptr;
+        return true;
+    }
+    return false;
+}
+
+void Scacchiera::moveAndEat(int x1, int y1, int x2, int y2)
+{
+    remove(x2,y2);
+    move(x1,y1,x2,y2);
+}
+
+void Scacchiera::remove(int x,int y)
+{
+    delete elementAt(x,y);
+}
+
+bool Scacchiera::isFree(int x, int y) const
+{
+    return elementAt(x,y)==nullptr;
 }
 
 void Scacchiera::destroy()
@@ -17,15 +61,16 @@ void Scacchiera::destroy()
 
 void Scacchiera::copy(const Scacchiera& s)
 {
-    width=s.width;
-    height=s.height;
+    if(width != s.width || height != s.height)
+        throw ErroreScacchiera(ERR_CPY);
     scacchiera=new Pedina*[width*height];
     for(int i=0; i < width*height; ++i)
         scacchiera[i]=s.scacchiera[i];
 }
 
-Scacchiera::Scacchiera(const Scacchiera& s)
+Scacchiera::Scacchiera(const Scacchiera& s) : width(s.width), height(s.height)
 {
+    // sappiamo per certo che non verrà sollevata eccezione perché le dimensioni sono uguali
     copy(s);
 }
 

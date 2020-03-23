@@ -9,6 +9,7 @@ private:
 public:
     Pedone(Colore _colore, bool _primaMossa=true);
     virtual bool controlloMossa(short int xI,short int yI,short int xF,short int yF) const;
+    virtual Pedone* clone() const;
 };
 
 #endif
