@@ -5,10 +5,10 @@
 class Cavallo: public PedinaScacchi
 {
 public:
-    Cavallo(Colore _colore);
+    Cavallo(ColoreBN _colore);
     virtual bool controlloMossa(short int xI, short int yI, short int xF, short int yF) const;
     virtual Cavallo* clone() const;
-    virtual std::string getId() const;
+    virtual ID getId() const;
 };
 
 #endif

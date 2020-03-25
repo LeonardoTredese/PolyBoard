@@ -1,6 +1,6 @@
 #include "regina.h"
 
-Regina::Regina(Colore _colore)
+Regina::Regina(ColoreBN _colore)
     : PedinaScacchi(_colore), Torre(_colore), Alfiere(_colore){}
 
 bool Regina::controlloMossa(short int xI,short int yI,short int xF,short int yF) const{
@@ -12,7 +12,7 @@ Regina* Regina::clone() const
     return new Regina(*this);
 }
 
-std::string Regina::getId() const
+ID Regina::getId() const
 {
-    return PedinaScacchi::getId()+"Q";
+    return ID('Q', getColore());
 }

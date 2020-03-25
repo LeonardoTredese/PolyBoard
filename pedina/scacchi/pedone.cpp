@@ -1,6 +1,6 @@
 #include "pedone.h"
 
-Pedone::Pedone(Colore _colore, bool _primaMossa)
+Pedone::Pedone(ColoreBN _colore, bool _primaMossa)
     : PedinaScacchi(_colore), primaMossa(_primaMossa){}
 
 bool Pedone::controlloMossa(short int xI,short int yI,short int xF,short int yF) const{
@@ -21,7 +21,7 @@ Pedone* Pedone::clone() const
     return new Pedone(*this);
 }
 
-std::string Pedone::getId() const
+ID Pedone::getId() const
 {
-    return PedinaScacchi::getId()+"P";
+    return ID('P',getColore());
 }

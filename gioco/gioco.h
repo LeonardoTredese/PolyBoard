@@ -3,6 +3,7 @@
 #include "scacchiera.h"
 #include <iostream>
 #include <string>
+#include "../pedina/id.hpp"
 using std::cout; using std::endl;
 
 class Gioco

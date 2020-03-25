@@ -5,10 +5,10 @@
 class Torre: virtual public PedinaScacchi
 {
 public:
-    Torre(Colore _colore);
+    Torre(ColoreBN _colore);
     virtual bool controlloMossa(short int xI, short yI, short int xF, short int yF) const;
     virtual Torre* clone() const;
-    virtual std::string getId() const;
+    virtual ID getId() const;
 };
 
 #endif

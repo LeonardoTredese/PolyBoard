@@ -1,19 +1,17 @@
 #ifndef PEDINASCACCHI_H
 #define PEDINASCACCHI_H
 #include "../pedina.h"
-
-enum Colore{bianco, nero};
+#include "../colore.h"
 
 // BIANCO SOTTO E NERO SOPRA
 // classe astratta, muovi non definito
 class PedinaScacchi: public Pedina{
 private:
-    const Colore colore;
+    const ColoreBN colore;
 public:
-    Colore getColore() const;
-    PedinaScacchi(Colore _colore);
+    ColoreBN getColore() const;
+    PedinaScacchi(ColoreBN _colore);
     virtual PedinaScacchi* clone() const = 0;
-    virtual std::string getId() const;
 };
 
 

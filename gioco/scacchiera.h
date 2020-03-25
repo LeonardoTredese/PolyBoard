@@ -5,6 +5,13 @@
 //EXCEPTION
 enum ErroreScacchiera { BOARD_TOO_SMALL, ERR_CPY };
 
+struct Posizione
+{
+    const int x;
+    const int y;
+    Posizione(int _x, int _y) : x(_x), y(_y){}
+};
+
 class Scacchiera
 {
 private:
@@ -12,7 +19,7 @@ private:
     Pedina** scacchiera;
     void wipe();
     void copy(const Scacchiera&);
-    Pedina*& elementAt(int x, int y) const;
+    Pedina*& elementAt(const Posizione& p) const;
 public:
     Scacchiera(int _width, int _height);
     ~Scacchiera();
@@ -20,11 +27,12 @@ public:
     Scacchiera& operator=(const Scacchiera&);
     int getWidth() const;
     int getHeight() const;
-    bool insert(const Pedina& toInsert, int x, int y);    // ritorna true sse è stato possibile inserire una nuova pedina nella posizione (x,y), i.e. la posizione era libera
-    void remove(int x, int y);  //serve per rimuovere la pedina in posizione (x,y)
-    bool move(int x1, int y1, int x2, int y2);  // scambia le posizioni tra due pedine (x1, y1) <--> (x2, y2)
-    void moveAndEat(int x1, int y1, int x2, int y2);
-    bool isFree(int x, int y) const;    //ritorna true sse nella posizione (x,y) non vi è nessuna pedina
+    bool insert(const Pedina& toInsert, const Posizione& p);    // ritorna true sse è stato possibile inserire una nuova pedina nella posizione (x,y), i.e. la posizione era libera
+    void remove(const Posizione& p);  //serve per rimuovere la pedina in posizione (x,y)
+    bool move(const Posizione& from, const Posizione& to);  // scambia le posizioni tra due pedine (x1, y1) <--> (x2, y2)
+    void moveAndEat(const Posizione& from, const Posizione& to);
+    bool isFree(const Posizione& p) const;    //ritorna true sse nella posizione (x,y) non vi è nessuna pedina
+    
     class iterator;
     class const_iterator;
     iterator begin() const;

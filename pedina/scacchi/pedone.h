@@ -7,10 +7,10 @@ class Pedone: public PedinaScacchi
 private:
     bool primaMossa;
 public:
-    Pedone(Colore _colore, bool _primaMossa=true);
+    Pedone(ColoreBN _colore, bool _primaMossa=true);
     virtual bool controlloMossa(short int xI,short int yI,short int xF,short int yF) const;
     virtual Pedone* clone() const;
-    virtual std::string getId() const;
+    virtual ID getId() const;
 };
 
 #endif

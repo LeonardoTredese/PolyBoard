@@ -11,47 +11,47 @@ Scacchiera::Scacchiera(int _width,int _height)
         scacchiera[i] = nullptr;
 }
 
-Pedina*& Scacchiera::elementAt(int x,int y) const
+Pedina*& Scacchiera::elementAt(const Posizione& p) const
 {
-    return *(scacchiera+y*width+x);
+    return *(scacchiera+p.y*width+p.x);
 }
 
-bool Scacchiera::insert(const Pedina& toInsert, int x, int y)
+bool Scacchiera::insert(const Pedina& toInsert,const Posizione&p)
 {
-    if(isFree(x, y))
+    if(isFree(p))
     {
-        elementAt(x,y) = toInsert.clone();
+        elementAt(p) = toInsert.clone();
         return true;
     }
     return false;
 }
 
-bool Scacchiera::move(int x1, int y1, int x2, int y2) // TODO: RIVEDERE IMPLEMENTAZIONE DOPO DEFINIZIONE DI GIOCO
+bool Scacchiera::move(const Posizione& from, const Posizione& to) // TODO: RIVEDERE IMPLEMENTAZIONE DOPO DEFINIZIONE DI GIOCO
 {
-    if(isFree(x2,y2))
+    if(isFree(to))
     {
-        elementAt(x2,y2)=elementAt(x1,y1);
-        elementAt(x1,y1)=nullptr;
+        elementAt(to)=elementAt(from);
+        elementAt(from)=nullptr;
         return true;
     }
     return false;
 }
 
-void Scacchiera::moveAndEat(int x1, int y1, int x2, int y2)
+void Scacchiera::moveAndEat(const Posizione& from, const Posizione& to)
 {
-    remove(x2,y2);
-    move(x1,y1,x2,y2);
+    remove(to);
+    move(from,to);
 }
 
-void Scacchiera::remove(int x,int y)
+void Scacchiera::remove(const Posizione& p)
 {
-    delete elementAt(x,y);
-    elementAt(x,y)=nullptr;
+    delete elementAt(p);
+    elementAt(p)=nullptr;
 }
 
-bool Scacchiera::isFree(int x, int y) const
+bool Scacchiera::isFree(const Posizione& p) const
 {
-    return elementAt(x,y)==nullptr;
+    return elementAt(p)==nullptr;
 }
 
 void Scacchiera::wipe()
