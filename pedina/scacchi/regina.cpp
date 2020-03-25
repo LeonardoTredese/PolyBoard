@@ -11,3 +11,8 @@ Regina* Regina::clone() const
 {
     return new Regina(*this);
 }
+
+std::string Regina::getId() const
+{
+    return PedinaScacchi::getId()+"Q";
+}

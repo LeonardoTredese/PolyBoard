@@ -20,3 +20,8 @@ Pedone* Pedone::clone() const
 {
     return new Pedone(*this);
 }
+
+std::string Pedone::getId() const
+{
+    return PedinaScacchi::getId()+"P";
+}

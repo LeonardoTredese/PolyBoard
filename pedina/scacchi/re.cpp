@@ -10,3 +10,8 @@ Re* Re::clone() const
 {
     return new Re(*this);
 }
+
+std::string Re::getId() const
+{
+    return PedinaScacchi::getId() + "K";
+}

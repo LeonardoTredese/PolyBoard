@@ -14,5 +14,4 @@ Cavallo* Cavallo::clone()const
 
 std::string Cavallo::getId() const
 {
-    return "";
-}
+    return PedinaScacchi::getId()+"N";

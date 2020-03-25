@@ -14,5 +14,5 @@ Alfiere* Alfiere::clone() const
 
 std::string Alfiere::getId() const
 {
-    return "";
+    return PedinaScacchi::getId() + "B";
 }

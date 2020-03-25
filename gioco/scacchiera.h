@@ -10,9 +10,9 @@ class Scacchiera
 private:
     const int width, height;
     Pedina** scacchiera;
-    void destroy();
+    void wipe();
     void copy(const Scacchiera&);
-    Pedina*& elementAt(int x, int y) const; // TODO: POTREBBE ANDARE IN PUBLIC? CHI LO SA?
+    Pedina*& elementAt(int x, int y) const;
 public:
     Scacchiera(int _width, int _height);
     ~Scacchiera();

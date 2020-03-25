@@ -7,6 +7,7 @@ public:
     Re(Colore _colore);
     virtual bool controlloMossa(short int xI,short int yI,short int xF,short int yF) const;
     virtual Re* clone() const;
+    virtual std::string getId() const;
 };
 
 #endif

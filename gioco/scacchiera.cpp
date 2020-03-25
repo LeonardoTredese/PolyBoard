@@ -46,6 +46,7 @@ void Scacchiera::moveAndEat(int x1, int y1, int x2, int y2)
 void Scacchiera::remove(int x,int y)
 {
     delete elementAt(x,y);
+    elementAt(x,y)=nullptr;
 }
 
 bool Scacchiera::isFree(int x, int y) const
@@ -53,10 +54,12 @@ bool Scacchiera::isFree(int x, int y) const
     return elementAt(x,y)==nullptr;
 }
 
-void Scacchiera::destroy()
+void Scacchiera::wipe()
 {
-    for(int i=0;i<width*height;++i)
+    for(int i=0; i<width*height; ++i){
         delete scacchiera[i];
+        scacchiera[i]=nullptr;
+    }
 }
 
 void Scacchiera::copy(const Scacchiera& s)
@@ -76,7 +79,7 @@ Scacchiera::Scacchiera(const Scacchiera& s) : width(s.width), height(s.height)
 
 Scacchiera::~Scacchiera()
 {
-    destroy();
+    wipe();
     delete[] scacchiera;
 }
 
@@ -84,7 +87,7 @@ Scacchiera& Scacchiera::operator=(const Scacchiera& s)
 {
     if(this != &s)
     {
-        destroy();
+        wipe();
         copy(s);
     }
     return *this;

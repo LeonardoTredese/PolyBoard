@@ -11,3 +11,8 @@ Torre* Torre::clone() const
 {
     return new Torre(*this);
 }
+
+std::string Torre::getId() const
+{
+    return PedinaScacchi::getId() + "R";
+}

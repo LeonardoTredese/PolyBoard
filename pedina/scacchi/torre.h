@@ -8,6 +8,7 @@ public:
     Torre(Colore _colore);
     virtual bool controlloMossa(short int xI, short yI, short int xF, short int yF) const;
     virtual Torre* clone() const;
+    virtual std::string getId() const;
 };
 
 #endif
