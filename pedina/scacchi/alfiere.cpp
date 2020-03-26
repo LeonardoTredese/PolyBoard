@@ -2,7 +2,7 @@
 
 Alfiere::Alfiere(ColoreBN _colore):PedinaScacchi(_colore){}
 
-bool Alfiere::controlloMossa(short int xI,short int yI,short int xF,short int yF)const
+bool Alfiere::controlloMossa(short int xI,short int yI,short int xF,short int yF, bool eat)const
 {
     return (xF+yF==xI+yI || (xF-yF==xI-yI));
 };

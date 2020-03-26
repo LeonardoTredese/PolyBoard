@@ -20,6 +20,7 @@ private:
     void wipe();
     void copy(const Scacchiera&);
     Pedina*& elementAt(const Posizione& p) const;
+    bool isInBound(const Posizione& p) const;
 public:
     Scacchiera(int _width, int _height);
     ~Scacchiera();
@@ -32,7 +33,9 @@ public:
     bool move(const Posizione& from, const Posizione& to);  // scambia le posizioni tra due pedine (x1, y1) <--> (x2, y2)
     void moveAndEat(const Posizione& from, const Posizione& to);
     bool isFree(const Posizione& p) const;    //ritorna true sse nella posizione (x,y) non vi è nessuna pedina
-    
+    Posizione find(const Pedina* p) const;
+    bool traiettoriaLibera(const Posizione& p1, const Posizione& p2) const;
+
     class iterator;
     class const_iterator;
     iterator begin() const;
@@ -53,6 +56,8 @@ public:
     Pedina*& operator*();
     Pedina** operator->();
     Pedina*& operator[](int);
+    bool operator==(const iterator&);
+    bool operator!=(const iterator&);
 };
 
 class Scacchiera::const_iterator
@@ -69,6 +74,8 @@ public:
     const Pedina*& operator*();
     const Pedina** operator->();
     const Pedina*& operator[](int);
+    bool operator==(const const_iterator&);
+    bool operator!=(const const_iterator&);
 };
 
 #endif

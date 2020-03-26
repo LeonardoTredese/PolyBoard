@@ -3,7 +3,7 @@
 Regina::Regina(ColoreBN _colore)
     : PedinaScacchi(_colore), Torre(_colore), Alfiere(_colore){}
 
-bool Regina::controlloMossa(short int xI,short int yI,short int xF,short int yF) const{
+bool Regina::controlloMossa(short int xI,short int yI,short int xF,short int yF, bool eat) const{
     return Torre::controlloMossa(xI, yI, xF, yF) || Alfiere::controlloMossa(xI, yI, xF, yF);
 }
 
