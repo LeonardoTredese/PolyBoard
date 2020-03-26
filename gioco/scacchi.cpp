@@ -32,6 +32,11 @@ bool Scacchi::scaccoAlRe(ColoreBN coloreRe) const
         {
            // bool canEat=p->controlloMossa(posPed,posRe,true)
            // if(canEat) controlloTraiettoria(posPed,posRe)
+
+           /*
+           Controllo mossa ritorna un enum di tipo traiettoria che indica esattamente la traiettoria da 
+            controllare per andare da p1 a p2. oppure brute force per tutte le direzioni che la pedina può compiere.
+           */
            
         }
     }
