@@ -2,7 +2,7 @@
 #define SCACCHI_H
 #include "gioco.h"
 #include <iostream>
-#include "../pedina/pedina.h"
+#include "../pedina/scacchi/pedinascacchi.h"
 
 class Scacchi : public Gioco{
 public:

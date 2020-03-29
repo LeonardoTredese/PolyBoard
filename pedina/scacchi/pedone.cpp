@@ -3,8 +3,9 @@
 Pedone::Pedone(ColoreBN _colore, bool _primaMossa)
     : PedinaScacchi(_colore), primaMossa(_primaMossa){}
 
-bool Pedone::controlloMossa(short int xI, short int yI, short int xF, short int yF, bool eat) const{
-    if(eat)
+std::list<Posizione> Pedone::controlloMossa(const Posizione& inizio, const Posizione& fine, bool eat) const
+{
+    /*if(eat)
     {
         if(getColore() == bianco)
             return yF==yI+1 && (xF==xI+1 || xF==xI-1);
@@ -22,6 +23,31 @@ bool Pedone::controlloMossa(short int xI, short int yI, short int xF, short int 
                 return yF==yI+1 || yF==yI+2;
             else
                 return yF==yI+1;
+    */
+    std::list<Posizione> ris;
+    if(eat)
+    {
+        if((getColore()==bianco && fine.y == inizio.y+1 && (fine.x == inizio.x+1 || fine.x == inizio.x-1))
+         || (getColore() == nero && fine.y == fine.y-1 && (fine.x == inizio.x+1 || fine.x == inizio.x-1)))
+                ris.push_back(fine);
+    }
+    else
+    {
+        if(getColore()==bianco)
+        {
+            if(primaMossa && (fine.y == inizio.y-1||fine.y==inizio.y-2))
+                ris.push_back(fine);
+            else if(!primaMossa && fine.y==inizio.y-1)
+                ris.push_back(fine);
+        }
+        else
+        {
+            if((primaMossa && (fine.y == inizio.y+1 || fine.y == inizio.y+2))
+                || (!primaMossa && fine.y == inizio.y+1))
+                ris.push_back(fine);
+        }    
+    }
+    return ris;
 }
 
 Pedone* Pedone::clone() const

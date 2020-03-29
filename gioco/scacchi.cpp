@@ -1,6 +1,9 @@
 #include "scacchi.h"
 
-Scacchi::Scacchi(int width,int height):Gioco(width,height){}
+Scacchi::Scacchi(int width,int height):Gioco(width,height)
+{
+    // TODO: inserire pedine
+}
 
 char Scacchi::tipoGioco() const{return 'c';}
 
@@ -11,34 +14,38 @@ void Scacchi::turno()
     std::cin>>xI>>yI;
     std::cout<<"Inserisci casella in cui muovere la pedina (X,Y): ";
     std::cin>>xF>>yF;
+    // controlloMossa isFree...
+    // ritorna orizzontale - diagonale - verticale
+    // traiettoriaLibera(p1, p2, direzione)
+    // qui so che posso muovere quella pedina
+    // la sposto sulla scacchiera senza visualizzare
+    // faccio un controllo su scaccoAlRe
+    // se ritorna false -> rollback
+    // se ritorna true tutto prosegue, mossa valida cambio turno
     
 }
 
 // PRE: coloreRe indica il colore del re da controllare
 bool Scacchi::scaccoAlRe(ColoreBN coloreRe) const
 {
-    Pedina *re(nullptr);
-    for(auto cit=tavolo.begin(); !re && cit!=tavolo.end(); ++cit) // scorre tutto il tavolo
-    {
-        if(*cit && (*cit)->getId() == ID('K', coloreRe))
-            re = *cit;
-    }
-    Posizione posRe(tavolo.find(re));
-    //for => controllo tutte le pedine del colore avversario
+    auto cit=tavolo.begin();
+    for(; cit!=tavolo.end(); ++cit) // scorre tutto il tavolo
+        if((*cit) && (**cit)->getId() == ID('K', coloreRe))
+            break;
+    // il re verrà sempre trovato
+    Posizione posRe(tavolo.find(*cit));
     
-    for(Pedina* p : tavolo)
+    //for => controllo tutte le pedine del colore avversario
+    for(cit=tavolo.begin(); cit!=tavolo.end(); ++cit)
     {
-        if(p && p->getId().getColore() != coloreRe)
-        {
-           // bool canEat=p->controlloMossa(posPed,posRe,true)
-           // if(canEat) controlloTraiettoria(posPed,posRe)
+        //le caselle nelle quali le pedine si possono muovere saranno illuminate
 
-           /*
-           Controllo mossa ritorna un enum di tipo traiettoria che indica esattamente la traiettoria da 
-            controllare per andare da p1 a p2. oppure brute force per tutte le direzioni che la pedina può compiere.
-           */
-           
-        }
+        // if(canEat) controlloTraiettoria(posPed,posRe)
+        /*
+        Controllo mossa ritorna un enum di tipo traiettoria che indica esattamente la traiettoria da 
+        controllare per andare da p1 a p2. oppure brute force per tutte le direzioni che la pedina può compiere.
+        */
+        
     }
 }
 // POST: ritorna true sse il re di coloreRe è sotto scacco

@@ -1,6 +1,6 @@
 #include "pedina.h"
 
-ID:ID(char _pedina, int _colore): tipo_pedina(_pedina), colore(_colore) {}
+ID:ID(char _pedina, int _colore) : tipo_pedina(_pedina), colore(_colore) {}
 
 char ID::getTipo() const { return tipo_pedina; }
 int ID::getColore() const { return colore; }

@@ -2,9 +2,13 @@
 
 Cavallo::Cavallo(ColoreBN _colore):PedinaScacchi(_colore){}
 
-bool Cavallo::controlloMossa(short int xI, short int yI, short int xF, short int yF, bool eat) const
+std::list<Posizione> Cavallo::controlloMossa(const Posizione& inizio, const Posizione& fine, bool eat) const
 {
-    return (((xI+2==xF)||(xI-2==xF))&&((yI+1==yF)||(yI-1==yF))) || (((yI+2==yF)||(yI-2==yF))&&((xI+1==xF)||(xI-1==xF)));
+    std::list<Posizione> ris;
+    if((( inizio.x+2 == fine.x || inizio.x-2==fine.x ) && ( inizio.y+1==fine.y || inizio.y-1==fine.y )) || 
+    (( inizio.y+2==fine.y || inizio.y-2==fine.y )&&((inizio.x+1==fine.x)||(inizio.x-1==fine.x)))) // TODO: rivedere if
+        ris.push_back(fine);
+    return ris;
 }
 
 Cavallo* Cavallo::clone()const

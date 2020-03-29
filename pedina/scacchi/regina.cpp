@@ -3,8 +3,10 @@
 Regina::Regina(ColoreBN _colore)
     : PedinaScacchi(_colore), Torre(_colore), Alfiere(_colore){}
 
-bool Regina::controlloMossa(short int xI,short int yI,short int xF,short int yF, bool eat) const{
-    return Torre::controlloMossa(xI, yI, xF, yF) || Alfiere::controlloMossa(xI, yI, xF, yF);
+std::list<Posizione> Regina::controlloMossa(const Posizione& inizio, const Posizione& fine, bool eat=false) const
+{
+    std::list<Posizione> ris = Torre::controlloMossa(inizio, fine, eat);
+    return (!ris.empty()) ? ris : Alfiere::controlloMossa(inizio, fine, eat);
 }
 
 Regina* Regina::clone() const

@@ -6,7 +6,7 @@
 class Regina: public Torre, public Alfiere{
 public:
     Regina(ColoreBN _colore);
-    virtual bool controlloMossa(short int xI,short int yI,short int xF,short int yF, bool eat=false) const;
+    virtual std::list<Posizione> controlloMossa(const Posizione& inizio, const Posizione& fine, bool eat=false) const;
     virtual Regina* clone() const;
     virtual ID getId() const;
 };
