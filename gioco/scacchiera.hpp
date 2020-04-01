@@ -1,6 +1,6 @@
 #ifndef SCACCHIERA_H
 #define SCACCHIERA_H
-#include "posizione.hpp"
+#include "posizione.h"
 
 //EXCEPTION
 enum ErroreScacchiera { BOARD_TOO_SMALL, ERR_CPY };
@@ -34,10 +34,10 @@ public:
         delete[] board;
     }
     Scacchiera(const Scacchiera& s)
-        : width(s.width), height(s.height) board(new T*[width*height])
+        : width(s.width), height(s.height), board(new T*[width*height])
     {
         for(int i=0; i<width*height; ++i)
-            board[i]= s.board[i] ? new T(*s.board[i]) : nullptr;
+            board[i] = s.board[i] ? new T(*s.board[i]) : nullptr;
     }
     Scacchiera& operator=(const Scacchiera& s)
     {
@@ -60,7 +60,7 @@ public:
     {
         if(isFree(p))
         {
-            elementAt(p) = new T*(toInsert);
+            elementAt(p) = new T(toInsert);
             return true;
         }
         else
@@ -82,12 +82,13 @@ public:
             elementAt(from)=nullptr;
             return true;
         }
-        return false;
+        else
+            return false;
     }
-    void moveAndEat(const Posizione& from, const Posizione& to)
+    bool moveForce(const Posizione& from, const Posizione& to) // CAMBIATO
     {
         remove(to);
-        move(from,to);
+        return move(from,to);
     }
     bool isFree(const Posizione& p) const    //ritorna true sse nella posizione (x,y) non vi è nessuna pedina
     {
