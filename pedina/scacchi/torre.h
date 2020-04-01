@@ -5,7 +5,7 @@
 class Torre: virtual public PedinaScacchi
 {
 public:
-    Torre(ColoreBN _colore);
+    Torre(Colore _colore);
     virtual std::list<Posizione> controlloMossa(const Posizione& inizio, const Posizione& fine, bool eat=false) const;
     virtual Torre* clone() const;
     virtual ID getId() const;

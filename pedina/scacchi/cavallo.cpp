@@ -1,6 +1,6 @@
 #include "cavallo.h"
 
-Cavallo::Cavallo(ColoreBN _colore):PedinaScacchi(_colore){}
+Cavallo::Cavallo(Colore _colore):PedinaScacchi(_colore){}
 
 std::list<Posizione> Cavallo::controlloMossa(const Posizione& inizio, const Posizione& fine, bool eat) const
 {

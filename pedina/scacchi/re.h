@@ -4,7 +4,7 @@
 
 class Re: public PedinaScacchi{
 public:
-    Re(ColoreBN _colore);
+    Re(Colore _colore);
     virtual std::list<Posizione> controlloMossa(const Posizione& inizio, const Posizione& fine, bool eat=false) const;
     virtual Re* clone() const;
     virtual ID getId() const;

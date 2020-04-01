@@ -1,6 +1,6 @@
 #include "gioco.h"
 
-Gioco::Gioco(int _width, int _height) : tavolo(_width, _height){}
+Gioco::Gioco(int _width, int _height, Colore giocatore_iniziale) : tavolo(_width, _height), giocatore_corrente(giocatore_iniziale){}
 
 void Gioco::stampaTavolo() const
 {

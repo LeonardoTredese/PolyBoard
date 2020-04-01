@@ -3,7 +3,7 @@
 #include "posizione.h"
 
 //EXCEPTION
-enum ErroreScacchiera { BOARD_TOO_SMALL, ERR_CPY };
+enum ErroreScacchiera { BOARD_TOO_SMALL, ERR_CPY, ELEMENT_NOT_FOUND };
 
 template<class T>
 class Scacchiera
@@ -11,14 +11,9 @@ class Scacchiera
 private:
     const unsigned int width, height;
     T** board;
-    
     T*& elementAt(const Posizione& p) const
     {
         return board[width*p.y+p.x];
-    }
-    bool isInBound(const Posizione& p) const
-    {
-        return p.x >= 0 && p.x < width && p.y >= 0 && p.y < height;
     }
 public:
     Scacchiera(unsigned int _width, unsigned int _height) : width(_width), height(_height)
@@ -53,9 +48,12 @@ public:
         }
         return *this;
     }
-    
     int getWidth() const { return width; }
     int getHeight() const { return height; }
+    bool isInBound(const Posizione& p) const
+    {
+        return p.x >= 0 && p.x < width && p.y >= 0 && p.y < height;
+    }
     bool insert(const T& toInsert, const Posizione& p)    // ritorna true sse è stato possibile inserire una nuova pedina nella posizione (x,y), i.e. la posizione era libera
     {
         if(isFree(p))
@@ -74,9 +72,9 @@ public:
             elementAt(p)=nullptr;
         }
     }
-    bool move(const Posizione& from, const Posizione& to)  // scambia le posizioni tra due pedine (x1, y1) <--> (x2, y2)
+    bool move(const Posizione& from, const Posizione& to)  // sposta la pedina in posizione from in posizione --> to
     {
-        if(isFree(to) && isInBound(from))
+        if(isFree(to) &&isInBound(from))
         {
             elementAt(to)=elementAt(from);
             elementAt(from)=nullptr;
@@ -84,9 +82,9 @@ public:
         }
         else
             return false;
-    }
-    bool moveForce(const Posizione& from, const Posizione& to) // CAMBIATO
-    {
+    } // TODO: fondere move e moveForce ?
+    bool moveForce(const Posizione& from, const Posizione& to) // sposta la pedina in posizione from -> nella posizione to,
+    {                                                          // rimuovendo l'oggetto in posizione to.
         remove(to);
         return move(from,to);
     }
@@ -106,8 +104,24 @@ public:
                     return pos;
             }
     }
+    T& selectElement(const Posizione& p) const
+    {
+        if(!isInBound(p) || elementAt(p) == nullptr)
+            throw(ELEMENT_NOT_FOUND);
+        else
+            return *elementAt(p);
+    }
 
-    bool traiettoriaLibera(const Posizione& p1, const Posizione& p2) const; // TODO
+    // PRE: posizioni è una lista di posizioni valide e ultima posizione è quella di arrivo
+    bool traiettoriaLibera(const list<Posizione>& posizioni) const
+    {
+        if(!posizioni.empty())
+            for(auto cit=posizioni.begin(); cit!=posizioni.end()-1 ; ++cit)
+                if(!isFree(*cit))
+                    return false;
+        return true;
+    }
+    //POST: ritorna true sse tutte le posizioni, tranne l'ultima sono libere.
 
     class iterator
     {

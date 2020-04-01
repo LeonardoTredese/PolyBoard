@@ -7,12 +7,11 @@ class Pedone: public PedinaScacchi
 private:
     bool primaMossa;
 public:
-    Pedone(ColoreBN _colore, bool _primaMossa=true);
+    Pedone(Colore _colore, bool _primaMossa=true);
     virtual std::list<Posizione> controlloMossa(const Posizione& inizio, const Posizione& fine, bool eat=false) const;
     virtual Pedone* clone() const;
     virtual ID getId() const;
     void fattaPrimaMossa();
-    bool getPrimaMossa() const;
 };
 
 #endif

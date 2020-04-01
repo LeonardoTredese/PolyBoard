@@ -1,6 +1,6 @@
 #include "torre.h"
 
-Torre::Torre(ColoreBN _colore): PedinaScacchi(_colore) {}
+Torre::Torre(Colore _colore): PedinaScacchi(_colore) {}
 
 std::list<Posizione> Torre::controlloMossa(const Posizione& inizio, const Posizione& fine, bool eat=false) const
 {

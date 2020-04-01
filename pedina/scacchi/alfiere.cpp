@@ -1,6 +1,6 @@
  #include "alfiere.h"
 
-Alfiere::Alfiere(ColoreBN _colore):PedinaScacchi(_colore){}
+Alfiere::Alfiere(Colore _colore):PedinaScacchi(_colore){}
 
 std::list<Posizione> Alfiere::controlloMossa(const Posizione& inizio, const Posizione& fine, bool eat) const
 {

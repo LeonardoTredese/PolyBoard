@@ -10,11 +10,12 @@ class Gioco
 {
 protected:
     Scacchiera<SmartP> tavolo;
+    Colore giocatore_corrente;
 public:
-    Gioco(int _width, int _heigth);
+    Gioco(int _width, int _heigth, Colore giocatore_iniziale);
     virtual ~Gioco(){}
     void stampaTavolo() const;
     virtual char tipoGioco() const = 0;
-    virtual void turno() = 0;
+    virtual bool turno(const Posizione& posIniziale, const Posizione& posFinale) = 0;
 };
 #endif

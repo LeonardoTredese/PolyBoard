@@ -1,6 +1,6 @@
 #include "regina.h"
 
-Regina::Regina(ColoreBN _colore)
+Regina::Regina(Colore _colore)
     : PedinaScacchi(_colore), Torre(_colore), Alfiere(_colore){}
 
 std::list<Posizione> Regina::controlloMossa(const Posizione& inizio, const Posizione& fine, bool eat=false) const

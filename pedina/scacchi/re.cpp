@@ -1,6 +1,6 @@
 #include "re.h"
 
-Re::Re(ColoreBN _colore):PedinaScacchi(_colore){}
+Re::Re(Colore _colore):PedinaScacchi(_colore){}
 
 std::list<Posizione> Re::controlloMossa(const Posizione& inizio, const Posizione& fine, bool eat=false) const{
     std::list<Posizione> ris;
