@@ -16,6 +16,8 @@ public:
     virtual ~Gioco(){}
     void stampaTavolo() const;
     virtual char tipoGioco() const = 0;
-    virtual bool turno(const Posizione& posIniziale, const Posizione& posFinale) = 0;
+    virtual bool mossa(const Posizione& posIniziale, const Posizione& posFinale) = 0;
+    virtual void cambioTurno() = 0;
+    virtual bool controlloVincitore() const = 0;
 };
 #endif

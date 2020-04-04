@@ -1,6 +1,8 @@
 #ifndef SCACCHIERA_H
 #define SCACCHIERA_H
 #include "posizione.h"
+#include <list>
+using std::list;
 
 //EXCEPTION
 enum ErroreScacchiera { BOARD_TOO_SMALL, ERR_CPY, ELEMENT_NOT_FOUND };
@@ -112,13 +114,14 @@ public:
             return *elementAt(p);
     }
 
-    // PRE: posizioni è una lista di posizioni valide e ultima posizione è quella di arrivo
+    // PRE: posizioni è una lista di posizioni valide non vuote e ultima posizione è quella di arrivo
     bool traiettoriaLibera(const list<Posizione>& posizioni) const
     {
-        if(!posizioni.empty())
-            for(auto cit=posizioni.begin(); cit!=posizioni.end()-1 ; ++cit)
-                if(!isFree(*cit))
-                    return false;
+        auto end = posizioni.end();
+        --end;
+        for(auto cit=posizioni.begin(); cit != end; ++cit)
+            if(!isFree(*cit))
+                return false;
         return true;
     }
     //POST: ritorna true sse tutte le posizioni, tranne l'ultima sono libere.
