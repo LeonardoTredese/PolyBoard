@@ -2,7 +2,7 @@
 
 Torre::Torre(Colore _colore): PedinaScacchi(_colore) {}
 
-std::list<Posizione> Torre::controlloMossa(const Posizione& inizio, const Posizione& fine, bool eat=false) const
+std::list<Posizione> Torre::controlloMossa(const Posizione& inizio, const Posizione& fine, bool eat) const
 {
     //return ((xF == xI && yF != yI) || (yF == yI && xF != xI));
     Posizione *direzione(nullptr);
