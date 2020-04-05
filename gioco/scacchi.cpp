@@ -130,6 +130,7 @@ bool Scacchi::scaccoMatto(Colore coloreRe) const // TODO: ottimizzabile? sì(dif
 }
 bool Scacchi::controlloVincitore() const
 {
+    // se non c'è scacco al re ritorno false
     return scaccoMatto((giocatore_corrente == bianco) ? nero : bianco);
 }
 void Scacchi::cambioTurno()

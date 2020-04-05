@@ -22,7 +22,9 @@ public:
     {
         if(width < 2 || height < 2)
             throw ErroreScacchiera(BOARD_TOO_SMALL);
-        board = new T*[width*height](nullptr);
+        board = new T*[width*height];
+        for(int i=0; i<width*height; ++i)
+            board[i] = nullptr;
     }
     ~Scacchiera()
     {
@@ -125,6 +127,7 @@ public:
         return true;
     }
     //POST: ritorna true sse tutte le posizioni, tranne l'ultima sono libere.
+    class const_iterator;
 
     class iterator
     {
@@ -168,7 +171,7 @@ public:
         const T** p; // punta ad un puntatore costante
     public:
         const_iterator(T** const _p): p(_p) {}
-        const_iterator(const iterator& it): p(it.p) {}
+        const_iterator(const iterator& it): p(const_cast<const T**>(it.p)) {} // TODO: trovare soluzione
         const_iterator& operator++()
         {
             ++p;

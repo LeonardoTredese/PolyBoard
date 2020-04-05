@@ -10,8 +10,13 @@ void Gioco::stampaTavolo() const
     {
         for(int x=0; x < tavolo.getWidth(); ++x)
         {
-            ID id((**cit)->getId());
-            cout<<id.getTipo()<<id.getColore()<<' ';
+            if(*cit)
+            {
+                ID id((**cit)->getId());
+                cout<<id.getTipo()<<id.getColore()<<' ';
+            }
+            else
+                cout<<"XX ";
             ++cit;
         }
         cout<<endl;

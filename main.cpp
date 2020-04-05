@@ -1,5 +1,6 @@
 #include <iostream>
 #include "gioco/scacchi.h"
+using namespace std;
 
 int main()
 {
@@ -13,15 +14,18 @@ int main()
     bool scaccoMatto(false);
     while(!scaccoMatto)
     {
+        gioco.stampaTavolo();
         bool checkTurno;
         do
         {   
             int xI, yI, xF, yF;
-            std::cin >> xI >> yI >> xF >> yF;
+            cout<<"Inserisci posizione iniziale:"<<endl;
+            cin >> xI >> yI;
+            cout<<"Inserisci posizione finale:"<<endl;
+            cin>>xF>>yF;
             checkTurno = gioco.mossa(Posizione(xI, yI), Posizione(xF, yF));
         } while (!checkTurno);
-        gioco.stampaTavolo();
-        gioco.controlloVincitore();
+        scaccoMatto = gioco.controlloVincitore();
     }
     return 0;
 }
