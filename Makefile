@@ -54,7 +54,7 @@ SOURCES       = main.cpp \
 		gioco/gioco.cpp \
 		gioco/posizione.cpp \
 		gioco/scacchi.cpp \
-		gioco/smartp.cpp \
+		gioco/scacchiera.cpp \
 		pedina/pedina.cpp \
 		pedina/scacchi/alfiere.cpp \
 		pedina/scacchi/cavallo.cpp \
@@ -62,12 +62,14 @@ SOURCES       = main.cpp \
 		pedina/scacchi/pedone.cpp \
 		pedina/scacchi/re.cpp \
 		pedina/scacchi/regina.cpp \
-		pedina/scacchi/torre.cpp 
+		pedina/scacchi/torre.cpp \
+		pedina/scacchi/movimentoCroce.cpp \
+		pedina/scacchi/movimentoDiagonale.cpp 
 OBJECTS       = main.o \
 		gioco.o \
 		posizione.o \
 		scacchi.o \
-		smartp.o \
+		scacchiera.o \
 		pedina.o \
 		alfiere.o \
 		cavallo.o \
@@ -75,7 +77,9 @@ OBJECTS       = main.o \
 		pedone.o \
 		re.o \
 		regina.o \
-		torre.o
+		torre.o \
+		movimentoCroce.o \
+		movimentoDiagonale.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -130,6 +134,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
@@ -151,8 +156,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		gioco/gioco.h \
 		gioco/posizione.h \
 		gioco/scacchi.h \
-		gioco/scacchiera.hpp \
-		gioco/smartp.h \
+		gioco/scacchiera.h \
 		pedina/pedina.h \
 		pedina/scacchi/alfiere.h \
 		pedina/scacchi/cavallo.h \
@@ -160,11 +164,13 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		pedina/scacchi/pedone.h \
 		pedina/scacchi/re.h \
 		pedina/scacchi/regina.h \
-		pedina/scacchi/torre.h main.cpp \
+		pedina/scacchi/torre.h \
+		pedina/scacchi/movimentoCroce.h \
+		pedina/scacchi/movimentoDiagonale.h main.cpp \
 		gioco/gioco.cpp \
 		gioco/posizione.cpp \
 		gioco/scacchi.cpp \
-		gioco/smartp.cpp \
+		gioco/scacchiera.cpp \
 		pedina/pedina.cpp \
 		pedina/scacchi/alfiere.cpp \
 		pedina/scacchi/cavallo.cpp \
@@ -172,7 +178,9 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		pedina/scacchi/pedone.cpp \
 		pedina/scacchi/re.cpp \
 		pedina/scacchi/regina.cpp \
-		pedina/scacchi/torre.cpp
+		pedina/scacchi/torre.cpp \
+		pedina/scacchi/movimentoCroce.cpp \
+		pedina/scacchi/movimentoDiagonale.cpp
 QMAKE_TARGET  = progetto_P2
 DESTDIR       = 
 TARGET        = progetto_P2
@@ -238,6 +246,7 @@ Makefile: progetto_P2.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
@@ -313,6 +322,7 @@ Makefile: progetto_P2.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf:
@@ -348,8 +358,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents colore.h gioco/gioco.h gioco/posizione.h gioco/scacchi.h gioco/scacchiera.hpp gioco/smartp.h pedina/pedina.h pedina/scacchi/alfiere.h pedina/scacchi/cavallo.h pedina/scacchi/pedinascacchi.h pedina/scacchi/pedone.h pedina/scacchi/re.h pedina/scacchi/regina.h pedina/scacchi/torre.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp gioco/gioco.cpp gioco/posizione.cpp gioco/scacchi.cpp gioco/smartp.cpp pedina/pedina.cpp pedina/scacchi/alfiere.cpp pedina/scacchi/cavallo.cpp pedina/scacchi/pedinascacchi.cpp pedina/scacchi/pedone.cpp pedina/scacchi/re.cpp pedina/scacchi/regina.cpp pedina/scacchi/torre.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents colore.h gioco/gioco.h gioco/posizione.h gioco/scacchi.h gioco/scacchiera.h pedina/pedina.h pedina/scacchi/alfiere.h pedina/scacchi/cavallo.h pedina/scacchi/pedinascacchi.h pedina/scacchi/pedone.h pedina/scacchi/re.h pedina/scacchi/regina.h pedina/scacchi/torre.h pedina/scacchi/movimentoCroce.h pedina/scacchi/movimentoDiagonale.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp gioco/gioco.cpp gioco/posizione.cpp gioco/scacchi.cpp gioco/scacchiera.cpp pedina/pedina.cpp pedina/scacchi/alfiere.cpp pedina/scacchi/cavallo.cpp pedina/scacchi/pedinascacchi.cpp pedina/scacchi/pedone.cpp pedina/scacchi/re.cpp pedina/scacchi/regina.cpp pedina/scacchi/torre.cpp pedina/scacchi/movimentoCroce.cpp pedina/scacchi/movimentoDiagonale.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -397,24 +407,24 @@ compiler_clean: compiler_moc_predefs_clean
 
 main.o: main.cpp gioco/scacchi.h \
 		gioco/gioco.h \
-		gioco/scacchiera.hpp \
+		gioco/scacchiera.h \
 		gioco/posizione.h \
-		gioco/smartp.h \
 		pedina/pedina.h \
 		colore.h \
 		pedina/scacchi/pedone.h \
 		pedina/scacchi/pedinascacchi.h \
 		pedina/scacchi/torre.h \
+		pedina/scacchi/movimentoCroce.h \
 		pedina/scacchi/alfiere.h \
+		pedina/scacchi/movimentoDiagonale.h \
 		pedina/scacchi/cavallo.h \
 		pedina/scacchi/regina.h \
 		pedina/scacchi/re.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 gioco.o: gioco/gioco.cpp gioco/gioco.h \
-		gioco/scacchiera.hpp \
+		gioco/scacchiera.h \
 		gioco/posizione.h \
-		gioco/smartp.h \
 		pedina/pedina.h \
 		colore.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gioco.o gioco/gioco.cpp
@@ -424,25 +434,26 @@ posizione.o: gioco/posizione.cpp gioco/posizione.h
 
 scacchi.o: gioco/scacchi.cpp gioco/scacchi.h \
 		gioco/gioco.h \
-		gioco/scacchiera.hpp \
+		gioco/scacchiera.h \
 		gioco/posizione.h \
-		gioco/smartp.h \
 		pedina/pedina.h \
 		colore.h \
 		pedina/scacchi/pedone.h \
 		pedina/scacchi/pedinascacchi.h \
 		pedina/scacchi/torre.h \
+		pedina/scacchi/movimentoCroce.h \
 		pedina/scacchi/alfiere.h \
+		pedina/scacchi/movimentoDiagonale.h \
 		pedina/scacchi/cavallo.h \
 		pedina/scacchi/regina.h \
 		pedina/scacchi/re.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o scacchi.o gioco/scacchi.cpp
 
-smartp.o: gioco/smartp.cpp gioco/smartp.h \
-		pedina/pedina.h \
+scacchiera.o: gioco/scacchiera.cpp gioco/scacchiera.h \
 		gioco/posizione.h \
+		pedina/pedina.h \
 		colore.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o smartp.o gioco/smartp.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o scacchiera.o gioco/scacchiera.cpp
 
 pedina.o: pedina/pedina.cpp pedina/pedina.h \
 		gioco/posizione.h \
@@ -450,6 +461,7 @@ pedina.o: pedina/pedina.cpp pedina/pedina.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o pedina.o pedina/pedina.cpp
 
 alfiere.o: pedina/scacchi/alfiere.cpp pedina/scacchi/alfiere.h \
+		pedina/scacchi/movimentoDiagonale.h \
 		pedina/scacchi/pedinascacchi.h \
 		pedina/pedina.h \
 		gioco/posizione.h \
@@ -484,20 +496,35 @@ re.o: pedina/scacchi/re.cpp pedina/scacchi/re.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o re.o pedina/scacchi/re.cpp
 
 regina.o: pedina/scacchi/regina.cpp pedina/scacchi/regina.h \
-		pedina/scacchi/torre.h \
+		pedina/scacchi/movimentoCroce.h \
 		pedina/scacchi/pedinascacchi.h \
 		pedina/pedina.h \
 		gioco/posizione.h \
 		colore.h \
-		pedina/scacchi/alfiere.h
+		pedina/scacchi/movimentoDiagonale.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o regina.o pedina/scacchi/regina.cpp
 
 torre.o: pedina/scacchi/torre.cpp pedina/scacchi/torre.h \
+		pedina/scacchi/movimentoCroce.h \
 		pedina/scacchi/pedinascacchi.h \
 		pedina/pedina.h \
 		gioco/posizione.h \
 		colore.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o torre.o pedina/scacchi/torre.cpp
+
+movimentoCroce.o: pedina/scacchi/movimentoCroce.cpp pedina/scacchi/movimentoCroce.h \
+		pedina/scacchi/pedinascacchi.h \
+		pedina/pedina.h \
+		gioco/posizione.h \
+		colore.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o movimentoCroce.o pedina/scacchi/movimentoCroce.cpp
+
+movimentoDiagonale.o: pedina/scacchi/movimentoDiagonale.cpp pedina/scacchi/movimentoDiagonale.h \
+		pedina/scacchi/pedinascacchi.h \
+		pedina/pedina.h \
+		gioco/posizione.h \
+		colore.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o movimentoDiagonale.o pedina/scacchi/movimentoDiagonale.cpp
 
 ####### Install
 

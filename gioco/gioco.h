@@ -1,6 +1,6 @@
 #ifndef GIOCO_H
 #define GIOCO_H
-#include "scacchiera.hpp"
+#include "scacchiera.h"
 #include "../pedina/pedina.h"
 #include <iostream>
 #include <string>
@@ -9,7 +9,7 @@ using std::cout; using std::endl;
 class Gioco
 {
 protected:
-    Scacchiera<Pedina> tavolo;
+    Scacchiera tavolo;
     Colore giocatore_corrente;
 public:
     Gioco(int _width, int _heigth, Colore giocatore_iniziale);

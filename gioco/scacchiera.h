@@ -34,7 +34,7 @@ public:
     int getWidth() const;
     int getHeight() const;
     bool isInBound(const Posizione& p) const;
-    bool insert(const Pedina& toInsert, const Posizione& p); // ritorna true sse è stato possibile inserire una nuova pedina nella posizione (x,y), i.e. la posizione era libera
+    bool insert(const Pedina* toInsert, const Posizione& p); // ritorna true sse è stato possibile inserire una nuova pedina nella posizione (x,y), i.e. la posizione era libera
     void remove(const Posizione& p);  //serve per rimuovere la pedina in posizione (x,y)
     bool move(const Posizione& from, const Posizione& to, bool force=true);  // sposta la pedina in posizione from in posizione --> to
     bool isFree(const Posizione& p) const;    //ritorna true sse nella posizione (x,y) non vi è nessuna pedina
@@ -67,7 +67,7 @@ public:
     private:
         const Pedina** p; // punta ad un puntatore costante
     public:
-        const_iterator(Pedina** const _p);
+        const_iterator(const Pedina** _p);
         const_iterator(const iterator& it);
         const_iterator& operator++();
         const_iterator operator++(int);

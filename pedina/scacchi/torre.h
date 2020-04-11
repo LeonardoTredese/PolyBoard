@@ -1,12 +1,11 @@
 #ifndef TORRE_H
 #define TORRE_H
-#include "pedinascacchi.h"
+#include "movimentoCroce.h"
 
-class Torre: virtual public PedinaScacchi
+class Torre: virtual public MovimentoCroce
 {
 public:
     Torre(Colore _colore);
-    virtual std::list<Posizione> controlloMossa(const Posizione& inizio, const Posizione& fine, bool eat=false) const;
     virtual Torre* clone() const;
     virtual ID getId() const;
 };

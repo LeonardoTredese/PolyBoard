@@ -1,12 +1,12 @@
 #include "regina.h"
 
 Regina::Regina(Colore _colore)
-    : PedinaScacchi(_colore), Torre(_colore), Alfiere(_colore){}
+    : PedinaScacchi(_colore), MovimentoCroce(_colore), MovimentoDiagonale(_colore){}
 
 std::list<Posizione> Regina::controlloMossa(const Posizione& inizio, const Posizione& fine, bool eat) const
 {
-    std::list<Posizione> ris = Torre::controlloMossa(inizio, fine, eat);
-    return (!ris.empty()) ? ris : Alfiere::controlloMossa(inizio, fine, eat);
+    std::list<Posizione> ris = MovimentoCroce::controlloMossa(inizio, fine, eat);
+    return (!ris.empty()) ? ris : MovimentoDiagonale::controlloMossa(inizio, fine, eat);
 }
 
 Regina* Regina::clone() const

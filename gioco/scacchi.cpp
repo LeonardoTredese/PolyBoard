@@ -14,34 +14,34 @@ Scacchi::Scacchi():Gioco(width, height, bianco)
     // mettiamo pedoni bianchi e poi neri
     for(int x=0; x<width; ++x)
     {
-        tavolo.insert(pedBianco.clone(), Posizione(x,6)); // per i bianchi la y=6
-        tavolo.insert(pedNero.clone(), Posizione(x,1)); // per i neri la y=1
+        tavolo.insert(&pedBianco, Posizione(x,6)); // per i bianchi la y=6
+        tavolo.insert(&pedNero, Posizione(x,1)); // per i neri la y=1
     }
 
     // inseriamo pedine bianche
-    tavolo.insert(torBianco.clone(), Posizione(0,7));
-    tavolo.insert(cavBianco.clone(), Posizione(1,7));
-    tavolo.insert(alfBianco.clone(), Posizione(2,7));
-    tavolo.insert(reBianco.clone(),  Posizione(3,7));
-    tavolo.insert(regBianco.clone(), Posizione(4,7));
-    tavolo.insert(alfBianco.clone(), Posizione(5,7));
-    tavolo.insert(cavBianco.clone(), Posizione(6,7));
-    tavolo.insert(torBianco.clone(), Posizione(7,7));
+    tavolo.insert(&torBianco, Posizione(0,7));
+    tavolo.insert(&cavBianco, Posizione(1,7));
+    tavolo.insert(&alfBianco, Posizione(2,7));
+    tavolo.insert(&reBianco,  Posizione(3,7));
+    tavolo.insert(&regBianco, Posizione(4,7));
+    tavolo.insert(&alfBianco, Posizione(5,7));
+    tavolo.insert(&cavBianco, Posizione(6,7));
+    tavolo.insert(&torBianco, Posizione(7,7));
 
     // inseriamo pedine nere
-    tavolo.insert(torNero.clone(), Posizione(0,0));
-    tavolo.insert(cavNero.clone(), Posizione(1,0));
-    tavolo.insert(alfNero.clone(), Posizione(2,0));
-    tavolo.insert(regNero.clone(), Posizione(3,0));
-    tavolo.insert(reNero.clone(),  Posizione(4,0));
-    tavolo.insert(alfNero.clone(), Posizione(5,0));
-    tavolo.insert(cavNero.clone(), Posizione(6,0));
-    tavolo.insert(torNero.clone(), Posizione(7,0));
+    tavolo.insert(&torNero, Posizione(0,0));
+    tavolo.insert(&cavNero, Posizione(1,0));
+    tavolo.insert(&alfNero, Posizione(2,0));
+    tavolo.insert(&regNero, Posizione(3,0));
+    tavolo.insert(&reNero,  Posizione(4,0));
+    tavolo.insert(&alfNero, Posizione(5,0));
+    tavolo.insert(&cavNero, Posizione(6,0));
+    tavolo.insert(&torNero, Posizione(7,0));
 }
 
 char Scacchi::tipoGioco() const {return 'c';}
 
-bool Scacchi::mossa(const Posizione& posIniziale,const Posizione& posFinale) // TODO: RIVEDERE NON VA
+bool Scacchi::mossa(const Posizione& posIniziale, const Posizione& posFinale) // TODO: RIVEDERE NON VA
 {
     if(!tavolo.isInBound(posFinale))
         return false;
@@ -66,10 +66,10 @@ bool Scacchi::mossa(const Posizione& posIniziale,const Posizione& posFinale) // 
     Pedina* backupFine(nullptr);
     if(backup)
         backupFine = tavolo.selectElement(posFinale).clone();
-    tavolo.moveForce(posIniziale, posFinale);
+    tavolo.move(posIniziale, posFinale);
     if(scaccoAlRe(sp.getColore()))
     {
-        tavolo.moveForce(posFinale, posIniziale);
+        tavolo.move(posFinale, posIniziale);
         if(backup)
             tavolo.insert(backupFine, posFinale);
         return false;

@@ -22,8 +22,7 @@ HEADERS += colore.h \
            gioco/gioco.h \
            gioco/posizione.h \
            gioco/scacchi.h \
-           gioco/scacchiera.hpp \
-           gioco/smartp.h \
+           gioco/scacchiera.h \
            pedina/pedina.h \
            pedina/scacchi/alfiere.h \
            pedina/scacchi/cavallo.h \
@@ -31,12 +30,14 @@ HEADERS += colore.h \
            pedina/scacchi/pedone.h \
            pedina/scacchi/re.h \
            pedina/scacchi/regina.h \
-           pedina/scacchi/torre.h
+           pedina/scacchi/torre.h \
+           pedina/scacchi/movimentoCroce.h \
+           pedina/scacchi/movimentoDiagonale.h
 SOURCES += main.cpp \
            gioco/gioco.cpp \
            gioco/posizione.cpp \
            gioco/scacchi.cpp \
-           gioco/smartp.cpp \
+           gioco/scacchiera.cpp \
            pedina/pedina.cpp \
            pedina/scacchi/alfiere.cpp \
            pedina/scacchi/cavallo.cpp \
@@ -44,4 +45,6 @@ SOURCES += main.cpp \
            pedina/scacchi/pedone.cpp \
            pedina/scacchi/re.cpp \
            pedina/scacchi/regina.cpp \
-           pedina/scacchi/torre.cpp
+           pedina/scacchi/torre.cpp \
+           pedina/scacchi/movimentoCroce.cpp \
+           pedina/scacchi/movimentoDiagonale.cpp
