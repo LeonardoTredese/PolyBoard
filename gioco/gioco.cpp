@@ -4,7 +4,7 @@ Gioco::Gioco(int _width, int _height, Colore giocatore_iniziale) : tavolo(_width
 
 void Gioco::stampaTavolo() const
 {
-    Scacchiera<SmartP>::const_iterator cit=tavolo.begin();
+    Scacchiera<Pedina>::const_iterator cit=tavolo.begin();
     cout << tipoGioco() << endl;
     for(int y=0; y<tavolo.getHeight(); ++y)
     {
@@ -12,7 +12,7 @@ void Gioco::stampaTavolo() const
         {
             if(*cit)
             {
-                ID id((**cit)->getId());
+                ID id((*cit)->getId());
                 cout<<id.getTipo()<<id.getColore()<<' ';
             }
             else

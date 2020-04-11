@@ -1,7 +1,7 @@
 #ifndef GIOCO_H
 #define GIOCO_H
 #include "scacchiera.hpp"
-#include "smartp.h"
+#include "../pedina/pedina.h"
 #include <iostream>
 #include <string>
 using std::cout; using std::endl;
@@ -9,7 +9,7 @@ using std::cout; using std::endl;
 class Gioco
 {
 protected:
-    Scacchiera<SmartP> tavolo;
+    Scacchiera<Pedina> tavolo;
     Colore giocatore_corrente;
 public:
     Gioco(int _width, int _heigth, Colore giocatore_iniziale);
