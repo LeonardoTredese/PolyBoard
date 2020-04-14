@@ -24,10 +24,11 @@ void Gioco::stampaTavolo() const
                     cout<<id.getTipo()<<id.getColore()<<' ';
                 }
                 else
-                    cout<<"XX ";
+                    cout<<"░░ ";
                 ++cit;
             }
         }
         cout<<endl;
     }
+    cout << "Giocatore corrente: " << giocatore_corrente << endl;
 }

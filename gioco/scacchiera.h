@@ -31,15 +31,16 @@ public:
     ~Scacchiera();
     Scacchiera(const Scacchiera& s);
     Scacchiera& operator=(const Scacchiera& s);
+    Pedina* operator[](const Posizione&) const;
     int getWidth() const;
     int getHeight() const;
     bool isInBound(const Posizione& p) const;
-    bool insert(const Pedina* toInsert, const Posizione& p); // ritorna true sse è stato possibile inserire una nuova pedina nella posizione (x,y), i.e. la posizione era libera
+    bool insert(const Pedina& toInsert, const Posizione& p); // ritorna true sse è stato possibile inserire una nuova pedina nella posizione (x,y), i.e. la posizione era libera
     void remove(const Posizione& p);  //serve per rimuovere la pedina in posizione (x,y)
     bool move(const Posizione& from, const Posizione& to, bool force=true);  // sposta la pedina in posizione from in posizione --> to
     bool isFree(const Posizione& p) const;    //ritorna true sse nella posizione (x,y) non vi è nessuna pedina
     Posizione find(const Pedina* p) const;
-    Pedina& selectElement(const Posizione& p) const;
+    //Pedina& selectElement(const Posizione& p) const;
 
     // PRE: posizioni è una lista di posizioni valide non vuota e ultima posizione è quella di arrivo
     bool traiettoriaLibera(const list<Posizione>& posizioni) const;

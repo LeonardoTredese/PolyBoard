@@ -8,8 +8,8 @@ std::list<Posizione> Pedone::controlloMossa(const Posizione& inizio, const Posiz
     std::list<Posizione> ris;
     if(eat)
     {
-        if((getColore()==bianco && fine.y == inizio.y+1 && (fine.x == inizio.x+1 || fine.x == inizio.x-1))
-         || (getColore() == nero && fine.y == fine.y-1 && (fine.x == inizio.x+1 || fine.x == inizio.x-1)))
+        if((getColore()==bianco && fine.y == inizio.y-1 && (fine.x == inizio.x+1 || fine.x == inizio.x-1))
+         || (getColore() == nero && fine.y == fine.y+1 && (fine.x == inizio.x+1 || fine.x == inizio.x-1)))
                 ris.push_back(fine);
     }
     else
@@ -41,4 +41,4 @@ ID Pedone::getId() const
     return ID('P',getColore());
 }
 
-void Pedone::fattaPrimaMossa(){ primaMossa=false; }
+void Pedone::pedinaMossa(){ if(primaMossa) primaMossa=false; }

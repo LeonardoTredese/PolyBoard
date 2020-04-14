@@ -14,81 +14,116 @@ Scacchi::Scacchi():Gioco(width, height, bianco)
     // mettiamo pedoni bianchi e poi neri
     for(int x=0; x<width; ++x)
     {
-        tavolo.insert(&pedBianco, Posizione(x,6)); // per i bianchi la y=6
-        tavolo.insert(&pedNero, Posizione(x,1)); // per i neri la y=1
+        tavolo.insert(pedBianco, Posizione(x,6)); // per i bianchi la y=6
+        tavolo.insert(pedNero, Posizione(x,1)); // per i neri la y=1
     }
 
     // inseriamo pedine bianche
-    tavolo.insert(&torBianco, Posizione(0,7));
-    tavolo.insert(&cavBianco, Posizione(1,7));
-    tavolo.insert(&alfBianco, Posizione(2,7));
-    tavolo.insert(&reBianco,  Posizione(3,7));
-    tavolo.insert(&regBianco, Posizione(4,7));
-    tavolo.insert(&alfBianco, Posizione(5,7));
-    tavolo.insert(&cavBianco, Posizione(6,7));
-    tavolo.insert(&torBianco, Posizione(7,7));
+    tavolo.insert(torBianco, Posizione(0,7));
+    tavolo.insert(cavBianco, Posizione(1,7));
+    tavolo.insert(alfBianco, Posizione(2,7));
+    tavolo.insert(reBianco,  Posizione(3,7));
+    tavolo.insert(regBianco, Posizione(4,7));
+    tavolo.insert(alfBianco, Posizione(5,7));
+    tavolo.insert(cavBianco, Posizione(6,7));
+    tavolo.insert(torBianco, Posizione(7,7));
 
     // inseriamo pedine nere
-    tavolo.insert(&torNero, Posizione(0,0));
-    tavolo.insert(&cavNero, Posizione(1,0));
-    tavolo.insert(&alfNero, Posizione(2,0));
-    tavolo.insert(&regNero, Posizione(3,0));
-    tavolo.insert(&reNero,  Posizione(4,0));
-    tavolo.insert(&alfNero, Posizione(5,0));
-    tavolo.insert(&cavNero, Posizione(6,0));
-    tavolo.insert(&torNero, Posizione(7,0));
+    tavolo.insert(torNero, Posizione(0,0));
+    tavolo.insert(cavNero, Posizione(1,0));
+    tavolo.insert(alfNero, Posizione(2,0));
+    tavolo.insert(regNero, Posizione(3,0));
+    tavolo.insert(reNero,  Posizione(4,0));
+    tavolo.insert(alfNero, Posizione(5,0));
+    tavolo.insert(cavNero, Posizione(6,0));
+    tavolo.insert(torNero, Posizione(7,0));
 }
 
 char Scacchi::tipoGioco() const {return 'c';}
 
-bool Scacchi::mossa(const Posizione& posIniziale, const Posizione& posFinale) // TODO: RIVEDERE NON VA
+bool Scacchi::mossa(const Posizione& posIniziale, const Posizione& posFinale)
 {
     if(!tavolo.isInBound(posFinale)){
-        cout << "## 1 ##" << endl;
+        cout << "## Out of bound ##" << endl;
         return false;
     }
-    try{
-        if(tavolo.selectElement(posIniziale).getColore() != giocatore_corrente)
-        {
-            cout << "## 2 ##" << endl;
-            return false;
-        }
-    }
-    catch(ErroreScacchiera(ELEMENT_NOT_FOUND))
+    Pedina* pedinaSel = tavolo[posIniziale]; // pedina da muovere
+    if(!pedinaSel || pedinaSel->getColore() != giocatore_corrente)
     {
-        cout << "## 3 ##" << endl;
+        cout << "## posIniziale non valida ##" << endl;
         return false;
     }
     // qui sappiamo per certo che le due posizioni sono in bound e che la pedina in posIniziale è del giocatore corrente
-    Pedina& sp = tavolo.selectElement(posIniziale); // mia pedina
-    if(!tavolo.isFree(posFinale) && sp.getColore() == tavolo.selectElement(posFinale).getColore()) // non posso mangiare pedine amiche
+    if(!tavolo.isFree(posFinale) && pedinaSel->getColore() == tavolo[posFinale]->getColore()) // non posso mangiare pedine amiche
     {
-        cout<<"##### 4 ######"<<endl;
+        cout<<"## Mangio pedina amica ##"<<endl;
         return false;
     }
     bool eat = !tavolo.isFree(posFinale);
-    std::list<Posizione> traiettoria = sp.controlloMossa(posIniziale, posFinale, eat);
-    if(traiettoria.empty() || !tavolo.traiettoriaLibera(traiettoria))
+    std::list<Posizione> traiettoria = pedinaSel->controlloMossa(posIniziale, posFinale, eat);
+    if(!tavolo.traiettoriaLibera(traiettoria))
     {
-        cout<<"##### 5 ######"<<endl;
+        cout<<"## Traiettoria vuota/Traiettoria non libera ##"<<endl;
         return false;
     }
     //per effettuare il rollback devo salvarmi la pedina, nel caso essa venga mangiata
     bool backup = !tavolo.isFree(posFinale);
     Pedina* backupFine(nullptr);
     if(backup)
-        backupFine = tavolo.selectElement(posFinale).clone();
+        backupFine = tavolo[posFinale]->clone();
     tavolo.move(posIniziale, posFinale);
-    if(scaccoAlRe(sp.getColore()))
+    if(scaccoAlRe(pedinaSel->getColore()))
     {
         tavolo.move(posFinale, posIniziale);
         cout<<"##### Sono in scacco al Re ######"<<endl;
         if(backup)
-            tavolo.insert(backupFine, posFinale);
+            tavolo.insert(*backupFine, posFinale);
+        delete backupFine;
         return false;
     }
-    if(Pedone* p = dynamic_cast<Pedone*>(&sp)) // TODO: è accettabile il dynamic cast su pedone??? spoiler: no
-        p->fattaPrimaMossa();
+    
+    if( posFinale.y==0 || posFinale.y==height-1 ) // trasformazione pedone quando arriva dall'avversario
+    {
+        Pedone* p = dynamic_cast<Pedone*>(pedinaSel);
+        if(p)
+        {
+            cout << "## Trasformazione pedone ##" << endl;
+            char scelta;
+            bool sceltaCorretta;
+            tavolo.remove(posFinale);
+            do
+            {
+                sceltaCorretta = true;
+                cout << "Scegli la pedina da evocare: (Q/N/B/R) ";
+                std::cin >> scelta;
+                switch (scelta)
+                {
+                case 'Q': 
+                    tavolo.insert(Regina(giocatore_corrente), posFinale);
+                    break;
+                
+                case 'N':   
+                    tavolo.insert(Cavallo(giocatore_corrente), posFinale);
+                    break;
+                
+                case 'B': 
+                    tavolo.insert(Alfiere(giocatore_corrente), posFinale);
+                    break;
+                        
+                case 'R':   
+                    tavolo.insert(Torre(giocatore_corrente), posFinale);
+                    break;
+                        
+                default:
+                    cout << "SCELTA NON VALIDA" << endl;
+                    sceltaCorretta = false;
+                    break;
+                }
+            } while(!sceltaCorretta);
+            pedinaSel = tavolo[posFinale];
+        }   
+    }
+    pedinaSel->pedinaMossa();
     return true;
 }
 
@@ -122,17 +157,8 @@ bool Scacchi::scaccoMatto(Colore coloreRe) const // TODO: ottimizzabile? sì(dif
     for(int y1=0; y1<height; ++y1)
         for(int x1=0; x1<width; ++x1)
         {
-            Pedina* p;
-            try
-            {
-                p = &(backup.tavolo.selectElement(Posizione(x1,y1))); 
-            }
-            catch(ErroreScacchiera(ELEMENT_NOT_FOUND))
-            {
-                continue;
-                // se la casella x,y è vuota non faccio nulla
-            }
-            if(p->getColore() == coloreRe)
+            Pedina* p = backup.tavolo[Posizione(x1,y1)]; 
+            if(p && p->getColore() == coloreRe)
             {
                 Posizione pI(x1, y1);
                 for(int y2=0; y2<height; ++y2)

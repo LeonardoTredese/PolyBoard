@@ -38,17 +38,23 @@ Scacchiera& Scacchiera::operator=(const Scacchiera& s)
     }
     return *this;
 }
+
+Pedina* Scacchiera::operator[](const Posizione& p) const
+{
+    return elementAt(p); // tavolo[Posizione(x,y)] ?= tavolo[x,y]
+}
+
 int Scacchiera::getWidth() const { return width; }
 int Scacchiera::getHeight() const { return height; }
 bool Scacchiera::isInBound(const Posizione& p) const
 {
     return p.x >= 0 && p.x < width && p.y >= 0 && p.y < height;
 }
-bool Scacchiera::insert(const Pedina* toInsert, const Posizione& p)    // ritorna true sse è stato possibile inserire una nuova pedina nella posizione (x,y), i.e. la posizione era libera
+bool Scacchiera::insert(const Pedina& toInsert, const Posizione& p)    // ritorna true sse è stato possibile inserire una nuova pedina nella posizione (x,y), i.e. la posizione era libera
 {
     if(isFree(p))
     {
-        elementAt(p) = toInsert->clone();
+        elementAt(p) = toInsert.clone();
         return true;
     }
     else
@@ -59,7 +65,7 @@ void Scacchiera::remove(const Posizione& p)  //serve per rimuovere la pedina in 
     if(isInBound(p))
     {
         delete elementAt(p);
-        elementAt(p)=nullptr;
+        elementAt(p) = nullptr;
     }
 }
 bool Scacchiera::move(const Posizione& from, const Posizione& to, bool force)  // sposta la pedina in posizione from in posizione --> to
@@ -92,19 +98,23 @@ Posizione Scacchiera::find(const Pedina* p) const
             if(p == elementAt(pos))
                 return pos;
         }
+    throw(ErroreScacchiera(ELEMENT_NOT_FOUND));
 }
-Pedina& Scacchiera::selectElement(const Posizione& p) const
+
+/*Pedina& Scacchiera::selectElement(const Posizione& p) const
 {
     if(!isInBound(p) || elementAt(p) == nullptr)
         throw(ELEMENT_NOT_FOUND);
     else
         return *elementAt(p);
-}
+}*/
 
 bool Scacchiera::traiettoriaLibera(const list<Posizione>& posizioni) const
 {
     if(posizioni.empty())
         return false;
+    if(posizioni.size() == 1)
+        return true;
     auto end = posizioni.end();
     --end;
     for(auto cit=posizioni.begin(); cit != end; ++cit) // non controllo l'ultima casella

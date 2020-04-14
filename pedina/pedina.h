@@ -31,6 +31,7 @@ public:
     Colore getColore() const;
     virtual ID getId() const = 0;
     // ritorna l'id della pedina che verrà interpretato in una certa maniera in base all'interfaccia
+    virtual void pedinaMossa();
 };
 
 #endif
