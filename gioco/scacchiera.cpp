@@ -113,8 +113,6 @@ bool Scacchiera::traiettoriaLibera(const list<Posizione>& posizioni) const
 {
     if(posizioni.empty())
         return false;
-    if(posizioni.size() == 1)
-        return true;
     auto end = posizioni.end();
     --end;
     for(auto cit=posizioni.begin(); cit != end; ++cit) // non controllo l'ultima casella

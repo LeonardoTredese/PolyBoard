@@ -22,8 +22,8 @@ Scacchi::Scacchi():Gioco(width, height, bianco)
     tavolo.insert(torBianco, Posizione(0,7));
     tavolo.insert(cavBianco, Posizione(1,7));
     tavolo.insert(alfBianco, Posizione(2,7));
-    tavolo.insert(reBianco,  Posizione(3,7));
-    tavolo.insert(regBianco, Posizione(4,7));
+    tavolo.insert(regBianco, Posizione(3,7));
+    tavolo.insert(reBianco,  Posizione(4,7));
     tavolo.insert(alfBianco, Posizione(5,7));
     tavolo.insert(cavBianco, Posizione(6,7));
     tavolo.insert(torBianco, Posizione(7,7));
@@ -44,13 +44,13 @@ char Scacchi::tipoGioco() const {return 'c';}
 bool Scacchi::mossa(const Posizione& posIniziale, const Posizione& posFinale)
 {
     if(!tavolo.isInBound(posFinale)){
-        cout << "## Out of bound ##" << endl;
+        //cout << "## Out of bound ##" << endl;
         return false;
     }
     Pedina* pedinaSel = tavolo[posIniziale]; // pedina da muovere
     if(!pedinaSel || pedinaSel->getColore() != giocatore_corrente)
     {
-        cout << "## posIniziale non valida ##" << endl;
+        //cout << "## posIniziale non valida ##" << endl;
         return false;
     }
     // qui sappiamo per certo che le due posizioni sono in bound e che la pedina in posIniziale è del giocatore corrente
@@ -151,9 +151,22 @@ bool Scacchi::scaccoAlRe(Colore coloreRe) const
 }
 // POST: ritorna true sse il re di coloreRe è sotto scacco
 
-bool Scacchi::scaccoMatto(Colore coloreRe) const // TODO: ottimizzabile? sì(difficile peggiorare) sarà ottimizzata? absolutely no prenderai 4/30? absolutely yes
+bool Scacchi::scaccoMatto(Colore coloreRe) const
 {
     Scacchi backup(*this);
+    backup.giocatore_corrente = coloreRe;//switcho al colore avversario 
+    auto cit=tavolo.begin();
+    for(; cit!=tavolo.end(); ++cit) // scorre tutto il tavolo
+        if((*cit) && (*cit)->getId() == ID('K', coloreRe))
+            break;
+    // il re verrà sempre trovato
+    //prima di fare brute force su tutte le posizioni possibili, provo a spostare il re
+    Posizione posRe(tavolo.find(*cit));
+    for(int i=-1; i < 2; i++)
+        for(int j=-1; j < 2; j++)
+            if(backup.mossa(posRe, Posizione(posRe.x+j,posRe.y+i)))
+                return false;
+    //altrimenti provo con tutte le posizioni possibili eccetto il re che è già stato verificato   
     for(int y1=0; y1<height; ++y1)
         for(int x1=0; x1<width; ++x1)
         {
@@ -161,14 +174,19 @@ bool Scacchi::scaccoMatto(Colore coloreRe) const // TODO: ottimizzabile? sì(dif
             if(p && p->getColore() == coloreRe)
             {
                 Posizione pI(x1, y1);
-                for(int y2=0; y2<height; ++y2)
-                    for(int x2=0; x2<width; ++x2)
-                        if(backup.mossa(pI, Posizione(x2, y2)))
-                            return false;
+                if(pI != posRe)
+                    for(int y2=0; y2<height; ++y2)
+                        for(int x2=0; x2<width; ++x2)
+                            if(backup.mossa(pI, Posizione(x2, y2)))
+                            {
+                                cout<<"figlio di troia: " << pI.x << " " << pI.y << endl;
+                                return false;
+                            }
             }
         }
     return true;
 }
+
 bool Scacchi::controlloVincitore() const
 {
     Colore avversario = (giocatore_corrente == bianco) ? nero : bianco;
