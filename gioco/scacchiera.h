@@ -77,6 +77,7 @@ public:
         const Pedina** operator->() const;
         bool operator==(const const_iterator& cit) const;
         bool operator!=(const const_iterator& cit) const;
+        // return Y = (p - board)/width   X = (p-board)%width
     };
     iterator begin() const;
     iterator end() const;

@@ -43,24 +43,36 @@ char Scacchi::tipoGioco() const {return 'c';}
 
 bool Scacchi::mossa(const Posizione& posIniziale, const Posizione& posFinale) // TODO: RIVEDERE NON VA
 {
-    if(!tavolo.isInBound(posFinale))
+    if(!tavolo.isInBound(posFinale)){
+        cout << "## 1 ##" << endl;
         return false;
+    }
     try{
         if(tavolo.selectElement(posIniziale).getColore() != giocatore_corrente)
+        {
+            cout << "## 2 ##" << endl;
             return false;
+        }
     }
     catch(ErroreScacchiera(ELEMENT_NOT_FOUND))
     {
+        cout << "## 3 ##" << endl;
         return false;
     }
     // qui sappiamo per certo che le due posizioni sono in bound e che la pedina in posIniziale è del giocatore corrente
     Pedina& sp = tavolo.selectElement(posIniziale); // mia pedina
     if(!tavolo.isFree(posFinale) && sp.getColore() == tavolo.selectElement(posFinale).getColore()) // non posso mangiare pedine amiche
+    {
+        cout<<"##### 4 ######"<<endl;
         return false;
+    }
     bool eat = !tavolo.isFree(posFinale);
     std::list<Posizione> traiettoria = sp.controlloMossa(posIniziale, posFinale, eat);
     if(traiettoria.empty() || !tavolo.traiettoriaLibera(traiettoria))
+    {
+        cout<<"##### 5 ######"<<endl;
         return false;
+    }
     //per effettuare il rollback devo salvarmi la pedina, nel caso essa venga mangiata
     bool backup = !tavolo.isFree(posFinale);
     Pedina* backupFine(nullptr);
@@ -70,6 +82,7 @@ bool Scacchi::mossa(const Posizione& posIniziale, const Posizione& posFinale) //
     if(scaccoAlRe(sp.getColore()))
     {
         tavolo.move(posFinale, posIniziale);
+        cout<<"##### Sono in scacco al Re ######"<<endl;
         if(backup)
             tavolo.insert(backupFine, posFinale);
         return false;
@@ -93,8 +106,12 @@ bool Scacchi::scaccoAlRe(Colore coloreRe) const
     for(cit=tavolo.begin(); cit!=tavolo.end(); ++cit)
         if((*cit) && (*cit)->getColore() != coloreRe &&
          tavolo.traiettoriaLibera((*cit)->controlloMossa(tavolo.find(*cit), posRe, true)))
+         {
+            //ID id ((*cit)->getId());
+            //cout << id.getTipo() << id.getColore() << endl;
             return true;  // se la posizione non è una pedina vuota, ed è di colore diverso dal Re 
                          // e la traiettoria tra la pedina e il Re è libera
+         }
     return false;
 }
 // POST: ritorna true sse il re di coloreRe è sotto scacco

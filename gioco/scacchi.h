@@ -9,6 +9,7 @@
 #include "../pedina/scacchi/cavallo.h"
 #include "../pedina/scacchi/regina.h"
 #include "../pedina/scacchi/re.h"
+using std::cout; using std::endl;
 
 class Scacchi : public Gioco {
 public:

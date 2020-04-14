@@ -103,6 +103,8 @@ Pedina& Scacchiera::selectElement(const Posizione& p) const
 
 bool Scacchiera::traiettoriaLibera(const list<Posizione>& posizioni) const
 {
+    if(posizioni.empty())
+        return false;
     auto end = posizioni.end();
     --end;
     for(auto cit=posizioni.begin(); cit != end; ++cit) // non controllo l'ultima casella
@@ -143,7 +145,7 @@ bool Scacchiera::iterator::operator!=(const iterator& it) const { return p != it
 
 //##################################### CONST ITERATOR ###############################################
 Scacchiera::const_iterator::const_iterator(const Pedina** _p): p(_p) {}
-Scacchiera::const_iterator::const_iterator(const iterator& it): p(const_cast<const Pedina**>(it.p)) {} // TODO: trovare soluzione
+Scacchiera::const_iterator::const_iterator(const iterator& it) : p(const_cast<const Pedina**>(it.p)) {} // TODO: trovare soluzione
 Scacchiera::const_iterator& Scacchiera::const_iterator::operator++()
 {
     ++p;
@@ -179,6 +181,3 @@ Scacchiera::iterator Scacchiera::end() const
 {
     return Scacchiera::iterator(board+width*height);
 }
-
-
-

@@ -24,8 +24,13 @@ int main()
             cout<<"Inserisci posizione finale:"<<endl;
             cin>>xF>>yF;
             checkTurno = gioco.mossa(Posizione(xI, yI), Posizione(xF, yF));
+            if(checkTurno)
+                cout << "Pedina mossa" << endl;
+            else
+                cout << "Mossa non valida" << endl;
         } while (!checkTurno);
         scaccoMatto = gioco.controlloVincitore();
+        gioco.cambioTurno();
     }
     return 0;
 }
