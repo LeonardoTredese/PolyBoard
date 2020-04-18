@@ -21,3 +21,5 @@ ID Re::getId() const
 }
 
 void Re::pedinaMossa() { primaMossa = false; }
+
+bool Re::getPrimaMossa() const { return primaMossa; }

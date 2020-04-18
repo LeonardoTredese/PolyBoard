@@ -11,6 +11,7 @@ public:
     virtual Torre* clone() const;
     virtual ID getId() const;
     virtual void pedinaMossa();
+    bool getPrimaMossa() const;
 };
 
 #endif

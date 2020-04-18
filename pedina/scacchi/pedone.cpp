@@ -16,15 +16,14 @@ std::list<Posizione> Pedone::controlloMossa(const Posizione& inizio, const Posiz
     {
         if(getColore()==bianco)
         {
-            if(primaMossa && (fine.y == inizio.y-1||fine.y==inizio.y-2))
-                ris.push_back(fine);
-            else if(!primaMossa && fine.y==inizio.y-1)
+            if(inizio.x == fine.x && ((primaMossa && (fine.y == inizio.y-1||fine.y==inizio.y-2))
+                || (!primaMossa && fine.y==inizio.y-1)))
                 ris.push_back(fine);
         }
         else
         {
-            if((primaMossa && (fine.y == inizio.y+1 || fine.y == inizio.y+2))
-                || (!primaMossa && fine.y == inizio.y+1))
+            if(inizio.x == fine.x && ((primaMossa && (fine.y == inizio.y+1 || fine.y == inizio.y+2))
+                || (!primaMossa && fine.y == inizio.y+1)))
                 ris.push_back(fine);
         }    
     }

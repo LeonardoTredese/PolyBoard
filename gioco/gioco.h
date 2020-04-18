@@ -19,5 +19,6 @@ public:
     virtual bool mossa(const Posizione& posIniziale, const Posizione& posFinale) = 0;
     virtual void cambioTurno() = 0;
     virtual bool controlloVincitore() const = 0;
+    Colore getGiocatoreCorrente() const;
 };
 #endif

@@ -30,5 +30,8 @@ void Gioco::stampaTavolo() const
         }
         cout<<endl;
     }
-    cout << "Giocatore corrente: " << giocatore_corrente << endl;
+}
+
+Colore Gioco::getGiocatoreCorrente() const{
+    return giocatore_corrente;
 }

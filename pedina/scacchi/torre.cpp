@@ -13,3 +13,5 @@ ID Torre::getId() const
 }
 
 void Torre::pedinaMossa() { primaMossa = false; }
+
+bool Torre::getPrimaMossa() const { return primaMossa; }

@@ -12,12 +12,14 @@ int main()
         IL VINCITORE
     */
     bool scaccoMatto(false);
+    Colore vincitore;
+    gioco.stampaTavolo();
     while(!scaccoMatto)
     {
-        gioco.stampaTavolo();
         bool checkTurno;
         do
         {   
+            cout<<"Giocatore corrente: " <<gioco.getGiocatoreCorrente()<<endl;
             int xI, yI, xF, yF;
             cout<<"Inserisci posizione iniziale:"<<endl;
             cin >> xI >> yI;
@@ -29,8 +31,12 @@ int main()
             else
                 cout << "Mossa non valida" << endl;
         } while (!checkTurno);
+        gioco.stampaTavolo();
         scaccoMatto = gioco.controlloVincitore();
+        if(scaccoMatto)
+            vincitore = gioco.getGiocatoreCorrente();
         gioco.cambioTurno();
     }
+    cout << "Scacco matto! Vince il giocatore " << vincitore << endl;
     return 0;
 }

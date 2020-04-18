@@ -20,6 +20,7 @@ public:
     virtual void cambioTurno();
     virtual bool controlloVincitore() const;
     bool scaccoMatto(Colore re) const;
+    bool arrocco(const Posizione& re, const Posizione& finale);
+    void promozionePedone();
 };
-
 #endif
