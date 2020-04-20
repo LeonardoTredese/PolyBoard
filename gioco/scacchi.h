@@ -12,15 +12,16 @@
 using std::cout; using std::endl;
 
 class Scacchi : public Gioco {
+private:
+    bool scaccoAlRe(Colore re) const;
+    bool scaccoMatto(Colore re) const;
+    bool arrocco(const Posizione& re, const Posizione& finale);
+    void promozionePedone(Pedina*& pedinaSel, const Posizione& posFinale);
 public:
     Scacchi();
     virtual char tipoGioco() const;
     virtual bool mossa(const Posizione& posIniziale, const Posizione& posFinale);
-    bool scaccoAlRe(Colore re) const;
     virtual void cambioTurno();
     virtual bool controlloVincitore() const;
-    bool scaccoMatto(Colore re) const;
-    bool arrocco(const Posizione& re, const Posizione& finale);
-    void promozionePedone();
 };
 #endif

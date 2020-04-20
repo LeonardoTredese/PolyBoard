@@ -9,7 +9,7 @@ std::list<Posizione> Pedone::controlloMossa(const Posizione& inizio, const Posiz
     if(eat)
     {
         if((getColore()==bianco && fine.y == inizio.y-1 && (fine.x == inizio.x+1 || fine.x == inizio.x-1))
-         || (getColore() == nero && fine.y == fine.y+1 && (fine.x == inizio.x+1 || fine.x == inizio.x-1)))
+         || (getColore() == nero && fine.y == inizio.y+1 && (fine.x == inizio.x+1 || fine.x == inizio.x-1)))
                 ris.push_back(fine);
     }
     else

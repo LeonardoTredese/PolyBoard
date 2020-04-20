@@ -84,51 +84,11 @@ bool Scacchi::mossa(const Posizione& posIniziale, const Posizione& posFinale)
             delete backupFine;
             return false;
         }
-        
-        //TODO: Metodo per la promozione del pedone a parte
-        if( posFinale.y==0 || posFinale.y==height-1 ) // trasformazione pedone quando arriva dall'avversario
-        {
-            Pedone* p = dynamic_cast<Pedone*>(pedinaSel);
-            if(p)
-            {
-                //cout << "## Trasformazione pedone ##" << endl;
-                char scelta;
-                bool sceltaCorretta;
-                tavolo.remove(posFinale);
-                do
-                {
-                    sceltaCorretta = true;
-                    cout << "Scegli la pedina da evocare: (Q/N/B/R) ";
-                    std::cin >> scelta;
-                    switch (scelta)
-                    {
-                    case 'Q': 
-                        tavolo.insert(Regina(giocatore_corrente), posFinale);
-                        break;
-                    
-                    case 'N':   
-                        tavolo.insert(Cavallo(giocatore_corrente), posFinale);
-                        break;
-                    
-                    case 'B': 
-                        tavolo.insert(Alfiere(giocatore_corrente), posFinale);
-                        break;
-                            
-                    case 'R':   
-                        tavolo.insert(Torre(giocatore_corrente), posFinale);
-                        break;
-                            
-                    default:
-                        cout << "SCELTA NON VALIDA" << endl;
-                        sceltaCorretta = false;
-                        break;
-                    }
-                } while(!sceltaCorretta);
-                pedinaSel = tavolo[posFinale];
-            }   
-        }
     }
+        
+    promozionePedone(pedinaSel, posFinale);
     pedinaSel->pedinaMossa();
+    
     return true;
 }
 
@@ -213,7 +173,6 @@ void Scacchi::cambioTurno()
 *     3.2 - se tutte le condizioni sono verificate, e il re si è mosso correttamente, sposto la torre nella posizione designata.
 */
 
-// PRE: la posizione iniziale e quella finale indicano un tentativo di arrocco del re Colore re
 bool Scacchi::arrocco(const Posizione& re, const Posizione& finale)
 {
     Re* r = dynamic_cast<Re*>(tavolo[re]);
@@ -221,14 +180,20 @@ bool Scacchi::arrocco(const Posizione& re, const Posizione& finale)
         return false;
     //controllo posizione torre
     Torre* t;
-    if(finale==re+Posizione(2,0))
+    int c;  //c serve per gestire i possibili movimenti nel for per il re, indica la direzione di movimento del re
+    if(finale == re+Posizione(2,0))
     {//torre destra
-        t=dynamic_cast<Torre*>(tavolo[re+Posizione(3,0)]);
+        t=dynamic_cast<Torre*>(tavolo[re + Posizione(3,0)]);
+        c = 1;
     }
-    else if (finale == re + Posizione(-2,0))
-    {//torre sinistra
-        t = dynamic_cast<Torre*>(tavolo[re + Posizione(-4,0)]);
-    }
+    else
+        if (finale == re + Posizione(-2,0))
+        {//torre sinistra
+            t = dynamic_cast<Torre*>(tavolo[re + Posizione(-4,0)]);
+            c = -1;
+        }
+        else
+            return false;
     
     if(!t || !t->getPrimaMossa())
         return false;
@@ -236,7 +201,7 @@ bool Scacchi::arrocco(const Posizione& re, const Posizione& finale)
     // assert( l'arrocco è possibile, il re può arroccare con la relativa torre )
     bool canMove(true);
     //qualunque colore sia il re si sposta a sinistra o destra
-    int c = (finale == re + Posizione(2,0)) ? 1 : -1; // indica se stai andando a destra (1) o a sinistra (-1)
+    //int c = (finale == re + Posizione(2,0)) ? 1 : -1; // indica se stai andando a destra (1) o a sinistra (-1)
     int i=0;
     for(; canMove && i<2; i++)
     {
@@ -262,3 +227,44 @@ bool Scacchi::arrocco(const Posizione& re, const Posizione& finale)
 }
 // POST: se ci sono le condizioni per l'arrocco lo fa e ritorna true,
 // altrimenti non deve modificare nulla e ritornare false
+
+void Scacchi::promozionePedone(Pedina*& pedinaSel, const Posizione& posFinale)
+{
+    if( posFinale.y==0 || posFinale.y==height-1 )
+    { // trasformazione pedone quando arriva dall'avversario
+
+        Pedone* p = dynamic_cast<Pedone*>(pedinaSel);
+        if(p)
+        {
+            char scelta;
+            bool sceltaCorretta;
+            tavolo.remove(posFinale);
+            do
+            {
+                sceltaCorretta = true;
+                cout << "Scegli la pedina da evocare: (Q/N/B/R) ";
+                std::cin >> scelta;
+                switch (scelta)
+                {
+                    case 'Q': 
+                        tavolo.insert(Regina(giocatore_corrente), posFinale);
+                        break;
+                    case 'N':   
+                        tavolo.insert(Cavallo(giocatore_corrente), posFinale);
+                        break;
+                    case 'B': 
+                        tavolo.insert(Alfiere(giocatore_corrente), posFinale);
+                        break;
+                    case 'R':   
+                        tavolo.insert(Torre(giocatore_corrente), posFinale);
+                        break;
+                    default:
+                        cout << "SCELTA NON VALIDA" << endl;
+                        sceltaCorretta = false;
+                        break;
+                }
+            } while(!sceltaCorretta);
+            pedinaSel = tavolo[posFinale];
+        }
+    }
+}
