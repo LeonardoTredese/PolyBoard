@@ -39,4 +39,5 @@ int main()
     }
     cout << "Scacco matto! Vince il giocatore " << vincitore << endl;
     return 0;
+	// yeeeeeeeeeeeeeeeeee
 }
