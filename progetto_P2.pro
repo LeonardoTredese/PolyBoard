@@ -53,3 +53,6 @@ SOURCES += \
            pedina/scacchi/movimentoDiagonale.cpp
 
 QT += widgets
+
+RESOURCES += \
+    resources.qrc

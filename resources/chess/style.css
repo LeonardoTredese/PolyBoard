@@ -1,0 +1,39 @@
+* {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    color: rgb(59, 59, 59);
+}
+
+QPushButton {
+    margin: 0;
+    padding:0;
+    border: 0;
+}
+
+QPushButton#black
+{
+    background-color: rgb(58, 53, 43);
+}
+
+QPushButton#white
+{
+    background-color: #e9dec7;
+}
+
+QPushButton#black:hover {
+    background-color: rgb(26, 24, 21);
+}
+
+QPushButton#white:hover {
+    background-color: #c0b08c;
+}
+
+QMenuBar {
+    padding: 5px;
+    background-color: white;
+}
+
+QMenuBar::item:selected, QMenu::item:selected{
+    background-color: white;
+}

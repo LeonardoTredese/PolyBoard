@@ -1,17 +1,16 @@
 #include "mainwindow.h"
 
-mainWindow::mainWindow(QWidget *parent) : QMainWindow(parent)
+mainWindow::mainWindow(QWidget *parent) : QWidget(parent)
 {
     mainLayout = new QVBoxLayout(this);
     gridLayout = new QGridLayout();
-
-    //aggiungo menù
+    gridLayout->setSizeConstraint(QLayout::SetFixedSize);
     addMenu();
-    addButtons();
-
+    addButtons(8,8);
+    setStyle();
     mainLayout->addLayout(gridLayout);
+    setLayout(mainLayout);
 }
-
 
 
 void mainWindow::addMenu(){
@@ -34,7 +33,7 @@ void mainWindow::addMenu(){
     //MENU PARTITA
     QMenu *partita = new QMenu("Partita",menubar);
 
-    QAction* reset = new QAction("Reset",partita);
+    QAction *reset = new QAction("Reset",partita);
     QAction *resa = new QAction("Dichiara Resa",partita);
     QAction *pareggio = new QAction("Dichiara Pareggio",partita);
 
@@ -50,15 +49,45 @@ void mainWindow::addMenu(){
     mainLayout->addWidget(menubar);
 }
 
-void mainWindow::addButtons(int width, int height){
-
-    for (int i = 0; i < 64; i++){
-        // Creo un bottone -> QPushButton
+void mainWindow::addButtons(int width, int height)
+{
+    bool j = false;
+    for(int i=0; i<width*height; ++i)
+    {
+        if(i % width)
+            j = !j;
         QPushButton *button = new QPushButton(this);
-
-        // Dare una policy per le dimensioni
+        if(j)
+            button->setObjectName("black");
+        else
+            button->setObjectName("white");
         button->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
-        // Aggiungere al layout
-        gridLayout->addWidget(button,i/8,i%8);
+        gridLayout->addWidget(button,i/width,i%width);
     }
+}
+
+//quando viene invocato il metodo di resize, imposta l'altezza in base alla larghezza con setFixedHeight(width)
+void mainWindow::resizeEvent(QResizeEvent *event)  // TODO
+{
+    event->accept();
+    setFixedHeight(width());
+}
+
+void mainWindow::setStyle()
+{
+    
+    QScreen *screen = QGuiApplication::primaryScreen();
+    QRect  screenGeometry = screen->geometry();
+    int height = screenGeometry.height();
+    int width = screenGeometry.width();
+    int dim = height > width ? width:height;
+    dim *= 0.95;
+    setMaximumSize(dim,dim);
+    setWindowFlags(Qt::Drawer);
+    gridLayout->setSpacing(0);
+    setMinimumSize(dim/4,dim/4);  // TODO
+    QFile file(":/resources/chess/style.css");
+    file.open(QFile::ReadOnly);
+    QString styleSheet = QLatin1String(file.readAll());
+    setStyleSheet(styleSheet);
 }
