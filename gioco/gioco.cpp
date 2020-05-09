@@ -1,6 +1,6 @@
 #include "gioco.h"
 
-Gioco::Gioco(int _width, int _height, Colore giocatore_iniziale) : tavolo(_width, _height), giocatore_corrente(giocatore_iniziale){}
+Gioco::Gioco(int _width, int _height, Colore giocatore_iniziale) : width(_width), height(_height), tavolo(_width, _height), giocatore_corrente(giocatore_iniziale){}
 
 void Gioco::stampaTavolo() const
 {
@@ -34,4 +34,14 @@ void Gioco::stampaTavolo() const
 
 Colore Gioco::getGiocatoreCorrente() const{
     return giocatore_corrente;
+}
+
+int Gioco::getWidth()const
+{
+    return width;
+}
+
+int Gioco::getHeight() const
+{
+    return height;
 }

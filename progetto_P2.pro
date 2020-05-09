@@ -23,7 +23,7 @@ HEADERS += colore.h \
            gioco/posizione.h \
            gioco/scacchi.h \
            gioco/scacchiera.h \
-           mainwindow.h \
+           view/mainwindow.h \
            pedina/pedina.h \
            pedina/scacchi/alfiere.h \
            pedina/scacchi/cavallo.h \
@@ -33,14 +33,16 @@ HEADERS += colore.h \
            pedina/scacchi/regina.h \
            pedina/scacchi/torre.h \
            pedina/scacchi/movimentoCroce.h \
-           pedina/scacchi/movimentoDiagonale.h
+           pedina/scacchi/movimentoDiagonale.h \
+           view/selettore.h \
+           controller.h
 SOURCES += \
            gioco/gioco.cpp \
            gioco/posizione.cpp \
            gioco/scacchi.cpp \
            gioco/scacchiera.cpp \
            main.cpp \
-           mainwindow.cpp \
+           view/mainwindow.cpp \
            pedina/pedina.cpp \
            pedina/scacchi/alfiere.cpp \
            pedina/scacchi/cavallo.cpp \
@@ -50,7 +52,9 @@ SOURCES += \
            pedina/scacchi/regina.cpp \
            pedina/scacchi/torre.cpp \
            pedina/scacchi/movimentoCroce.cpp \
-           pedina/scacchi/movimentoDiagonale.cpp
+           pedina/scacchi/movimentoDiagonale.cpp \
+           view/selettore.cpp \
+           controller.cpp
 
 QT += widgets
 

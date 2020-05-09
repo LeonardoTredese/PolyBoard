@@ -8,6 +8,8 @@ using std::cout; using std::endl;
 
 class Gioco
 {
+private:
+    int width, height;
 protected:
     Scacchiera tavolo;
     Colore giocatore_corrente;
@@ -20,5 +22,7 @@ public:
     virtual void cambioTurno() = 0;
     virtual bool controlloVincitore() const = 0;
     Colore getGiocatoreCorrente() const;
+    int getWidth() const;
+    int getHeight() const;
 };
 #endif
