@@ -28,7 +28,8 @@ void mainWindow::addMenu()
     file->addAction(save);
     file->addAction(save_name);
     file->addAction(exit);
-
+    //alla pressione del tasto "Nuova partita", esso viene raccolto
+    //dallo slot "Nuova partita" di mainwindow.
     connect(nuova, SIGNAL(triggered()), this, SLOT(nuovaPartita()));
     //MENU PARTITA
     QMenu *partita = new QMenu("Partita",menubar);
@@ -51,6 +52,8 @@ void mainWindow::addMenu()
 
 void mainWindow::addChessboard(int width, int height) 
 {
+    //TODO: Creare vector per i QPushButton, per raggiungerli più
+    //facilmente
     cleanGrid();
     bool j = false;
     for(int i=0; i<width*height; ++i)
@@ -100,6 +103,11 @@ void mainWindow::cleanGrid()
 
 void mainWindow::nuovaPartita()
 {
+
     Selettore* sel = new Selettore();
+    //creaNuovoGioco emesso da selettore, contiene
+    //il tipo di gioco (scacchi)
     connect(sel, SIGNAL(creaNuovoGioco(Gioco*)), this, SIGNAL(selectedGame(Gioco*)));
+    //alla ricezione di creaNuovoGioco, esso verrà inviato dalla mainWindow
+    //al controller, tramite il segnale selectedGame(Gioco*)
 }

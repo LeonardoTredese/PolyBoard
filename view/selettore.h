@@ -15,6 +15,9 @@ public:
     explicit Selettore(QWidget *parent = nullptr);
 
 signals:
+    //segnale da inviare alla mainwindow, per
+    //fare in modo che quest'ultima lo comunichi al
+    //controller
     void creaNuovoGioco(Gioco*);
 private slots:
     void creaScacchi();
