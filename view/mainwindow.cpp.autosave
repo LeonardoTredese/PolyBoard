@@ -69,7 +69,7 @@ void mainWindow::addChessboard(int width, int height)
             button->setObjectName("black");
         else
             button->setObjectName("white");
-        //button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         gridLayout->addWidget(button, i/width, i%width);
     }
 }
@@ -81,9 +81,9 @@ void mainWindow::resizeEvent(QResizeEvent *event)  // TODO
     setFixedHeight(width()); 
     for(int i=0; i < gridLayout->count(); i++)
     {
-        ChessButton* button = static_cast<ChessButton*>(gridLayout->itemAt(i)->widget());
+        ChessButton* button = dynamic_cast<ChessButton*>(gridLayout->itemAt(i)->widget());
         button->setMinimumHeight(button->width());
-        button->setIconSize(button->size()*0.8);
+        button->setIconSize(button->rect().size());
     }   
 }
 
@@ -99,7 +99,7 @@ void mainWindow::setStyle()
     setMaximumSize(dim,dim);
     gridLayout->setSpacing(0);
     setMinimumSize(dim/2,dim/2);  // TODO
-    QFile file(":/resources/chess/style.css"); // TODO: mettere style globale
+    QFile file(":/resources/chess/style.css");
     file.open(QFile::ReadOnly);
     QString styleSheet = QLatin1String(file.readAll());
     setStyleSheet(styleSheet);
@@ -169,11 +169,9 @@ void mainWindow::aggiungiPedina(const Posizione& pos, const ID& pedina, const QS
             break;
     }
     pathIcon += ".png";
-    ChessButton* button = static_cast<ChessButton*>(gridLayout->itemAt(pos.x+pos.y*boardWidth)->widget());
+    ChessButton* button = dynamic_cast<ChessButton*>(gridLayout->itemAt(pos.x+pos.y*boardWidth)->widget());
     button->setIcon(QIcon(pathIcon));
-    //button->setIconSize((button->rect().size())*0.95);
-    //button->setIconSize(button->size()*0);
-    button->setMinimumHeight(button->width());
+    button->setIconSize(button->rect().size());
 }
 
 void mainWindow::pulisciCella(const Posizione& pos)

@@ -18,17 +18,20 @@ void Controller::creaScacchi()
     model = new Scacchi();
     view->addChessboard(model->getWidth(), model->getHeight()); // aggiunge scacchiera vuota
     //per inizializzare la Scacchiera, itero su di essa e invoco il metodo aggiungiPedina() della view
-    inizializzaPedine("chess");
+    inizializzaPedine(QString::fromStdString(model->tipoGioco()));
 }
 
 void Controller::inizializzaPedine(const QString& tipoGioco)
 {
+    ID* idPedina(nullptr);
     for(int y=0; y < model->getHeight(); y++)
         for(int x=0; x < model->getWidth(); x++)
         {
-            ID* idPedina = model->getIdPedina(Posizione(x,y));
+            idPedina = model->getIdPedina(Posizione(x,y));
             if(idPedina)
                 view->aggiungiPedina(Posizione(x,y), *idPedina, tipoGioco);
+            else
+                view->pulisciCella(Posizione(x,y));
         }
 }
 
@@ -43,7 +46,7 @@ void Controller::raccogliPosizione(Posizione pos_)
             bool ris = model->mossa(*posIniziale, *posFinale);  // TODO
             if(ris) // mossa andata a buon fine, pedine mosse
             {
-                view->updateBoard(*posIniziale, *posFinale);
+                inizializzaPedine(QString::fromStdString(model->tipoGioco()));
                 model->cambioTurno();
                 // TODO controllo vincitore
             }

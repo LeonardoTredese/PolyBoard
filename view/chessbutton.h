@@ -14,11 +14,11 @@ private:
     const Posizione pos;
 private slots:
     //Tale slot serve per inviare la Posizione del bottone al verificarsi dell'evento clicked()
-    void pulsantePremuto();
+    void pulsantePremuto() const;
 signals:
     // Tale segnale emetterà effetivamente la Posizione relativa al bottone, la quale verrà passata al controller
     // per effettuare le opportune operazioni sulle pedine della scacchiera.
-    void clicked(Posizione);
+    void clicked(Posizione) const;
 };
 
 #endif // CHESSBUTTON_H

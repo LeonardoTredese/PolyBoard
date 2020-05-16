@@ -14,7 +14,7 @@ class Selettore : public QWidget
 public:
     explicit Selettore(QWidget *parent = nullptr);
 signals:
-    void creaScacchi();
+    void creaScacchi() const;
 };
 
 #endif // SELETTORE_H

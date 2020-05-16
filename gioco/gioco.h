@@ -17,7 +17,7 @@ public:
     Gioco(int _width, int _heigth, Colore giocatore_iniziale);
     virtual ~Gioco(){}
     void stampaTavolo() const;
-    virtual char tipoGioco() const = 0;
+    virtual std::string tipoGioco() const = 0;
     virtual bool mossa(const Posizione& posIniziale, const Posizione& posFinale) = 0;
     virtual void cambioTurno() = 0;
     virtual bool controlloVincitore() const = 0;
@@ -25,5 +25,6 @@ public:
     ID* getIdPedina(const Posizione&) const;
     int getWidth() const;
     int getHeight() const;
+    virtual Gioco* clone() const = 0;
 };
 #endif

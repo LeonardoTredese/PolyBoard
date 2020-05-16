@@ -6,7 +6,7 @@ ChessButton::ChessButton(const Posizione& pos_, QWidget* parent) : QPushButton(p
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
 }
 
-void ChessButton::pulsantePremuto()
+void ChessButton::pulsantePremuto() const
 {
     emit clicked(pos);
 }

@@ -39,7 +39,12 @@ Scacchi::Scacchi():Gioco(width, height, bianco)
     tavolo.insert(torNero, Posizione(7,0));
 }
 
-char Scacchi::tipoGioco() const {return 'c';}
+Scacchi* Scacchi::clone() const
+{
+    return new Scacchi(*this);
+}
+
+std::string Scacchi::tipoGioco() const {return "chess";}
 
 bool Scacchi::mossa(const Posizione& posIniziale, const Posizione& posFinale)
 {

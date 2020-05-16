@@ -19,9 +19,10 @@ private:
     void promozionePedone(Pedina*& pedinaSel, const Posizione& posFinale);
 public:
     Scacchi();
-    virtual char tipoGioco() const;
+    virtual std::string tipoGioco() const;
     virtual bool mossa(const Posizione& posIniziale, const Posizione& posFinale);
     virtual void cambioTurno();
     virtual bool controlloVincitore() const;
+    virtual Scacchi* clone() const;
 };
 #endif

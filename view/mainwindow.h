@@ -36,6 +36,7 @@ public:
     void mossaNonValida(); //Visualizza Errore di mossa non valida a schermo
     void updateBoard(const Posizione& iniziale, const Posizione& finale);
     void aggiungiPedina(const Posizione&, const ID&, const QString&);
+    void pulisciCella(const Posizione&);
 protected:
     virtual void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
 private:
@@ -47,10 +48,10 @@ private:
     void setStyle();
     void cleanGrid();
 private slots:
-    void nuovaPartita();
+    void nuovaPartita() const;
 signals:
-    void nuovaPartitaScacchi();
-    void casellaSelezionata(Posizione);
+    void nuovaPartitaScacchi() const;
+    void casellaSelezionata(Posizione) const;
 
 };
 

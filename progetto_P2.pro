@@ -61,7 +61,6 @@ SOURCES += \
            controller.cpp
 
 QT += widgets
-QT += svg
 
 RESOURCES += \
     resources.qrc

@@ -37,7 +37,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = progetto_P21.0.0
-DISTDIR = /home/michele/Desktop/progetto_P2/.tmp/progetto_P21.0.0
+DISTDIR = /home/diego/Desktop/progetto_P2/.tmp/progetto_P21.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1
 LIBS          = $(SUBLIBS) /usr/lib/x86_64-linux-gnu/libQt5Widgets.so /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Core.so /usr/lib/x86_64-linux-gnu/libGL.so -lpthread   
@@ -428,18 +428,18 @@ compiler_rcc_clean:
 qrc_resources.cpp: resources.qrc \
 		/usr/lib/qt5/bin/rcc \
 		resources/chess/style.css \
-		resources/chess/icons/bishop_white.svg \
-		resources/chess/icons/bishop_black.svg \
-		resources/chess/icons/pawn_white.svg \
-		resources/chess/icons/pawn_black.svg \
-		resources/chess/icons/rook_white.svg \
-		resources/chess/icons/rook_black.svg \
-		resources/chess/icons/king_white.svg \
-		resources/chess/icons/king_black.svg \
-		resources/chess/icons/queen_white.svg \
-		resources/chess/icons/knight_white.svg \
-		resources/chess/icons/knight_black.svg \
-		resources/chess/icons/queen_black.svg
+		resources/chess/icons/pawn_black.png \
+		resources/chess/icons/rook_white.png \
+		resources/chess/icons/rook_black.png \
+		resources/chess/icons/king_white.png \
+		resources/chess/icons/king_black.png \
+		resources/chess/icons/queen_white.png \
+		resources/chess/icons/knight_white.png \
+		resources/chess/icons/knight_black.png \
+		resources/chess/icons/queen_black.png \
+		resources/chess/icons/bishop_white.png \
+		resources/chess/icons/bishop_black.png \
+		resources/chess/icons/pawn_white.png
 	/usr/lib/qt5/bin/rcc -name resources resources.qrc -o qrc_resources.cpp
 
 compiler_moc_predefs_make_all: moc_predefs.h
@@ -455,7 +455,7 @@ moc_chessbutton.cpp: view/chessbutton.h \
 		posizione.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/michele/Desktop/progetto_P2/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/michele/Desktop/progetto_P2 -I/home/michele/Desktop/progetto_P2 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include view/chessbutton.h -o moc_chessbutton.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/diego/Desktop/progetto_P2/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/diego/Desktop/progetto_P2 -I/home/diego/Desktop/progetto_P2 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include view/chessbutton.h -o moc_chessbutton.cpp
 
 moc_mainwindow.cpp: view/mainwindow.h \
 		view/selettore.h \
@@ -465,12 +465,12 @@ moc_mainwindow.cpp: view/mainwindow.h \
 		colore.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/michele/Desktop/progetto_P2/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/michele/Desktop/progetto_P2 -I/home/michele/Desktop/progetto_P2 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include view/mainwindow.h -o moc_mainwindow.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/diego/Desktop/progetto_P2/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/diego/Desktop/progetto_P2 -I/home/diego/Desktop/progetto_P2 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include view/mainwindow.h -o moc_mainwindow.cpp
 
 moc_selettore.cpp: view/selettore.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/michele/Desktop/progetto_P2/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/michele/Desktop/progetto_P2 -I/home/michele/Desktop/progetto_P2 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include view/selettore.h -o moc_selettore.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/diego/Desktop/progetto_P2/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/diego/Desktop/progetto_P2 -I/home/diego/Desktop/progetto_P2 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include view/selettore.h -o moc_selettore.cpp
 
 moc_controller.cpp: controller.h \
 		view/mainwindow.h \
@@ -494,7 +494,7 @@ moc_controller.cpp: controller.h \
 		pedina/scacchi/re.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/michele/Desktop/progetto_P2/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/michele/Desktop/progetto_P2 -I/home/michele/Desktop/progetto_P2 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include controller.h -o moc_controller.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/diego/Desktop/progetto_P2/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/diego/Desktop/progetto_P2 -I/home/diego/Desktop/progetto_P2 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include controller.h -o moc_controller.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
