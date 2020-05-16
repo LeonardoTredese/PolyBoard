@@ -21,6 +21,7 @@
 #include <QIcon>
 #include <QString>
 #include <QSizePolicy>
+#include <QResizeEvent>
 #include "selettore.h"
 #include "chessbutton.h"
 #include "../posizione.h"

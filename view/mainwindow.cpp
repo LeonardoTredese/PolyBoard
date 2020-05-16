@@ -2,14 +2,12 @@
 
 mainWindow::mainWindow(QWidget *parent) : QWidget(parent), mainLayout(new QVBoxLayout(this)), gridLayout(new QGridLayout())
 {
-    gridLayout->setSizeConstraint(QLayout::SetFixedSize);
     addMenu();
-    //addButtons(8,8);
-    setStyle();
+    gridLayout->setSizeConstraint(QLayout::SetFixedSize);
     mainLayout->addLayout(gridLayout);
+    setStyle();
     setLayout(mainLayout);
 }
-
 
 void mainWindow::addMenu()
 {
@@ -91,14 +89,13 @@ void mainWindow::setStyle()
 {
     //setFixedSize(width(), height());   
     QScreen *screen = QGuiApplication::primaryScreen();
-    QRect  screenGeometry = screen->geometry();
+    QRect screenGeometry = screen->geometry();
     int height = screenGeometry.height();
     int width = screenGeometry.width();
     int dim = height > width ? width:height;
     dim *= 0.95;
-    setMaximumSize(dim,dim);
+    setMaximumSize(dim,dim); 
     gridLayout->setSpacing(0);
-    setMinimumSize(dim/2,dim/2);  // TODO
     QFile file(":/resources/chess/style.css"); // TODO: mettere style globale
     file.open(QFile::ReadOnly);
     QString styleSheet = QLatin1String(file.readAll());
@@ -171,9 +168,8 @@ void mainWindow::aggiungiPedina(const Posizione& pos, const ID& pedina, const QS
     pathIcon += ".png";
     ChessButton* button = static_cast<ChessButton*>(gridLayout->itemAt(pos.x+pos.y*boardWidth)->widget());
     button->setIcon(QIcon(pathIcon));
-    //button->setIconSize((button->rect().size())*0.95);
-    //button->setIconSize(button->size()*0);
     button->setMinimumHeight(button->width());
+    button->setIconSize(button->size()*0.8);
 }
 
 void mainWindow::pulisciCella(const Posizione& pos)

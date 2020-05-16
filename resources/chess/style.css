@@ -9,7 +9,6 @@ QPushButton {
     margin: 0;
     padding:0;
     border: 0;
-    /*qproperty-iconSize: 100% 100%;*/
 }
 
 QPushButton#black
