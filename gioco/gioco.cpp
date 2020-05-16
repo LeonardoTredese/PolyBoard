@@ -36,6 +36,14 @@ Colore Gioco::getGiocatoreCorrente() const{
     return giocatore_corrente;
 }
 
+ID* Gioco::getIdPedina(const Posizione& pos) const
+{
+    if(tavolo[pos])
+        return new ID(tavolo[pos]->getId());
+    else
+        return nullptr;
+}
+
 int Gioco::getWidth()const
 {
     return width;

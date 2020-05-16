@@ -22,6 +22,7 @@ public:
     virtual void cambioTurno() = 0;
     virtual bool controlloVincitore() const = 0;
     Colore getGiocatoreCorrente() const;
+    ID* getIdPedina(const Posizione&) const;
     int getWidth() const;
     int getHeight() const;
 };

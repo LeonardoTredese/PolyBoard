@@ -55,18 +55,21 @@ void mainWindow::addChessboard(int width, int height)
     //TODO: Creare vector per i QPushButton, per raggiungerli più
     //facilmente
     cleanGrid();
+    boardWidth = width;
+    boardHeight = height;
     bool j = false;
     for(int i=0; i<width*height; ++i)
     {
         if(i % width)
             j = !j;
-        QPushButton *button = new QPushButton(this);
+        ChessButton *button = new ChessButton(Posizione(i%width,i/width), this);
+        connect(button, SIGNAL(clicked(Posizione)), this, SIGNAL(casellaSelezionata(Posizione)));
         if(j)
             button->setObjectName("black");
         else
             button->setObjectName("white");
-        button->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
-        gridLayout->addWidget(button,i/width,i%width);
+        button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        gridLayout->addWidget(button, i/width, i%width);
     }
 }
 
@@ -74,7 +77,12 @@ void mainWindow::addChessboard(int width, int height)
 void mainWindow::resizeEvent(QResizeEvent *event)  // TODO
 {
     event->accept();
-    setFixedHeight(width());  
+    setFixedHeight(width()); 
+    for(int i=0; i < gridLayout->count(); i++)
+    {
+        ChessButton* button = dynamic_cast<ChessButton*>(gridLayout->itemAt(i)->widget());
+        button->setIconSize(button->rect().size());
+    }   
 }
 
 void mainWindow::setStyle()
@@ -103,11 +111,73 @@ void mainWindow::cleanGrid()
 
 void mainWindow::nuovaPartita()
 {
+    Selettore* sel = new Selettore(); // TODO: Senza this come parent esegue delete automatica?
+    connect(sel, SIGNAL(creaScacchi()), this, SIGNAL(nuovaPartitaScacchi()));
+}
 
-    Selettore* sel = new Selettore();
-    //creaNuovoGioco emesso da selettore, contiene
-    //il tipo di gioco (scacchi)
-    connect(sel, SIGNAL(creaNuovoGioco(Gioco*)), this, SIGNAL(selectedGame(Gioco*)));
-    //alla ricezione di creaNuovoGioco, esso verrà inviato dalla mainWindow
-    //al controller, tramite il segnale selectedGame(Gioco*)
+void mainWindow::mossaNonValida()
+{
+    QDialog *err = new QDialog(this);
+    QVBoxLayout *layout_errore = new QVBoxLayout(err);
+    layout_errore->addWidget(new QLabel(QString("Mossa non valida, reinserire posizione!"),err));
+    err->show();
+}
+
+void mainWindow::aggiungiPedina(const Posizione& pos, const ID& pedina, const QString& tipoGioco)
+{
+    QString pathIcon(":/resources/"+tipoGioco+"/icons/");
+    if(tipoGioco == "chess")
+    {
+        switch(pedina.getTipo())
+        {
+            case 'B': 
+                pathIcon += "bishop";  
+                break;
+            case 'N': 
+                pathIcon += "knight";
+                break;
+            case 'K':
+                pathIcon += "king";
+                break;
+            case 'P':
+                pathIcon += "pawn";
+                break;
+            case 'Q':
+                pathIcon += "queen";
+                break;
+            case 'R': 
+                pathIcon += "rook";
+                break;
+            default:
+                pathIcon = "";
+                break;
+        }
+              
+    }
+    pathIcon += "_"; 
+    switch(pedina.getColore())
+    {
+        case bianco:
+            pathIcon += "white";
+            break;
+        case nero:
+            pathIcon += "black";
+            break;
+    }
+    pathIcon += ".png";
+    ChessButton* button = dynamic_cast<ChessButton*>(gridLayout->itemAt(pos.x+pos.y*boardWidth)->widget());
+    button->setIcon(QIcon(pathIcon));
+    //button->icon().setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+    button->setIconSize(button->rect().size());
+}
+
+void mainWindow::updateBoard(const Posizione& iniziale, const Posizione& finale)
+{
+    ChessButton* buttonIniziale = dynamic_cast<ChessButton*>(gridLayout->itemAt(iniziale.x+iniziale.y*boardWidth)->widget());
+    QIcon toMove = QIcon(buttonIniziale->icon());
+    buttonIniziale->setIcon(QIcon());
+
+    ChessButton* buttonFinale = dynamic_cast<ChessButton*>(gridLayout->itemAt(finale.x+finale.y*boardWidth)->widget());
+    buttonFinale->setIcon(toMove);
+    buttonFinale->setIconSize(buttonFinale->rect().size());
 }

@@ -1,6 +1,6 @@
 #ifndef SCACCHIERA_H
 #define SCACCHIERA_H
-#include "posizione.h"
+#include "../posizione.h"
 #include "../pedina/pedina.h"
 #include <list>
 using std::list;

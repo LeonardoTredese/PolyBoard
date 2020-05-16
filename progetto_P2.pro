@@ -20,9 +20,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # Input
 HEADERS += colore.h \
            gioco/gioco.h \
-           gioco/posizione.h \
+           pedina/id.h \
+           posizione.h \
            gioco/scacchi.h \
            gioco/scacchiera.h \
+           view/chessbutton.h \
            view/mainwindow.h \
            pedina/pedina.h \
            pedina/scacchi/alfiere.h \
@@ -38,10 +40,12 @@ HEADERS += colore.h \
            controller.h
 SOURCES += \
            gioco/gioco.cpp \
-           gioco/posizione.cpp \
+           pedina/id.cpp \
+           posizione.cpp \
            gioco/scacchi.cpp \
            gioco/scacchiera.cpp \
            main.cpp \
+           view/chessbutton.cpp \
            view/mainwindow.cpp \
            pedina/pedina.cpp \
            pedina/scacchi/alfiere.cpp \
@@ -57,6 +61,7 @@ SOURCES += \
            controller.cpp
 
 QT += widgets
+QT += svg
 
 RESOURCES += \
     resources.qrc

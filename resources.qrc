@@ -1,17 +1,17 @@
 <RCC>
     <qresource prefix="/">
         <file>resources/chess/style.css</file>
-        <file>resources/chess/icons/bishop_white.svg</file>
-        <file>resources/chess/icons/bishop_black.svg</file>
-        <file>resources/chess/icons/knight_white.svg</file>
-        <file>resources/chess/icons/knight_black.svg</file>
-        <file>resources/chess/icons/rook_white.svg</file>
-        <file>resources/chess/icons/rook_black.svg</file>
-        <file>resources/chess/icons/queen_white.svg</file>
-        <file>resources/chess/icons/queen_black.svg</file>
-        <file>resources/chess/icons/king_white.svg</file>
-        <file>resources/chess/icons/king_black.svg</file>
-        <file>resources/chess/icons/pawn_white.svg</file>
-        <file>resources/chess/icons/pawn_black.svg</file>
+        <file>resources/chess/icons/bishop_white.png</file>
+        <file>resources/chess/icons/bishop_black.png</file>
+        <file>resources/chess/icons/knight_white.png</file>
+        <file>resources/chess/icons/knight_black.png</file>
+        <file>resources/chess/icons/rook_white.png</file>
+        <file>resources/chess/icons/rook_black.png</file>
+        <file>resources/chess/icons/queen_white.png</file>
+        <file>resources/chess/icons/queen_black.png</file>
+        <file>resources/chess/icons/king_white.png</file>
+        <file>resources/chess/icons/king_black.png</file>
+        <file>resources/chess/icons/pawn_white.png</file>
+        <file>resources/chess/icons/pawn_black.png</file>
     </qresource>
 </RCC>

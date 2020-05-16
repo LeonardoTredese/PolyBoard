@@ -1,22 +1,10 @@
 #ifndef PEDINA_H
 #define PEDINA_H
 #include <string>
-#include "../gioco/posizione.h"
+#include "../posizione.h"
 #include "../colore.h"
+#include "id.h"
 #include <list>
-
-class ID
-{
-private:
-    const char tipo_pedina;
-    const Colore colore;
-public:
-    ID(char _pedina, Colore _colore);
-    char getTipo() const;
-    Colore getColore() const;
-    bool operator==(const ID&) const;
-    bool operator!=(const ID&) const;
-};
 
 class Pedina{
     const Colore colore;
