@@ -44,7 +44,7 @@ Scacchi* Scacchi::clone() const
     return new Scacchi(*this);
 }
 
-std::string Scacchi::tipoGioco() const {return "chess";}
+TipoGioco Scacchi::tipoGioco() const {return chess;}
 
 bool Scacchi::mossa(const Posizione& posIniziale, const Posizione& posFinale)
 {
@@ -90,10 +90,7 @@ bool Scacchi::mossa(const Posizione& posIniziale, const Posizione& posFinale)
             return false;
         }
     }
-        
-    promozionePedone(pedinaSel, posFinale);
     pedinaSel->pedinaMossa();
-    
     return true;
 }
 
@@ -233,43 +230,36 @@ bool Scacchi::arrocco(const Posizione& re, const Posizione& finale)
 // POST: se ci sono le condizioni per l'arrocco lo fa e ritorna true,
 // altrimenti non deve modificare nulla e ritornare false
 
-void Scacchi::promozionePedone(Pedina*& pedinaSel, const Posizione& posFinale)
+void Scacchi::promozionePedone(char pedinaSel, const Posizione& posFinale)
 {
-    if( posFinale.y==0 || posFinale.y==height-1 )
-    { // trasformazione pedone quando arriva dall'avversario
-
-        Pedone* p = dynamic_cast<Pedone*>(pedinaSel);
-        if(p)
-        {
-            char scelta;
-            bool sceltaCorretta;
-            tavolo.remove(posFinale);
-            do
-            {
-                sceltaCorretta = true;
-                cout << "Scegli la pedina da evocare: (Q/N/B/R) ";
-                std::cin >> scelta;
-                switch (scelta)
-                {
-                    case 'Q': 
-                        tavolo.insert(Regina(giocatore_corrente), posFinale);
-                        break;
-                    case 'N':   
-                        tavolo.insert(Cavallo(giocatore_corrente), posFinale);
-                        break;
-                    case 'B': 
-                        tavolo.insert(Alfiere(giocatore_corrente), posFinale);
-                        break;
-                    case 'R':   
-                        tavolo.insert(Torre(giocatore_corrente), posFinale);
-                        break;
-                    default:
-                        cout << "SCELTA NON VALIDA" << endl;
-                        sceltaCorretta = false;
-                        break;
-                }
-            } while(!sceltaCorretta);
-            pedinaSel = tavolo[posFinale];
-        }
+    tavolo.remove(posFinale);
+    switch (pedinaSel)
+    {
+        case 'Q': 
+            tavolo.insert(Regina(giocatore_corrente), posFinale);
+            break;
+        case 'N':   
+            tavolo.insert(Cavallo(giocatore_corrente), posFinale);
+            break;
+        case 'B': 
+            tavolo.insert(Alfiere(giocatore_corrente), posFinale);
+            break;
+        case 'R':   
+            tavolo.insert(Torre(giocatore_corrente, false), posFinale);
+            break;
+        default:
+            // something went wrong ...
+            break;
     }
+}
+
+bool Scacchi::verificaPromozionePedone(const Posizione& pos) const
+{
+    if(pos.y == 0  || pos.y==height-1)
+    {
+        Pedone* p = dynamic_cast<Pedone*>(tavolo[pos]);
+        if(p)
+            return true;
+    }
+    return false;
 }

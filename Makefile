@@ -70,12 +70,15 @@ SOURCES       = gioco/gioco.cpp \
 		pedina/scacchi/torre.cpp \
 		pedina/scacchi/movimentoCroce.cpp \
 		pedina/scacchi/movimentoDiagonale.cpp \
-		view/selettore.cpp \
-		controller.cpp qrc_resources.cpp \
+		view/selettore_gioco.cpp \
+		controller.cpp \
+		tipogioco.cpp \
+		view/selettore_promozione_scacchi.cpp qrc_resources.cpp \
 		moc_chessbutton.cpp \
 		moc_mainwindow.cpp \
-		moc_selettore.cpp \
-		moc_controller.cpp
+		moc_selettore_gioco.cpp \
+		moc_controller.cpp \
+		moc_selettore_promozione_scacchi.cpp
 OBJECTS       = gioco.o \
 		id.o \
 		posizione.o \
@@ -94,13 +97,16 @@ OBJECTS       = gioco.o \
 		torre.o \
 		movimentoCroce.o \
 		movimentoDiagonale.o \
-		selettore.o \
+		selettore_gioco.o \
 		controller.o \
+		tipogioco.o \
+		selettore_promozione_scacchi.o \
 		qrc_resources.o \
 		moc_chessbutton.o \
 		moc_mainwindow.o \
-		moc_selettore.o \
-		moc_controller.o
+		moc_selettore_gioco.o \
+		moc_controller.o \
+		moc_selettore_promozione_scacchi.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -194,8 +200,10 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		pedina/scacchi/torre.h \
 		pedina/scacchi/movimentoCroce.h \
 		pedina/scacchi/movimentoDiagonale.h \
-		view/selettore.h \
-		controller.h gioco/gioco.cpp \
+		view/selettore_gioco.h \
+		controller.h \
+		tipogioco.h \
+		view/selettore_promozione_scacchi.h gioco/gioco.cpp \
 		pedina/id.cpp \
 		posizione.cpp \
 		gioco/scacchi.cpp \
@@ -213,8 +221,10 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		pedina/scacchi/torre.cpp \
 		pedina/scacchi/movimentoCroce.cpp \
 		pedina/scacchi/movimentoDiagonale.cpp \
-		view/selettore.cpp \
-		controller.cpp
+		view/selettore_gioco.cpp \
+		controller.cpp \
+		tipogioco.cpp \
+		view/selettore_promozione_scacchi.cpp
 QMAKE_TARGET  = progetto_P2
 DESTDIR       = 
 TARGET        = progetto_P2
@@ -397,8 +407,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents colore.h gioco/gioco.h pedina/id.h posizione.h gioco/scacchi.h gioco/scacchiera.h view/chessbutton.h view/mainwindow.h pedina/pedina.h pedina/scacchi/alfiere.h pedina/scacchi/cavallo.h pedina/scacchi/pedinascacchi.h pedina/scacchi/pedone.h pedina/scacchi/re.h pedina/scacchi/regina.h pedina/scacchi/torre.h pedina/scacchi/movimentoCroce.h pedina/scacchi/movimentoDiagonale.h view/selettore.h controller.h $(DISTDIR)/
-	$(COPY_FILE) --parents gioco/gioco.cpp pedina/id.cpp posizione.cpp gioco/scacchi.cpp gioco/scacchiera.cpp main.cpp view/chessbutton.cpp view/mainwindow.cpp pedina/pedina.cpp pedina/scacchi/alfiere.cpp pedina/scacchi/cavallo.cpp pedina/scacchi/pedinascacchi.cpp pedina/scacchi/pedone.cpp pedina/scacchi/re.cpp pedina/scacchi/regina.cpp pedina/scacchi/torre.cpp pedina/scacchi/movimentoCroce.cpp pedina/scacchi/movimentoDiagonale.cpp view/selettore.cpp controller.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents colore.h gioco/gioco.h pedina/id.h posizione.h gioco/scacchi.h gioco/scacchiera.h view/chessbutton.h view/mainwindow.h pedina/pedina.h pedina/scacchi/alfiere.h pedina/scacchi/cavallo.h pedina/scacchi/pedinascacchi.h pedina/scacchi/pedone.h pedina/scacchi/re.h pedina/scacchi/regina.h pedina/scacchi/torre.h pedina/scacchi/movimentoCroce.h pedina/scacchi/movimentoDiagonale.h view/selettore_gioco.h controller.h tipogioco.h view/selettore_promozione_scacchi.h $(DISTDIR)/
+	$(COPY_FILE) --parents gioco/gioco.cpp pedina/id.cpp posizione.cpp gioco/scacchi.cpp gioco/scacchiera.cpp main.cpp view/chessbutton.cpp view/mainwindow.cpp pedina/pedina.cpp pedina/scacchi/alfiere.cpp pedina/scacchi/cavallo.cpp pedina/scacchi/pedinascacchi.cpp pedina/scacchi/pedone.cpp pedina/scacchi/re.cpp pedina/scacchi/regina.cpp pedina/scacchi/torre.cpp pedina/scacchi/movimentoCroce.cpp pedina/scacchi/movimentoDiagonale.cpp view/selettore_gioco.cpp controller.cpp tipogioco.cpp view/selettore_promozione_scacchi.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -448,9 +458,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -Wall -W -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_chessbutton.cpp moc_mainwindow.cpp moc_selettore.cpp moc_controller.cpp
+compiler_moc_header_make_all: moc_chessbutton.cpp moc_mainwindow.cpp moc_selettore_gioco.cpp moc_controller.cpp moc_selettore_promozione_scacchi.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_chessbutton.cpp moc_mainwindow.cpp moc_selettore.cpp moc_controller.cpp
+	-$(DEL_FILE) moc_chessbutton.cpp moc_mainwindow.cpp moc_selettore_gioco.cpp moc_controller.cpp moc_selettore_promozione_scacchi.cpp
 moc_chessbutton.cpp: view/chessbutton.h \
 		posizione.h \
 		moc_predefs.h \
@@ -458,27 +468,31 @@ moc_chessbutton.cpp: view/chessbutton.h \
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/diego/Desktop/progetto_P2/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/diego/Desktop/progetto_P2 -I/home/diego/Desktop/progetto_P2 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include view/chessbutton.h -o moc_chessbutton.cpp
 
 moc_mainwindow.cpp: view/mainwindow.h \
-		view/selettore.h \
+		view/selettore_gioco.h \
+		view/selettore_promozione_scacchi.h \
 		view/chessbutton.h \
 		posizione.h \
 		pedina/id.h \
 		colore.h \
+		tipogioco.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/diego/Desktop/progetto_P2/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/diego/Desktop/progetto_P2 -I/home/diego/Desktop/progetto_P2 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include view/mainwindow.h -o moc_mainwindow.cpp
 
-moc_selettore.cpp: view/selettore.h \
+moc_selettore_gioco.cpp: view/selettore_gioco.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/diego/Desktop/progetto_P2/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/diego/Desktop/progetto_P2 -I/home/diego/Desktop/progetto_P2 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include view/selettore.h -o moc_selettore.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/diego/Desktop/progetto_P2/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/diego/Desktop/progetto_P2 -I/home/diego/Desktop/progetto_P2 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include view/selettore_gioco.h -o moc_selettore_gioco.cpp
 
 moc_controller.cpp: controller.h \
 		view/mainwindow.h \
-		view/selettore.h \
+		view/selettore_gioco.h \
+		view/selettore_promozione_scacchi.h \
 		view/chessbutton.h \
 		posizione.h \
 		pedina/id.h \
 		colore.h \
+		tipogioco.h \
 		gioco/gioco.h \
 		gioco/scacchiera.h \
 		pedina/pedina.h \
@@ -495,6 +509,11 @@ moc_controller.cpp: controller.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/diego/Desktop/progetto_P2/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/diego/Desktop/progetto_P2 -I/home/diego/Desktop/progetto_P2 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include controller.h -o moc_controller.cpp
+
+moc_selettore_promozione_scacchi.cpp: view/selettore_promozione_scacchi.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/diego/Desktop/progetto_P2/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/diego/Desktop/progetto_P2 -I/home/diego/Desktop/progetto_P2 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include view/selettore_promozione_scacchi.h -o moc_selettore_promozione_scacchi.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -517,7 +536,8 @@ gioco.o: gioco/gioco.cpp gioco/gioco.h \
 		posizione.h \
 		pedina/pedina.h \
 		colore.h \
-		pedina/id.h
+		pedina/id.h \
+		tipogioco.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gioco.o gioco/gioco.cpp
 
 id.o: pedina/id.cpp pedina/id.h \
@@ -534,6 +554,7 @@ scacchi.o: gioco/scacchi.cpp gioco/scacchi.h \
 		pedina/pedina.h \
 		colore.h \
 		pedina/id.h \
+		tipogioco.h \
 		pedina/scacchi/pedone.h \
 		pedina/scacchi/pedinascacchi.h \
 		pedina/scacchi/torre.h \
@@ -554,11 +575,13 @@ scacchiera.o: gioco/scacchiera.cpp gioco/scacchiera.h \
 
 main.o: main.cpp controller.h \
 		view/mainwindow.h \
-		view/selettore.h \
+		view/selettore_gioco.h \
+		view/selettore_promozione_scacchi.h \
 		view/chessbutton.h \
 		posizione.h \
 		pedina/id.h \
 		colore.h \
+		tipogioco.h \
 		gioco/gioco.h \
 		gioco/scacchiera.h \
 		pedina/pedina.h \
@@ -579,11 +602,13 @@ chessbutton.o: view/chessbutton.cpp view/chessbutton.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o chessbutton.o view/chessbutton.cpp
 
 mainwindow.o: view/mainwindow.cpp view/mainwindow.h \
-		view/selettore.h \
+		view/selettore_gioco.h \
+		view/selettore_promozione_scacchi.h \
 		view/chessbutton.h \
 		posizione.h \
 		pedina/id.h \
-		colore.h
+		colore.h \
+		tipogioco.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o view/mainwindow.cpp
 
 pedina.o: pedina/pedina.cpp pedina/pedina.h \
@@ -667,16 +692,18 @@ movimentoDiagonale.o: pedina/scacchi/movimentoDiagonale.cpp pedina/scacchi/movim
 		pedina/id.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o movimentoDiagonale.o pedina/scacchi/movimentoDiagonale.cpp
 
-selettore.o: view/selettore.cpp view/selettore.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o selettore.o view/selettore.cpp
+selettore_gioco.o: view/selettore_gioco.cpp view/selettore_gioco.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o selettore_gioco.o view/selettore_gioco.cpp
 
 controller.o: controller.cpp controller.h \
 		view/mainwindow.h \
-		view/selettore.h \
+		view/selettore_gioco.h \
+		view/selettore_promozione_scacchi.h \
 		view/chessbutton.h \
 		posizione.h \
 		pedina/id.h \
 		colore.h \
+		tipogioco.h \
 		gioco/gioco.h \
 		gioco/scacchiera.h \
 		pedina/pedina.h \
@@ -692,6 +719,12 @@ controller.o: controller.cpp controller.h \
 		pedina/scacchi/re.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o controller.o controller.cpp
 
+tipogioco.o: tipogioco.cpp tipogioco.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tipogioco.o tipogioco.cpp
+
+selettore_promozione_scacchi.o: view/selettore_promozione_scacchi.cpp view/selettore_promozione_scacchi.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o selettore_promozione_scacchi.o view/selettore_promozione_scacchi.cpp
+
 qrc_resources.o: qrc_resources.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resources.o qrc_resources.cpp
 
@@ -701,11 +734,14 @@ moc_chessbutton.o: moc_chessbutton.cpp
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
 
-moc_selettore.o: moc_selettore.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_selettore.o moc_selettore.cpp
+moc_selettore_gioco.o: moc_selettore_gioco.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_selettore_gioco.o moc_selettore_gioco.cpp
 
 moc_controller.o: moc_controller.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_controller.o moc_controller.cpp
+
+moc_selettore_promozione_scacchi.o: moc_selettore_promozione_scacchi.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_selettore_promozione_scacchi.o moc_selettore_promozione_scacchi.cpp
 
 ####### Install
 

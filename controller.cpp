@@ -18,10 +18,10 @@ void Controller::creaScacchi()
     model = new Scacchi();
     view->addChessboard(model->getWidth(), model->getHeight()); // aggiunge scacchiera vuota
     //per inizializzare la Scacchiera, itero su di essa e invoco il metodo aggiungiPedina() della view
-    inizializzaPedine(QString::fromStdString(model->tipoGioco()));
+    inizializzaPedine(model->tipoGioco());
 }
 
-void Controller::inizializzaPedine(const QString& tipoGioco)
+void Controller::inizializzaPedine(const TipoGioco& tipoGioco)
 {
     ID* idPedina(nullptr);
     for(int y=0; y < model->getHeight(); y++)
@@ -39,19 +39,19 @@ void Controller::raccogliPosizione(Posizione pos_)
 {
     if(!posIniziale)
         posIniziale = new Posizione(pos_);
-    else
+    else 
         if(!posFinale)
         {
             posFinale = new Posizione(pos_);
-            bool ris = model->mossa(*posIniziale, *posFinale);  // TODO
-            if(ris) // mossa andata a buon fine, pedine mosse
+            switch (model->tipoGioco())
             {
-                inizializzaPedine(QString::fromStdString(model->tipoGioco()));
-                model->cambioTurno();
-                // TODO controllo vincitore
+                case chess: 
+                    mossaScacchi(); 
+                    break;
+                default: 
+
+                    break;
             }
-            else  // mossa non valida
-                view->mossaNonValida();
             delete posFinale;
             delete posIniziale;
             posIniziale = posFinale = nullptr;
@@ -59,3 +59,25 @@ void Controller::raccogliPosizione(Posizione pos_)
         else
             abort(); // TODO: togliere, solo per test
 }
+
+void Controller::mossaScacchi()
+{
+    Scacchi* modelScacchi = static_cast<Scacchi*>(model);
+    bool ris = modelScacchi->mossa(*posIniziale, *posFinale);
+    if(ris) // mossa andata a buon fine, pedine mosse
+    {
+        if(modelScacchi->verificaPromozionePedone(*posFinale))
+        {
+            //view->selezionaPromozioneScacchi();
+            modelScacchi->promozionePedone('Q', *posFinale); 
+        }
+        inizializzaPedine(modelScacchi->tipoGioco());
+        modelScacchi->cambioTurno();
+        // TODO: controllo vincitore
+    }
+    else  // mossa non valida
+        view->mossaNonValida();
+}
+
+void Controller::promozioneScacchi(char c)
+{}

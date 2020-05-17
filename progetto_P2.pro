@@ -36,8 +36,10 @@ HEADERS += colore.h \
            pedina/scacchi/torre.h \
            pedina/scacchi/movimentoCroce.h \
            pedina/scacchi/movimentoDiagonale.h \
-           view/selettore.h \
-           controller.h
+           view/selettore_gioco.h \
+           controller.h \
+           tipogioco.h \
+           view/selettore_promozione_scacchi.h
 SOURCES += \
            gioco/gioco.cpp \
            pedina/id.cpp \
@@ -57,8 +59,10 @@ SOURCES += \
            pedina/scacchi/torre.cpp \
            pedina/scacchi/movimentoCroce.cpp \
            pedina/scacchi/movimentoDiagonale.cpp \
-           view/selettore.cpp \
-           controller.cpp
+           view/selettore_gioco.cpp \
+           controller.cpp \
+           tipogioco.cpp \
+           view/selettore_promozione_scacchi.cpp
 
 QT += widgets
 

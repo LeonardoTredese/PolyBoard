@@ -6,13 +6,13 @@
 #include <QPushButton>
 #include <QButtonGroup>
 
-class Selettore : public QWidget
+class SelettoreGioco : public QWidget
 {
     Q_OBJECT
     QVBoxLayout *mainLayout;
     QButtonGroup *gruppoGiochi;
 public:
-    explicit Selettore(QWidget *parent = nullptr);
+    explicit SelettoreGioco(QWidget *parent = nullptr);
 signals:
     void creaScacchi() const;
 };

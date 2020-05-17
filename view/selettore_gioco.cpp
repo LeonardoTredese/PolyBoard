@@ -1,6 +1,6 @@
-#include "selettore.h"
+#include "selettore_gioco.h"
 
-Selettore::Selettore(QWidget *parent) : QWidget(parent), mainLayout(new QVBoxLayout(this)), gruppoGiochi(new QButtonGroup(this))
+SelettoreGioco::SelettoreGioco(QWidget *parent) : QWidget(parent), mainLayout(new QVBoxLayout(this)), gruppoGiochi(new QButtonGroup(this))
 {
     setLayout(mainLayout);
     QPushButton *pulsanteScacchi = new QPushButton(this);

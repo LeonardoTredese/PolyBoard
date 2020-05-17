@@ -22,21 +22,23 @@
 #include <QString>
 #include <QSizePolicy>
 #include <QResizeEvent>
-#include "selettore.h"
+#include "selettore_gioco.h"
+#include "selettore_promozione_scacchi.h"
 #include "chessbutton.h"
 #include "../posizione.h"
 #include "../pedina/id.h"
 #include "../colore.h"
+#include "../tipogioco.h"
 
 class mainWindow : public QWidget
 {
     Q_OBJECT
 public:
+    void selezionaPromozioneScacchi();
     mainWindow(QWidget *parent = nullptr);
     void addChessboard(int width, int height);
     void mossaNonValida(); //Visualizza Errore di mossa non valida a schermo
-    void updateBoard(const Posizione& iniziale, const Posizione& finale);
-    void aggiungiPedina(const Posizione&, const ID&, const QString&);
+    void aggiungiPedina(const Posizione&, const ID&, const TipoGioco&);
     void pulisciCella(const Posizione&);
 protected:
     virtual void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
@@ -53,7 +55,7 @@ private slots:
 signals:
     void nuovaPartitaScacchi() const;
     void casellaSelezionata(Posizione) const;
-
+    void promozioneScacchi(char) const;
 };
 
 #endif // MAINWINDOW_H

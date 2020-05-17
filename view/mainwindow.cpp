@@ -109,7 +109,7 @@ void mainWindow::cleanGrid()
 
 void mainWindow::nuovaPartita() const
 {
-    Selettore* sel = new Selettore(); // TODO: Senza this come parent esegue delete automatica?
+    SelettoreGioco* sel = new SelettoreGioco(); // TODO: Senza this come parent esegue delete automatica?
     connect(sel, SIGNAL(creaScacchi()), this, SIGNAL(nuovaPartitaScacchi()));
 }
 
@@ -121,10 +121,10 @@ void mainWindow::mossaNonValida()
     err->show();
 }
 
-void mainWindow::aggiungiPedina(const Posizione& pos, const ID& pedina, const QString& tipoGioco)
+void mainWindow::aggiungiPedina(const Posizione& pos, const ID& pedina, const TipoGioco& tipoGioco)
 {
-    QString pathIcon(":/resources/"+tipoGioco+"/icons/");
-    if(tipoGioco == "chess")
+    QString pathIcon(QString::fromStdString(":/resources/"+tipoGiocoToString(tipoGioco)+"/icons/"));
+    if(tipoGioco == chess)
     {
         switch(pedina.getTipo())
         {
@@ -150,7 +150,6 @@ void mainWindow::aggiungiPedina(const Posizione& pos, const ID& pedina, const QS
                 pathIcon = "";
                 break;
         }
-              
     }
     pathIcon += "_"; 
     switch(pedina.getColore())
@@ -178,14 +177,8 @@ void mainWindow::pulisciCella(const Posizione& pos)
     button->setIcon(QIcon());
 }
 
-/*
-void mainWindow::updateBoard(const Posizione& iniziale, const Posizione& finale)
+void mainWindow::selezionaPromozioneScacchi()
 {
-    ChessButton* buttonIniziale = dynamic_cast<ChessButton*>(gridLayout->itemAt(iniziale.x+iniziale.y*boardWidth)->widget());
-    QIcon toMove = QIcon(buttonIniziale->icon());
-    buttonIniziale->setIcon(QIcon());
-
-    ChessButton* buttonFinale = dynamic_cast<ChessButton*>(gridLayout->itemAt(finale.x+finale.y*boardWidth)->widget());
-    buttonFinale->setIcon(toMove);
-    buttonFinale->setIconSize(buttonFinale->rect().size());
-}*/
+    SelettorePromozioneScacchi *sel = new SelettorePromozioneScacchi();
+    connect(sel, SIGNAL(pedinaSelezionata(char)), this, SIGNAL(promozioneScacchi(char)));
+}

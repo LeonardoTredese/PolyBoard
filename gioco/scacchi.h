@@ -1,7 +1,6 @@
 #ifndef SCACCHI_H
 #define SCACCHI_H
 #include "gioco.h"
-#include <iostream>
 #include "../colore.h"
 #include "../pedina/scacchi/pedone.h"
 #include "../pedina/scacchi/torre.h"
@@ -9,20 +8,21 @@
 #include "../pedina/scacchi/cavallo.h"
 #include "../pedina/scacchi/regina.h"
 #include "../pedina/scacchi/re.h"
-using std::cout; using std::endl;
+#include "../tipogioco.h"
 
 class Scacchi : public Gioco {
 private:
     bool scaccoAlRe(Colore re) const;
     bool scaccoMatto(Colore re) const;
     bool arrocco(const Posizione& re, const Posizione& finale);
-    void promozionePedone(Pedina*& pedinaSel, const Posizione& posFinale);
 public:
     Scacchi();
-    virtual std::string tipoGioco() const;
+    virtual TipoGioco tipoGioco() const;
     virtual bool mossa(const Posizione& posIniziale, const Posizione& posFinale);
     virtual void cambioTurno();
     virtual bool controlloVincitore() const;
     virtual Scacchi* clone() const;
+    bool verificaPromozionePedone(const Posizione&) const;
+    void promozionePedone(char pedinaSel, const Posizione& posFinale);
 };
 #endif
