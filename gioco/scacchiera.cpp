@@ -73,10 +73,9 @@ bool Scacchiera::move(const Posizione& from, const Posizione& to, bool force)  /
     if(isInBound(from) && isInBound(to))
     {
         if(force)
-            remove(to);
-        if(force || isFree(to))
+            remove(to); // con questo isFree(to) è sicuramente true
+        if(isFree(to))
         {
-            delete elementAt(to);
             elementAt(to)=elementAt(from);
             elementAt(from)=nullptr;
             return true;
