@@ -76,6 +76,7 @@ bool Scacchiera::move(const Posizione& from, const Posizione& to, bool force)  /
             remove(to);
         if(force || isFree(to))
         {
+            delete elementAt(to);
             elementAt(to)=elementAt(from);
             elementAt(from)=nullptr;
             return true;
