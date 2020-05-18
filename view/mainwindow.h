@@ -44,11 +44,13 @@ public:
     void mostraVincitore(const Colore&);
     void mostraVincitoreResa(const Colore&);
     void mostraPareggio();
+    void setLabelTurno(const Colore&);
 protected:
     virtual void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
 private:
     QVBoxLayout *mainLayout;
     QGridLayout *gridLayout;
+    QLabel *turno;
     int boardWidth, boardHeight;
     //aggiunge il menù alla vista
     void addMenu();

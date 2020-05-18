@@ -1,10 +1,12 @@
 #include "mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent) : QWidget(parent), mainLayout(new QVBoxLayout(this)), gridLayout(new QGridLayout())
+MainWindow::MainWindow(QWidget *parent) : QWidget(parent), mainLayout(new QVBoxLayout(this)), gridLayout(new QGridLayout()), turno(new QLabel())
 {
-    addMenu();
+    addMenu();   
     gridLayout->setSizeConstraint(QLayout::SetFixedSize);
     mainLayout->addLayout(gridLayout);
+    turno->setObjectName("turno");
+    mainLayout->addWidget(turno);
     setStyle();
     setLayout(mainLayout);
 }
@@ -51,8 +53,7 @@ void MainWindow::addMenu()
 
 void MainWindow::addChessboard(int width, int height) 
 {
-    //TODO: Creare vector per i QPushButton, per raggiungerli più
-    //facilmente
+    QSize tmp = size();
     pulisciFinestra();
     boardWidth = width;
     boardHeight = height;
@@ -71,13 +72,13 @@ void MainWindow::addChessboard(int width, int height)
         //button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         gridLayout->addWidget(button, i/width, i%width);
     }
+    resize(tmp);
 }
 
-//quando viene invocato il metodo di resize, imposta l'altezza in base alla larghezza con setFixedHeight(width)
 void MainWindow::resizeEvent(QResizeEvent *event)  // TODO
 {
     event->accept();
-    setFixedHeight(width()); 
+    setMaximumHeight(width());
     for(int i=0; i < gridLayout->count(); i++)
     {
         ChessButton* button = static_cast<ChessButton*>(gridLayout->itemAt(i)->widget());
@@ -106,6 +107,7 @@ void MainWindow::pulisciFinestra()
 {
     for(int i=gridLayout->count()-1; i >= 0; i--)
         delete gridLayout->itemAt(i)->widget();
+    turno->setText("");
 }
 
 void MainWindow::nuovaPartita() const
@@ -168,7 +170,7 @@ void MainWindow::aggiungiPedina(const Posizione& pos, const ID& pedina, const Ti
     pathIcon += ".png";
     ChessButton* button = static_cast<ChessButton*>(gridLayout->itemAt(pos.x+pos.y*boardWidth)->widget());
     button->setIcon(QIcon(pathIcon));
-    button->setMinimumHeight(button->width());
+    //button->setMinimumHeight(button->width());
     button->setIconSize(button->size()*0.8);
 }
 
@@ -208,4 +210,9 @@ void MainWindow::mostraVincitoreResa(const Colore& vincitore)
 void MainWindow::mostraPareggio()
 {
     dialogFinePartita(QString::fromStdString("La partita è terminata in pareggio."));
+}
+
+void MainWindow::setLabelTurno(const Colore& s)
+{
+    turno->setText(QString::fromStdString("Turno del giocatore " + coloreToString(s)));
 }

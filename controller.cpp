@@ -20,10 +20,11 @@ Controller::Controller(QObject *parent) : QObject(parent), view(new MainWindow),
 void Controller::creaScacchi()
 {
     delete model;  // TODO non basta 
-    model = new Scacchi();
+    model = new Scacchi();    
     view->addChessboard(model->getWidth(), model->getHeight()); // aggiunge scacchiera vuota
     //per inizializzare la Scacchiera, itero su di essa e invoco il metodo aggiungiPedina() della view
     inizializzaPedine(model->tipoGioco());
+    view->setLabelTurno(model->getGiocatoreCorrente());
 }
 
 void Controller::inizializzaPedine(const TipoGioco& tipoGioco)
@@ -77,6 +78,7 @@ void Controller::mossaScacchi()
             return;
         }
         modelScacchi->cambioTurno();
+        view->setLabelTurno(modelScacchi->getGiocatoreCorrente());
     }
     else  // mossa non valida
         view->mossaNonValida();
@@ -89,6 +91,7 @@ void Controller::promozioneScacchi(char pedinaSel)
     modelScacchi->promozionePedone(pedinaSel, *posFinale);
     inizializzaPedine(modelScacchi->tipoGioco());
     modelScacchi->cambioTurno();
+    view->setLabelTurno(modelScacchi->getGiocatoreCorrente());
     if(modelScacchi->controlloVincitore())
     {
         view->mostraVincitore(modelScacchi->getGiocatoreCorrente());
@@ -116,9 +119,9 @@ void Controller::resetPartita()
 
 void Controller::resaDichiarata()
 {
-    Scacchi* modelScacchi = static_cast<Scacchi*>(model);
     model->cambioTurno();
-    view->mostraVincitoreResa(modelScacchi->getGiocatoreCorrente());
+    view->setLabelTurno(model->getGiocatoreCorrente());
+    view->mostraVincitoreResa(model->getGiocatoreCorrente());
 }
 
 void Controller::pareggio()

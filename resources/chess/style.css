@@ -37,3 +37,11 @@ QMenuBar {
 QMenuBar::item:selected, QMenu::item:selected{
     background-color: white;
 }
+
+QLabel#turno {
+    font-size: 10pt;
+    font-weight: bold;
+    text-align: center;
+    color: rgb(58,53,43);
+    padding: 20px;
+}
