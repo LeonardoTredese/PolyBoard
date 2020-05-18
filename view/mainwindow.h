@@ -30,16 +30,20 @@
 #include "../colore.h"
 #include "../tipogioco.h"
 
-class mainWindow : public QWidget
+class MainWindow : public QWidget
 {
     Q_OBJECT
 public:
     void selezionaPromozioneScacchi();
-    mainWindow(QWidget *parent = nullptr);
+    MainWindow(QWidget *parent = nullptr);
     void addChessboard(int width, int height);
     void mossaNonValida(); //Visualizza Errore di mossa non valida a schermo
     void aggiungiPedina(const Posizione&, const ID&, const TipoGioco&);
     void pulisciCella(const Posizione&);
+    void pulisciFinestra();
+    void mostraVincitore(const Colore&);
+    void mostraVincitoreResa(const Colore&);
+    void mostraPareggio();
 protected:
     virtual void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
 private:
@@ -49,13 +53,18 @@ private:
     //aggiunge il menù alla vista
     void addMenu();
     void setStyle();
-    void cleanGrid();
+    void dialogFinePartita(const QString&);
 private slots:
     void nuovaPartita() const;
 signals:
+    void pareggio()const;
+    void resa() const;
+    void terminaPartita() const;
     void nuovaPartitaScacchi() const;
     void casellaSelezionata(Posizione) const;
     void promozioneScacchi(char) const;
+    void resetFinestra() const;
+    void resaDichiarata() const;
 };
 
 #endif // MAINWINDOW_H

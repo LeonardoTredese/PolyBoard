@@ -62,7 +62,8 @@ SOURCES += \
            view/selettore_gioco.cpp \
            controller.cpp \
            tipogioco.cpp \
-           view/selettore_promozione_scacchi.cpp
+           view/selettore_promozione_scacchi.cpp \
+           colore.cpp
 
 QT += widgets
 

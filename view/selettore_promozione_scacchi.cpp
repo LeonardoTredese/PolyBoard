@@ -1,8 +1,8 @@
 #include "selettore_promozione_scacchi.h"
 
-SelettorePromozioneScacchi::SelettorePromozioneScacchi(QWidget *parent) : QWidget(parent)
+SelettorePromozioneScacchi::SelettorePromozioneScacchi(QWidget *parent) : QWidget(parent), mainLayout(new QHBoxLayout()), gruppoSelezione(new QButtonGroup())
 {
-    mainLayout = new QHBoxLayout(this);
+    setWindowFlags(windowFlags() & ~Qt::WindowCloseButtonHint); // serve per impedire la chiusura della finestra
     setLayout(mainLayout);
     
     QPushButton *regina = new QPushButton(this);
@@ -17,10 +17,10 @@ SelettorePromozioneScacchi::SelettorePromozioneScacchi(QWidget *parent) : QWidge
     QPushButton *alfiere = new QPushButton(this);
     alfiere->setText(QString("Alfiere"));
 
-    connect(regina, SIGNAL(clicked()), this, SIGNAL(pedinaSelezionata('Q')));
-    connect(cavallo, SIGNAL(clicked()), this, SIGNAL(pedinaSelezionata('N')));
-    connect(torre, SIGNAL(clicked()), this, SIGNAL(pedinaSelezionata('R')));
-    connect(alfiere, SIGNAL(clicked()), this, SIGNAL(pedinaSelezionata('B')));    
+    connect(regina, SIGNAL(clicked()), this, SLOT(reginaSel()));
+    connect(cavallo, SIGNAL(clicked()), this, SLOT(cavalloSel()));
+    connect(torre, SIGNAL(clicked()), this, SLOT(torreSel()));
+    connect(alfiere, SIGNAL(clicked()), this, SLOT(alfiereSel()));
     
     gruppoSelezione->addButton(regina);
     gruppoSelezione->addButton(cavallo);
@@ -36,3 +36,8 @@ SelettorePromozioneScacchi::SelettorePromozioneScacchi(QWidget *parent) : QWidge
 
     show();
 }
+
+void SelettorePromozioneScacchi::reginaSel() const { emit pedinaSelezionata('Q'); }
+void SelettorePromozioneScacchi::cavalloSel() const { emit pedinaSelezionata('N'); }
+void SelettorePromozioneScacchi::torreSel() const { emit pedinaSelezionata('R'); }
+void SelettorePromozioneScacchi::alfiereSel() const { emit pedinaSelezionata('B'); } 

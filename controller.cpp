@@ -1,11 +1,16 @@
 #include "controller.h"
 //Il controller itera sulla schacchiera e aggiorna di conseguenza la vista
-Controller::Controller(QObject *parent) : QObject(parent), view(new mainWindow), model(nullptr), posIniziale(nullptr), posFinale(nullptr)
+Controller::Controller(QObject *parent) : QObject(parent), view(new MainWindow), model(nullptr), posIniziale(nullptr), posFinale(nullptr)
 {
-    // il segnale selectedGame(Gioco*) della vista (mainWindow)
+    // il segnale selectedGame(Gioco*) della vista (MainWindow)
     // viene raccolto dallo slot createNewGame(Gioco*) del controller.
     connect(view, SIGNAL(nuovaPartitaScacchi()), this, SLOT(creaScacchi()));
     connect(view, SIGNAL(casellaSelezionata(Posizione)), this, SLOT(raccogliPosizione(Posizione)));
+    connect(view, SIGNAL(promozioneScacchi(char)),this,SLOT(promozioneScacchi(char)));
+    connect(view, SIGNAL(resetFinestra()), this, SLOT(resetPartita()));
+    connect(view, SIGNAL(terminaPartita()), this, SLOT(resetPartita()));
+    connect(view,SIGNAL(resa()),this,SLOT(resaDichiarata()));
+    connect(view,SIGNAL(pareggio()),this,SLOT(pareggio()));
     view->show();
 }
 
@@ -46,18 +51,12 @@ void Controller::raccogliPosizione(Posizione pos_)
             switch (model->tipoGioco())
             {
                 case chess: 
-                    mossaScacchi(); 
+                    mossaScacchi();  //  le posizioni devono essere eliminate qua dentro
                     break;
-                default: 
-
-                    break;
+                default:
+                    eliminaPosizioni();
             }
-            delete posFinale;
-            delete posIniziale;
-            posIniziale = posFinale = nullptr;
         }
-        else
-            abort(); // TODO: togliere, solo per test
 }
 
 void Controller::mossaScacchi()
@@ -68,16 +67,61 @@ void Controller::mossaScacchi()
     {
         if(modelScacchi->verificaPromozionePedone(*posFinale))
         {
-            //view->selezionaPromozioneScacchi();
-            modelScacchi->promozionePedone('Q', *posFinale); 
+            view->selezionaPromozioneScacchi();
+            return;
         }
         inizializzaPedine(modelScacchi->tipoGioco());
+        if(modelScacchi->controlloVincitore())
+        {
+            view->mostraVincitore(modelScacchi->getGiocatoreCorrente());
+            return;
+        }
         modelScacchi->cambioTurno();
-        // TODO: controllo vincitore
     }
     else  // mossa non valida
         view->mossaNonValida();
+    eliminaPosizioni();
 }
 
-void Controller::promozioneScacchi(char c)
-{}
+void Controller::promozioneScacchi(char pedinaSel)
+{
+    Scacchi* modelScacchi = static_cast<Scacchi*>(model);
+    modelScacchi->promozionePedone(pedinaSel, *posFinale);
+    inizializzaPedine(modelScacchi->tipoGioco());
+    modelScacchi->cambioTurno();
+    if(modelScacchi->controlloVincitore())
+    {
+        view->mostraVincitore(modelScacchi->getGiocatoreCorrente());
+        return;
+    }
+    eliminaPosizioni();
+    view->setEnabled(true);
+}
+
+void Controller::eliminaPosizioni()
+{
+    delete posFinale;
+    delete posIniziale;
+    posIniziale = posFinale = nullptr;
+}
+
+void Controller::resetPartita()
+{
+    delete model;
+    model = nullptr;
+    eliminaPosizioni();
+    view->pulisciFinestra();
+    view->setEnabled(true);
+}
+
+void Controller::resaDichiarata()
+{
+    Scacchi* modelScacchi = static_cast<Scacchi*>(model);
+    model->cambioTurno();
+    view->mostraVincitoreResa(modelScacchi->getGiocatoreCorrente());
+}
+
+void Controller::pareggio()
+{
+    view->mostraPareggio();
+}

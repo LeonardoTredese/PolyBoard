@@ -18,5 +18,5 @@ SelettoreGioco::SelettoreGioco(QWidget *parent) : QWidget(parent), mainLayout(ne
 //CreaScacchi, crea il nuovo tipo di gioco, in
 //base al pulsante premuto, in questo caso solamente "Scacchi"
 //ed emetterà il segnale "creaNuovoGioco", il quale passa
-//il nuovo gioco alla mainWindow.
+//il nuovo gioco alla MainWindow.
 
