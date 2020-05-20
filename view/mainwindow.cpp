@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent), mainLayout(new QVBoxL
     gridLayout->setSizeConstraint(QLayout::SetFixedSize);
     mainLayout->addLayout(gridLayout);
     turno->setObjectName("turno");
+    turno->setAlignment(Qt::AlignCenter);
     mainLayout->addWidget(turno);
     setStyle();
     setLayout(mainLayout);
