@@ -23,5 +23,6 @@ public:
     int getWidth() const;
     int getHeight() const;
     virtual Gioco* clone() const = 0;
+    bool isEmpty(const Posizione&) const;
 };
 #endif

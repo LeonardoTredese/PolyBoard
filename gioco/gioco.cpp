@@ -23,3 +23,8 @@ int Gioco::getHeight() const
 {
     return height;
 }
+
+bool Gioco::isEmpty(const Posizione& pos) const
+{
+    return tavolo[pos] == nullptr;
+}

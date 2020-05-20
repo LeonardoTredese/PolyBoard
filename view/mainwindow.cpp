@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent) : QWidget(parent), mainLayout(new QVBoxLayout(this)), gridLayout(new QGridLayout()), turno(new QLabel())
+MainWindow::MainWindow(QWidget *parent)
+    : QWidget(parent), mainLayout(new QVBoxLayout(this)), gridLayout(new QGridLayout()),
+      turno(new QLabel()), menuPartita(nullptr)
 {
     addMenu();   
     gridLayout->setSizeConstraint(QLayout::SetFixedSize);
@@ -32,21 +34,21 @@ void MainWindow::addMenu()
     //dallo slot "Nuova partita" di mainwindow.
     connect(nuova, SIGNAL(triggered()), this, SLOT(nuovaPartita()));
     //MENU PARTITA
-    QMenu *partita = new QMenu("Partita",menubar);
+    menuPartita = new QMenu("Partita", menubar);
 
-    QAction *reset = new QAction("Reset",partita);
-    QAction *resa = new QAction("Dichiara Resa",partita);
-    QAction *pareggio = new QAction("Dichiara Pareggio",partita);
+    QAction *reset = new QAction("Reset", menuPartita);
+    QAction *resa = new QAction("Dichiara Resa", menuPartita);
+    QAction *pareggio = new QAction("Dichiara Pareggio", menuPartita);
     connect(reset, SIGNAL(triggered()), this, SIGNAL(resetFinestra()));
-    connect(resa,SIGNAL(triggered()),this,SIGNAL(resa()));
-    connect(pareggio,SIGNAL(triggered()),this,SIGNAL(pareggio()));
-    partita->addAction(reset);
-    partita->addAction(resa);
-    partita->addAction(pareggio);
-
+    connect(resa, SIGNAL(triggered()), this, SIGNAL(resa()));
+    connect(pareggio, SIGNAL(triggered()), this, SIGNAL(pareggio()));
+    menuPartita->addAction(reset);
+    menuPartita->addAction(resa);
+    menuPartita->addAction(pareggio);
+    menuPartita->setEnabled(false);
     //aggiungo i menu alla menubar
     menubar->addMenu(file);
-    menubar->addMenu(partita);
+    menubar->addMenu(menuPartita);
 
     // Aggiungo la menubar al layout
     mainLayout->addWidget(menubar);
@@ -74,6 +76,8 @@ void MainWindow::addChessboard(int width, int height)
         gridLayout->addWidget(button, i/width, i%width);
     }
     resize(tmp);
+    menuPartita->setEnabled(true);
+
 }
 
 void MainWindow::resizeEvent(QResizeEvent *event)  // TODO
@@ -109,6 +113,7 @@ void MainWindow::pulisciFinestra()
     for(int i=gridLayout->count()-1; i >= 0; i--)
         delete gridLayout->itemAt(i)->widget();
     turno->setText("");
+    menuPartita->setEnabled(false);
 }
 
 void MainWindow::nuovaPartita() const

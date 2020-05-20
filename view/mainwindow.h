@@ -51,6 +51,7 @@ private:
     QVBoxLayout *mainLayout;
     QGridLayout *gridLayout;
     QLabel *turno;
+    QMenu *menuPartita;
     int boardWidth, boardHeight;
     //aggiunge il menù alla vista
     void addMenu();

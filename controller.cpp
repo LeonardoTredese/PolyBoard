@@ -44,8 +44,12 @@ void Controller::inizializzaPedine(const TipoGioco& tipoGioco)
 void Controller::raccogliPosizione(Posizione pos_)
 {
     if(!posIniziale)
-        posIniziale = new Posizione(pos_);
+    {
+        if(!(model->isEmpty(pos_))) // scelgo una casella non vuota come pos iniziale
+            posIniziale = new Posizione(pos_);
+    }
     else 
+    {
         if(!posFinale)
         {
             posFinale = new Posizione(pos_);
@@ -58,6 +62,7 @@ void Controller::raccogliPosizione(Posizione pos_)
                     eliminaPosizioni();
             }
         }
+    }
 }
 
 void Controller::mossaScacchi()
