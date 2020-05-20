@@ -8,9 +8,11 @@ class ID
 private:
     const char tipo_pedina;
     const Colore colore;
+    const bool primaMossa;
 public:
-    ID(char _pedina, Colore _colore);
+    ID(char pedina_, Colore colore_, bool primaMossa_ = false);
     char getTipo() const;
+    bool getPrimaMossa() const;
     Colore getColore() const;
     bool operator==(const ID&) const;
     bool operator!=(const ID&) const;

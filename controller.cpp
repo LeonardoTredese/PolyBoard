@@ -1,6 +1,8 @@
 #include "controller.h"
 //Il controller itera sulla schacchiera e aggiorna di conseguenza la vista
-Controller::Controller(QObject *parent) : QObject(parent), view(new MainWindow), model(nullptr), posIniziale(nullptr), posFinale(nullptr)
+Controller::Controller(QObject *parent)
+ : QObject(parent), view(new MainWindow), model(nullptr),
+  posIniziale(nullptr), posFinale(nullptr), jsonFile(nullptr)
 {
     // il segnale selectedGame(Gioco*) della vista (MainWindow)
     // viene raccolto dallo slot createNewGame(Gioco*) del controller.
@@ -9,8 +11,10 @@ Controller::Controller(QObject *parent) : QObject(parent), view(new MainWindow),
     connect(view, SIGNAL(promozioneScacchi(char)),this,SLOT(promozioneScacchi(char)));
     connect(view, SIGNAL(resetFinestra()), this, SLOT(resetPartita()));
     connect(view, SIGNAL(terminaPartita()), this, SLOT(resetPartita()));
-    connect(view,SIGNAL(resa()),this,SLOT(resaDichiarata()));
-    connect(view,SIGNAL(pareggio()),this,SLOT(pareggio()));
+    connect(view, SIGNAL(resa()),this,SLOT(resaDichiarata()));
+    connect(view, SIGNAL(salvaConNome(const QString&)), this, SLOT(salvaConNome(const QString&)));
+    connect(view, SIGNAL(salva()), this, SLOT(salvaPartita()));
+    connect(view, SIGNAL(carica(const QString&)), this, SLOT(caricaPartita(const QString&)));
     view->show();
 }
 
@@ -129,7 +133,74 @@ void Controller::resaDichiarata()
     view->mostraVincitoreResa(model->getGiocatoreCorrente());
 }
 
-void Controller::pareggio()
+void Controller::salvaConNome(const QString& filename)
 {
-    view->mostraPareggio();
+    // TODO: invocare solo se model != nullptr
+    //creo il file .json
+    QJsonObject* json = new QJsonObject();
+    int i = 0;
+    json->insert("gioco", model->tipoGioco());
+    for(int y=0; y < model->getHeight(); y++)
+        for(int x=0; x < model->getWidth(); x++)
+        {
+            ID *current = model->getIdPedina(Posizione(x,y));
+            if(current)
+            {
+                QJsonArray *id = new QJsonArray({current->getTipo(), current->getColore(), current->getPrimaMossa()}), *pos = new QJsonArray({x, y});
+                json->insert(QString::number(i++), QJsonArray({*id, *pos}));
+            }
+        }
+    jsonFile->open(QFile::WriteOnly);
+    jsonFile->write(QJsonDocument(*json).toJson());
+    delete jsonFile;
+    jsonFile = new QFile(filename);
 }
+
+void Controller::salvaPartita()
+{
+    if(jsonFile && jsonFile->exists())
+        salvaConNome(jsonFile->fileName());
+    else
+        view->selezionaFileSalvataggio();
+}
+
+void Controller::caricaPartita(const QString& filename)
+{
+    delete jsonFile;
+    jsonFile = new QFile(filename);
+    jsonFile->open(QFile::ReadOnly);
+    QJsonObject json = QJsonDocument::fromJson(jsonFile->readAll()).object();
+    
+    // import gioco
+    switch(TipoGioco(json["gioco"].toInt()))
+    {
+        case chess:
+            delete model;
+            model = new Scacchi();
+            break;
+        // altri giochi
+    }
+    
+    // import pedine
+    for(auto it = json.begin(); it != json.end(); it++)
+        if(it.key() != "gioco")
+        {
+            QJsonArray arrayId = it.value().toArray()[0].toArray(), arrayPos = it.value().toArray()[1].toArray();
+            ID id(*(arrayId[0].toString().toStdString().c_str()), Colore(arrayId[1].toInt()), arrayId[2].toBool());
+            Posizione pos(arrayPos[0].toInt(), arrayPos[1].toInt());
+            model->inserisciPedina(pos, id);
+        }
+    
+    view->addChessboard(model->getWidth(), model->getHeight());  // scacchiera vuota
+    inizializzaPedine(model->tipoGioco());  // sincronizzazione della view con il model
+    view->setLabelTurno(model->getGiocatoreCorrente());
+}
+
+/*
+
+{
+    1: [['k',2], [12,5]]
+    2: [ID, Pos]
+}
+
+*/

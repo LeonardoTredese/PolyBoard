@@ -263,3 +263,34 @@ bool Scacchi::verificaPromozionePedone(const Posizione& pos) const
     }
     return false;
 }
+
+void Scacchi::inserisciPedina(const Posizione& pos, const ID& id)
+{
+    Pedina *toInsert = idToPedina(id);
+    if(toInsert)
+        tavolo.insert(*toInsert, pos);
+    delete toInsert;
+}
+
+Pedina* Scacchi::idToPedina(const ID& id)
+{
+    switch(id.getTipo())
+    {
+        case 'P': // pedone
+            return new Pedone(id.getColore(), id.getPrimaMossa());
+        case 'N': // cavallo
+            return new Cavallo(id.getColore());
+        case 'Q': // regina 
+            return new Regina(id.getColore());
+        case 'K': // re
+            return new Re(id.getColore(), id.getPrimaMossa());
+        case 'B': // alfiere
+            return new Alfiere(id.getColore());
+        case 'R': // torre
+            return new Torre(id.getColore(), id.getPrimaMossa());
+        default:
+            return nullptr;
+    }
+    
+    
+}

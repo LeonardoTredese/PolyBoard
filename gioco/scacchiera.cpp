@@ -4,7 +4,7 @@ Pedina*& Scacchiera::elementAt(const Posizione& p) const
 {
     return board[width*p.y+p.x];
 }
-Scacchiera::Scacchiera(unsigned int _width, unsigned int _height) : width(_width), height(_height)
+Scacchiera::Scacchiera(int _width, int _height) : width(_width), height(_height)
 {
     if(width < 2 || height < 2)
         throw ErroreScacchiera(BOARD_TOO_SMALL);
@@ -100,14 +100,6 @@ Posizione Scacchiera::find(const Pedina* p) const
         }
     throw(ErroreScacchiera(ELEMENT_NOT_FOUND));
 }
-
-/*Pedina& Scacchiera::selectElement(const Posizione& p) const
-{
-    if(!isInBound(p) || elementAt(p) == nullptr)
-        throw(ELEMENT_NOT_FOUND);
-    else
-        return *elementAt(p);
-}*/
 
 bool Scacchiera::traiettoriaLibera(const list<Posizione>& posizioni) const
 {

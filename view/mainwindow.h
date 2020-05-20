@@ -22,6 +22,7 @@
 #include <QString>
 #include <QSizePolicy>
 #include <QResizeEvent>
+#include <QFileDialog>
 #include "selettore_gioco.h"
 #include "selettore_promozione_scacchi.h"
 #include "chessbutton.h"
@@ -43,7 +44,6 @@ public:
     void pulisciFinestra();
     void mostraVincitore(const Colore&);
     void mostraVincitoreResa(const Colore&);
-    void mostraPareggio();
     void setLabelTurno(const Colore&);
 protected:
     virtual void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
@@ -59,8 +59,14 @@ private:
     void dialogFinePartita(const QString&);
 private slots:
     void nuovaPartita() const;
+    void mostraPareggio();
+    void selezionaFileCaricamento();
+public slots:
+    void selezionaFileSalvataggio();
 signals:
-    void pareggio()const;
+    void salvaConNome(const QString&) const;
+    void salva() const;
+    void carica(const QString&) const;
     void resa() const;
     void terminaPartita() const;
     void nuovaPartitaScacchi() const;

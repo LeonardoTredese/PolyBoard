@@ -24,5 +24,6 @@ public:
     int getHeight() const;
     virtual Gioco* clone() const = 0;
     bool isEmpty(const Posizione&) const;
+    virtual void inserisciPedina(const Posizione&, const ID&) = 0;
 };
 #endif

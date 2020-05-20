@@ -9,7 +9,7 @@ Torre* Torre::clone() const
 
 ID Torre::getId() const
 {
-    return ID('R', getColore());
+    return ID('R', getColore(), primaMossa);
 }
 
 void Torre::pedinaMossa() { primaMossa = false; }

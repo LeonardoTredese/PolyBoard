@@ -23,11 +23,11 @@ Perciò abbiamo deciso di mantenere questa implementazione, in quanto ci è semb
 class Scacchiera
 {
 private:
-    const unsigned int width, height;
+    const int width, height;
     Pedina** board;
     Pedina*& elementAt(const Posizione& p) const;
 public:
-    Scacchiera(unsigned int _width, unsigned int _height);
+    Scacchiera(int _width, int _height);
     ~Scacchiera();
     Scacchiera(const Scacchiera& s);
     Scacchiera& operator=(const Scacchiera& s);

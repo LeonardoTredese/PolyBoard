@@ -1,10 +1,13 @@
 #include "selettore_promozione_scacchi.h"
 
-SelettorePromozioneScacchi::SelettorePromozioneScacchi(QWidget *parent) : QWidget(parent), mainLayout(new QHBoxLayout()), gruppoSelezione(new QButtonGroup())
+SelettorePromozioneScacchi::SelettorePromozioneScacchi(QWidget *parent) : QWidget(parent), mainLayout(new QVBoxLayout()), gruppoSelezione(new QButtonGroup())
 {
     setWindowFlags(windowFlags() & ~Qt::WindowCloseButtonHint); // serve per impedire la chiusura della finestra
     setLayout(mainLayout);
-    
+
+    QLabel* info = new QLabel("Seleziona promozione pedone", this);
+    info->setAlignment(Qt::AlignCenter);
+
     QPushButton *regina = new QPushButton(this);
     regina->setText(QString("Regina"));
     
@@ -29,6 +32,7 @@ SelettorePromozioneScacchi::SelettorePromozioneScacchi(QWidget *parent) : QWidge
     
     connect(gruppoSelezione, SIGNAL(buttonClicked(int)), this, SLOT(close()));
 
+    mainLayout->addWidget(info);
     mainLayout->addWidget(regina);
     mainLayout->addWidget(cavallo);
     mainLayout->addWidget(torre);

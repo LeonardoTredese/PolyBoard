@@ -2,14 +2,15 @@
 #define SELETTORE_PROMOZIONE_H
 
 #include <QWidget>
-#include <QHBoxLayout>
+#include <QVBoxLayout>
 #include <QPushButton>
 #include <QButtonGroup>
+#include <QLabel>
 
 class SelettorePromozioneScacchi : public QWidget
 {
     Q_OBJECT
-    QHBoxLayout *mainLayout;
+    QVBoxLayout *mainLayout;
     QButtonGroup *gruppoSelezione;
 public:
     explicit SelettorePromozioneScacchi(QWidget *parent = nullptr);

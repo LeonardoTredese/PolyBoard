@@ -3,6 +3,10 @@
 SelettoreGioco::SelettoreGioco(QWidget *parent) : QWidget(parent), mainLayout(new QVBoxLayout(this)), gruppoGiochi(new QButtonGroup(this))
 {
     setLayout(mainLayout);
+    setMinimumWidth(300);
+    QLabel* info = new QLabel("Seleziona gioco", this);
+    info->setAlignment(Qt::AlignCenter);
+    mainLayout->addWidget(info);
     QPushButton *pulsanteScacchi = new QPushButton(this);
     connect(gruppoGiochi, SIGNAL(buttonClicked(int)), this, SLOT(close()));  // chiudi finestra selettore quando viene selezionato un gioco
     pulsanteScacchi->setText("Scacchi");

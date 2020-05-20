@@ -17,7 +17,7 @@ Re* Re::clone() const
 
 ID Re::getId() const
 {
-    return ID('K', getColore());
+    return ID('K', getColore(), primaMossa);
 }
 
 void Re::pedinaMossa() { primaMossa = false; }

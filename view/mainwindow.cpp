@@ -24,11 +24,14 @@ void MainWindow::addMenu()
     QAction* save_name = new QAction("Salva con Nome",file);
     QAction* load = new QAction("Carica",file);
     QAction* nuova= new QAction("Nuova Partita",file);
-
     file->addAction(nuova);
     file->addAction(load);
     file->addAction(save);
     file->addAction(save_name);
+
+    connect(save_name, SIGNAL(triggered()), this, SLOT(selezionaFileSalvataggio()));
+    connect(save, SIGNAL(triggered()), this, SIGNAL(salva()));
+    connect(load, SIGNAL(triggered()), this, SLOT(selezionaFileCaricamento()));
 
     //alla pressione del tasto "Nuova partita", esso viene raccolto
     //dallo slot "Nuova partita" di mainwindow.
@@ -41,7 +44,7 @@ void MainWindow::addMenu()
     QAction *pareggio = new QAction("Dichiara Pareggio", menuPartita);
     connect(reset, SIGNAL(triggered()), this, SIGNAL(resetFinestra()));
     connect(resa, SIGNAL(triggered()), this, SIGNAL(resa()));
-    connect(pareggio, SIGNAL(triggered()), this, SIGNAL(pareggio()));
+    connect(pareggio, SIGNAL(triggered()), this, SLOT(mostraPareggio()));
     menuPartita->addAction(reset);
     menuPartita->addAction(resa);
     menuPartita->addAction(pareggio);
@@ -221,4 +224,18 @@ void MainWindow::mostraPareggio()
 void MainWindow::setLabelTurno(const Colore& s)
 {
     turno->setText(QString::fromStdString("Turno del giocatore " + coloreToString(s)));
+}
+
+void MainWindow::selezionaFileSalvataggio()
+{
+    QString filename = QFileDialog::getSaveFileName(this, "Seleziona file", "", "*.json");
+    if(filename != "")
+        emit salvaConNome(filename);
+}
+
+void MainWindow::selezionaFileCaricamento()
+{
+    QString filename = QFileDialog::getSaveFileName(this, "Seleziona file", "", "*.json");
+    if(filename != "")
+        emit carica(filename);
 }

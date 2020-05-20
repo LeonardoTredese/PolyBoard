@@ -5,6 +5,7 @@
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QButtonGroup>
+#include <QLabel>
 
 class SelettoreGioco : public QWidget
 {

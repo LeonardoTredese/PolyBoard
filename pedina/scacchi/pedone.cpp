@@ -37,7 +37,7 @@ Pedone* Pedone::clone() const
 
 ID Pedone::getId() const
 {
-    return ID('P',getColore());
+    return ID('P', getColore(), primaMossa);
 }
 
 void Pedone::pedinaMossa(){ if(primaMossa) primaMossa=false; }
