@@ -2,7 +2,6 @@
     margin: 0;
     padding: 0;
     background-color: white;
-    color: rgb(59, 59, 59);
 }
 
 QPushButton {
@@ -30,12 +29,12 @@ QPushButton#white:hover {
 }
 
 QMenuBar {
-    padding: 5px;
     background-color: white;
 }
 
 QMenuBar::item:selected, QMenu::item:selected{
     background-color: white;
+    color: rgb(10, 10, 10);
 }
 
 QLabel#turno {

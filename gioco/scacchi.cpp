@@ -51,32 +51,23 @@ TipoGioco Scacchi::tipoGioco() const {return chess;}
 
 bool Scacchi::mossa(const Posizione& posIniziale, const Posizione& posFinale)
 {
-    if(!tavolo.isInBound(posFinale)){
-        //cout << "## Out of bound ##" << endl;
+    if(!tavolo.isInBound(posFinale))
         return false;
-    }
     Pedina* pedinaSel = tavolo[posIniziale]; // pedina da muovere
     if(!pedinaSel || pedinaSel->getColore() != giocatore_corrente)
-    {
-        //cout << "## posIniziale non valida ##" << endl;
         return false;
-    }
     // qui sappiamo per certo che le due posizioni sono in bound e che la pedina in posIniziale è del giocatore corrente
     
     if(!arrocco(posIniziale, posFinale))
     {
         if(!tavolo.isFree(posFinale) && pedinaSel->getColore() == tavolo[posFinale]->getColore()) // non posso mangiare pedine amiche
-        {
-            //cout<<"## Mangio pedina amica ##"<<endl;
             return false;
-        }
+
         bool eat = !tavolo.isFree(posFinale);
         std::list<Posizione> traiettoria = pedinaSel->controlloMossa(posIniziale, posFinale, eat);
         if(!tavolo.traiettoriaLibera(traiettoria))
-        {
-            //cout<<"## Traiettoria vuota/Traiettoria non libera ##"<<endl;
             return false;
-        }
+        
         //per effettuare il rollback devo salvarmi la pedina, nel caso essa venga mangiata
         bool backup = !tavolo.isFree(posFinale);
         Pedina* backupFine(nullptr);
@@ -86,7 +77,6 @@ bool Scacchi::mossa(const Posizione& posIniziale, const Posizione& posFinale)
         if(scaccoAlRe(pedinaSel->getColore()))
         {
             tavolo.move(posFinale, posIniziale);
-            //cout<<"##### Sono in scacco al Re ######"<<endl;
             if(backup)
                 tavolo.insert(*backupFine, posFinale);
             delete backupFine;
@@ -111,12 +101,8 @@ bool Scacchi::scaccoAlRe(Colore coloreRe) const
     for(cit=tavolo.begin(); cit!=tavolo.end(); ++cit)
         if((*cit) && (*cit)->getColore() != coloreRe &&
          tavolo.traiettoriaLibera((*cit)->controlloMossa(tavolo.find(*cit), posRe, true)))
-         {
-            //ID id ((*cit)->getId());
-            //cout << id.getTipo() << id.getColore() << endl;
             return true;  // se la posizione non è una pedina vuota, ed è di colore diverso dal Re 
                          // e la traiettoria tra la pedina e il Re è libera
-         }
     return false;
 }
 // POST: ritorna true sse il re di coloreRe è sotto scacco
@@ -124,7 +110,7 @@ bool Scacchi::scaccoAlRe(Colore coloreRe) const
 bool Scacchi::scaccoMatto(Colore coloreRe) const
 {
     Scacchi backup(*this);
-    backup.giocatore_corrente = coloreRe;//switcho al colore avversario 
+    backup.giocatore_corrente = coloreRe; //switcho al colore avversario 
     auto cit=tavolo.begin();
     for(; cit!=tavolo.end(); ++cit) // scorre tutto il tavolo
         if((*cit) && (*cit)->getId() == ID('K', coloreRe))

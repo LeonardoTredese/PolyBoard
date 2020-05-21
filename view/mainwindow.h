@@ -49,17 +49,21 @@ public:
 protected:
     virtual void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
 private:
+    int boardWidth, boardHeight;
+
     QVBoxLayout *mainLayout;
     QGridLayout *gridLayout;
     QLabel *turno;
+
     QMenu *menuPartita;
-    int boardWidth, boardHeight;
+    QAction *save, *save_name;
+
     //aggiunge il menù alla vista
     void addMenu();
     void setStyle();
     void dialogAvviso(const QString&, bool = true);
 private slots:
-    void nuovaPartita() const;
+    void nuovaPartita();
     void mostraPareggio();
     void selezionaFileCaricamento();
 public slots:

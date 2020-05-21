@@ -24,7 +24,7 @@ Controller::Controller(QObject *parent)
 //dalla vista.
 void Controller::creaScacchi()
 {
-    delete model;  // TODO non basta 
+    delete model;
     model = new Scacchi();    
     view->addChessboard(model->getWidth(), model->getHeight()); // aggiunge scacchiera vuota
     //per inizializzare la Scacchiera, itero su di essa e invoco il metodo aggiungiPedina() della view
@@ -136,7 +136,6 @@ void Controller::resaDichiarata()
 
 void Controller::salvaConNome(const QString& filename)
 {
-    // TODO: invocare solo se model != nullptr
     //creo il file .json
     QJsonObject json;
     int i = 0;

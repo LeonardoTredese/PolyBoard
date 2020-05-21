@@ -6,7 +6,7 @@ std::list<Posizione> Cavallo::controlloMossa(const Posizione& inizio, const Posi
 {
     std::list<Posizione> ris;
     if((( inizio.x+2 == fine.x || inizio.x-2==fine.x ) && ( inizio.y+1==fine.y || inizio.y-1==fine.y )) || 
-    (( inizio.y+2==fine.y || inizio.y-2==fine.y )&&((inizio.x+1==fine.x)||(inizio.x-1==fine.x)))) // TODO: rivedere if
+    (( inizio.y+2==fine.y || inizio.y-2==fine.y )&&((inizio.x+1==fine.x)||(inizio.x-1==fine.x))))
         ris.push_back(fine);
     return ris;
 }

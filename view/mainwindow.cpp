@@ -2,7 +2,7 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent), mainLayout(new QVBoxLayout(this)), gridLayout(new QGridLayout()),
-      turno(new QLabel()), menuPartita(nullptr)
+      turno(new QLabel()), menuPartita(nullptr), save(nullptr), save_name(nullptr)
 {
     addMenu();   
     gridLayout->setSizeConstraint(QLayout::SetFixedSize);
@@ -22,15 +22,21 @@ void MainWindow::addMenu()
     QMenuBar* menubar = new QMenuBar(this);
     //MENU FILE
     QMenu* file = new QMenu("File",menubar);
-    QAction* save = new QAction("Salva",file);
-    QAction* save_name = new QAction("Salva con Nome",file);
-    QAction* load = new QAction("Carica",file);
-    QAction* nuova= new QAction("Nuova Partita",file);
+    save = new QAction("Salva",file);
+    save_name = new QAction("Salva con Nome",file);
+    QAction *load = new QAction("Carica",file),
+            *nuova= new QAction("Nuova Partita",file);
     file->addAction(nuova);
     file->addAction(load);
     file->addAction(save);
     file->addAction(save_name);
-
+    save->setEnabled(false);
+    save_name->setEnabled(false);
+    save->setShortcut(QKeySequence("Ctrl+S"));
+    save_name->setShortcut(QKeySequence("Ctrl+Shift+S"));
+    load->setShortcut(QKeySequence("Ctrl+O"));
+    nuova->setShortcut(QKeySequence("Ctrl+N"));
+    
     connect(save_name, SIGNAL(triggered()), this, SLOT(selezionaFileSalvataggio()));
     connect(save, SIGNAL(triggered()), this, SIGNAL(salva()));
     connect(load, SIGNAL(triggered()), this, SLOT(selezionaFileCaricamento()));
@@ -41,9 +47,9 @@ void MainWindow::addMenu()
     //MENU PARTITA
     menuPartita = new QMenu("Partita", menubar);
 
-    QAction *reset = new QAction("Reset", menuPartita);
-    QAction *resa = new QAction("Dichiara Resa", menuPartita);
-    QAction *pareggio = new QAction("Dichiara Pareggio", menuPartita);
+    QAction *reset = new QAction("Reset", menuPartita),
+            *resa = new QAction("Dichiara Resa", menuPartita),
+            *pareggio = new QAction("Dichiara Pareggio", menuPartita);
     connect(reset, SIGNAL(triggered()), this, SIGNAL(resetFinestra()));
     connect(resa, SIGNAL(triggered()), this, SIGNAL(resa()));
     connect(pareggio, SIGNAL(triggered()), this, SLOT(mostraPareggio()));
@@ -77,15 +83,15 @@ void MainWindow::addChessboard(int width, int height)
             button->setObjectName("black");
         else
             button->setObjectName("white");
-        //button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         gridLayout->addWidget(button, i/width, i%width);
     }
     resize(tmp);
     menuPartita->setEnabled(true);
-
+    save->setEnabled(true);
+    save_name->setEnabled(true);
 }
 
-void MainWindow::resizeEvent(QResizeEvent *event)  // TODO
+void MainWindow::resizeEvent(QResizeEvent *event)
 {
     event->accept();
     setMaximumHeight(width());
@@ -98,8 +104,7 @@ void MainWindow::resizeEvent(QResizeEvent *event)  // TODO
 }
 
 void MainWindow::setStyle()
-{
-    //setFixedSize(width(), height());   
+{ 
     QScreen *screen = QGuiApplication::primaryScreen();
     QRect screenGeometry = screen->geometry();
     int height = screenGeometry.height();
@@ -108,7 +113,7 @@ void MainWindow::setStyle()
     dim *= 0.95;
     setMaximumSize(dim,dim); 
     gridLayout->setSpacing(0);
-    QFile file(":/resources/chess/style.css"); // TODO: mettere style globale
+    QFile file(":/resources/chess/style.css");
     file.open(QFile::ReadOnly);
     QString styleSheet = QLatin1String(file.readAll());
     setStyleSheet(styleSheet);
@@ -119,11 +124,14 @@ void MainWindow::pulisciFinestra()
         delete gridLayout->itemAt(i)->widget();
     turno->setText("");
     menuPartita->setEnabled(false);
+    save->setEnabled(false);
+    save_name->setEnabled(false);
 }
 
-void MainWindow::nuovaPartita() const
+void MainWindow::nuovaPartita()
 {
-    SelettoreGioco* sel = new SelettoreGioco(); // TODO: Senza this come parent esegue delete automatica?
+    setEnabled(false);
+    SelettoreGioco* sel = new SelettoreGioco();
     connect(sel, SIGNAL(creaScacchi()), this, SIGNAL(nuovaPartitaScacchi()));
 }
 
@@ -181,7 +189,6 @@ void MainWindow::aggiungiPedina(const Posizione& pos, const ID& pedina, const Ti
     pathIcon += ".png";
     ChessButton* button = static_cast<ChessButton*>(gridLayout->itemAt(pos.x+pos.y*boardWidth)->widget());
     button->setIcon(QIcon(pathIcon));
-    //button->setMinimumHeight(button->width());
     button->setIconSize(button->size()*0.8);
 }
 
