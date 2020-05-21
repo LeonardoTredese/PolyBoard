@@ -6,8 +6,6 @@
 
 class Gioco
 {
-private:
-    int width, height;
 protected:
     Scacchiera tavolo;
     Colore giocatore_corrente;

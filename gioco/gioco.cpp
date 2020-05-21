@@ -1,6 +1,6 @@
 #include "gioco.h"
 
-Gioco::Gioco(int _width, int _height, Colore giocatore_iniziale) : width(_width), height(_height), tavolo(_width, _height), giocatore_corrente(giocatore_iniziale){}
+Gioco::Gioco(int _width, int _height, Colore giocatore_iniziale) : tavolo(_width, _height), giocatore_corrente(giocatore_iniziale){}
 
 Colore Gioco::getGiocatoreCorrente() const{
     return giocatore_corrente;
@@ -16,12 +16,12 @@ ID* Gioco::getIdPedina(const Posizione& pos) const
 
 int Gioco::getWidth() const
 {
-    return width;
+    return tavolo.getWidth();
 }
 
 int Gioco::getHeight() const
 {
-    return height;
+    return tavolo.getHeight();
 }
 
 bool Gioco::isEmpty(const Posizione& pos) const
