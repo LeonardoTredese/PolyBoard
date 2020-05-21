@@ -2,41 +2,44 @@
 #define width 8
 #define height 8
 
-Scacchi::Scacchi():Gioco(width, height, bianco)
+Scacchi::Scacchi(Colore turnoIniziale, bool inserisciPedine) : Gioco(width, height, turnoIniziale)
 {
-    Pedone pedBianco(bianco), pedNero(nero);
-    Alfiere alfBianco(bianco), alfNero(nero);
-    Torre torBianco(bianco),torNero(nero);
-    Re reBianco(bianco), reNero(nero);
-    Regina regBianco(bianco), regNero(nero);
-    Cavallo cavBianco(bianco),cavNero(nero);
-
-    // mettiamo pedoni bianchi e poi neri
-    for(int x=0; x<width; ++x)
+    if(inserisciPedine)
     {
-        tavolo.insert(pedBianco, Posizione(x,6)); // per i bianchi la y=6
-        tavolo.insert(pedNero, Posizione(x,1)); // per i neri la y=1
+        Pedone pedBianco(bianco), pedNero(nero);
+        Alfiere alfBianco(bianco), alfNero(nero);
+        Torre torBianco(bianco),torNero(nero);
+        Re reBianco(bianco), reNero(nero);
+        Regina regBianco(bianco), regNero(nero);
+        Cavallo cavBianco(bianco),cavNero(nero);
+
+        // mettiamo pedoni bianchi e poi neri
+        for(int x=0; x<width; ++x)
+        {
+            tavolo.insert(pedBianco, Posizione(x,6)); // per i bianchi la y=6
+            tavolo.insert(pedNero, Posizione(x,1)); // per i neri la y=1
+        }
+
+        // inseriamo pedine bianche
+        tavolo.insert(torBianco, Posizione(0,7));
+        tavolo.insert(cavBianco, Posizione(1,7));
+        tavolo.insert(alfBianco, Posizione(2,7));
+        tavolo.insert(regBianco, Posizione(3,7));
+        tavolo.insert(reBianco,  Posizione(4,7));
+        tavolo.insert(alfBianco, Posizione(5,7));
+        tavolo.insert(cavBianco, Posizione(6,7));
+        tavolo.insert(torBianco, Posizione(7,7));
+
+        // inseriamo pedine nere
+        tavolo.insert(torNero, Posizione(0,0));
+        tavolo.insert(cavNero, Posizione(1,0));
+        tavolo.insert(alfNero, Posizione(2,0));
+        tavolo.insert(regNero, Posizione(3,0));
+        tavolo.insert(reNero,  Posizione(4,0));
+        tavolo.insert(alfNero, Posizione(5,0));
+        tavolo.insert(cavNero, Posizione(6,0));
+        tavolo.insert(torNero, Posizione(7,0));
     }
-
-    // inseriamo pedine bianche
-    tavolo.insert(torBianco, Posizione(0,7));
-    tavolo.insert(cavBianco, Posizione(1,7));
-    tavolo.insert(alfBianco, Posizione(2,7));
-    tavolo.insert(regBianco, Posizione(3,7));
-    tavolo.insert(reBianco,  Posizione(4,7));
-    tavolo.insert(alfBianco, Posizione(5,7));
-    tavolo.insert(cavBianco, Posizione(6,7));
-    tavolo.insert(torBianco, Posizione(7,7));
-
-    // inseriamo pedine nere
-    tavolo.insert(torNero, Posizione(0,0));
-    tavolo.insert(cavNero, Posizione(1,0));
-    tavolo.insert(alfNero, Posizione(2,0));
-    tavolo.insert(regNero, Posizione(3,0));
-    tavolo.insert(reNero,  Posizione(4,0));
-    tavolo.insert(alfNero, Posizione(5,0));
-    tavolo.insert(cavNero, Posizione(6,0));
-    tavolo.insert(torNero, Posizione(7,0));
 }
 
 Scacchi* Scacchi::clone() const
@@ -255,21 +258,13 @@ void Scacchi::promozionePedone(char pedinaSel, const Posizione& posFinale)
 
 bool Scacchi::verificaPromozionePedone(const Posizione& pos) const
 {
-    if(pos.y == 0  || pos.y==height-1)
+    if(pos.y == 0  || pos.y == height-1)
     {
         Pedone* p = dynamic_cast<Pedone*>(tavolo[pos]);
         if(p)
             return true;
     }
     return false;
-}
-
-void Scacchi::inserisciPedina(const Posizione& pos, const ID& id)
-{
-    Pedina *toInsert = idToPedina(id);
-    if(toInsert)
-        tavolo.insert(*toInsert, pos);
-    delete toInsert;
 }
 
 Pedina* Scacchi::idToPedina(const ID& id)
@@ -291,6 +286,4 @@ Pedina* Scacchi::idToPedina(const ID& id)
         default:
             return nullptr;
     }
-    
-    
 }

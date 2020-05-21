@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QString>
-#include <QJsonObject>  // QT += core ?
+#include <QJsonObject>
 #include <QJsonArray>
 #include <QJsonValue>
 #include <QJsonDocument>
@@ -22,7 +22,7 @@ private:
     MainWindow *view;
     Gioco *model;
     Posizione *posIniziale, *posFinale;
-    QFile *jsonFile;
+    QString fileCaricato;
     void inizializzaPedine(const TipoGioco&);
     void mossaScacchi(); // per ogni gioco implementato è necessario aggiungere un metodo mossa (ad esempio mossaDama)
     void eliminaPosizioni();

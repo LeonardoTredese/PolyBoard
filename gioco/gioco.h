@@ -9,6 +9,7 @@ class Gioco
 protected:
     Scacchiera tavolo;
     Colore giocatore_corrente;
+    virtual Pedina* idToPedina(const ID&) = 0;
 public:
     Gioco(int _width, int _heigth, Colore giocatore_iniziale);
     virtual ~Gioco() = default;
@@ -22,6 +23,6 @@ public:
     int getHeight() const;
     virtual Gioco* clone() const = 0;
     bool isEmpty(const Posizione&) const;
-    virtual void inserisciPedina(const Posizione&, const ID&) = 0;
+    void inserisciPedina(const Posizione&, const ID&);
 };
 #endif

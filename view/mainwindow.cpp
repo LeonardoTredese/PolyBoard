@@ -12,6 +12,8 @@ MainWindow::MainWindow(QWidget *parent)
     mainLayout->addWidget(turno);
     setStyle();
     setLayout(mainLayout);
+
+    resize(400,400);
 }
 
 void MainWindow::addMenu()
@@ -196,29 +198,29 @@ void MainWindow::selezionaPromozioneScacchi()
     connect(sel, SIGNAL(pedinaSelezionata(char)), this, SIGNAL(promozioneScacchi(char)));
 }
 
-void MainWindow::dialogFinePartita(const QString& text)
+void MainWindow::dialogAvviso(const QString& text, bool disableView)
 {
-    QDialog *winner= new QDialog(this);
-    QVBoxLayout *winner_layout= new QVBoxLayout(winner);
-    winner_layout->addWidget(new QLabel(text));
-    setEnabled(false);
-    connect(winner, SIGNAL(finished(int)), this, SIGNAL(terminaPartita()));
-    winner->show();
+    QDialog *avviso= new QDialog(this);
+    QVBoxLayout *avviso_layout= new QVBoxLayout(avviso);
+    avviso_layout->addWidget(new QLabel(text));
+    setEnabled(!disableView);
+    connect(avviso, SIGNAL(finished(int)), this, SIGNAL(terminaPartita()));
+    avviso->show();
 }
 
 void MainWindow::mostraVincitore(const Colore& vincitore)
 {
-    dialogFinePartita(QString::fromStdString("Ha vinto il giocatore " + coloreToString(vincitore)));
+    dialogAvviso(QString::fromStdString("Ha vinto il giocatore " + coloreToString(vincitore)));
 }
 
 void MainWindow::mostraVincitoreResa(const Colore& vincitore)
 {
-    dialogFinePartita(QString::fromStdString("Il giocatore avversario si è arreso.\nHa vinto il giocatore " + coloreToString(vincitore)));
+    dialogAvviso(QString::fromStdString("Il giocatore avversario si è arreso.\nHa vinto il giocatore " + coloreToString(vincitore)));
 }
 
 void MainWindow::mostraPareggio()
 {
-    dialogFinePartita(QString::fromStdString("La partita è terminata in pareggio."));
+    dialogAvviso("La partita è terminata in pareggio.");
 }
 
 void MainWindow::setLabelTurno(const Colore& s)
@@ -235,7 +237,12 @@ void MainWindow::selezionaFileSalvataggio()
 
 void MainWindow::selezionaFileCaricamento()
 {
-    QString filename = QFileDialog::getSaveFileName(this, "Seleziona file", "", "*.json");
+    QString filename = QFileDialog::getOpenFileName(this, "Seleziona file", "", "*.json");
     if(filename != "")
         emit carica(filename);
+}
+
+void MainWindow::erroreFile()
+{
+    dialogAvviso("Errore nel caricamento del file", false);
 }

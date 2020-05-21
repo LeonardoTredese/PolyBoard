@@ -28,3 +28,11 @@ bool Gioco::isEmpty(const Posizione& pos) const
 {
     return tavolo[pos] == nullptr;
 }
+
+void Gioco::inserisciPedina(const Posizione& pos, const ID& id)
+{
+    Pedina *toInsert = idToPedina(id);
+    if(toInsert)
+        tavolo.insert(*toInsert, pos);
+    delete toInsert;
+}

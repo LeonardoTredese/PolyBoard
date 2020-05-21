@@ -45,6 +45,7 @@ public:
     void mostraVincitore(const Colore&);
     void mostraVincitoreResa(const Colore&);
     void setLabelTurno(const Colore&);
+    void erroreFile();
 protected:
     virtual void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
 private:
@@ -56,7 +57,7 @@ private:
     //aggiunge il menù alla vista
     void addMenu();
     void setStyle();
-    void dialogFinePartita(const QString&);
+    void dialogAvviso(const QString&, bool = true);
 private slots:
     void nuovaPartita() const;
     void mostraPareggio();

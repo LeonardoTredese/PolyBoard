@@ -15,9 +15,10 @@ private:
     bool scaccoAlRe(Colore re) const;
     bool scaccoMatto(Colore re) const;
     bool arrocco(const Posizione& re, const Posizione& finale);
-    static Pedina* idToPedina(const ID&);
+protected:
+    virtual Pedina* idToPedina(const ID&);
 public:
-    Scacchi();
+    Scacchi(Colore turnoIniziale = bianco, bool inserisciPedine = true);
     virtual TipoGioco tipoGioco() const;
     virtual bool mossa(const Posizione& posIniziale, const Posizione& posFinale);
     virtual void cambioTurno();
@@ -25,6 +26,5 @@ public:
     virtual Scacchi* clone() const;
     bool verificaPromozionePedone(const Posizione&) const;
     void promozionePedone(char pedinaSel, const Posizione& posFinale);
-    virtual void inserisciPedina(const Posizione&, const ID&);
 };
 #endif
