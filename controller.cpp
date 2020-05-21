@@ -150,10 +150,10 @@ void Controller::salvaConNome(const QString& filename)
                 json->insert(QString::number(i++), QJsonArray({*id, *pos}));
             }
         }
-    jsonFile->open(QFile::WriteOnly);
-    jsonFile->write(QJsonDocument(*json).toJson());
     delete jsonFile;
     jsonFile = new QFile(filename);
+    jsonFile->open(QFile::WriteOnly);
+    jsonFile->write(QJsonDocument(*json).toJson());
 }
 
 void Controller::salvaPartita()
