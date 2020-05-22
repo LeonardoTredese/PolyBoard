@@ -130,7 +130,6 @@ void MainWindow::pulisciFinestra()
 
 void MainWindow::nuovaPartita()
 {
-    setEnabled(false);
     SelettoreGioco* sel = new SelettoreGioco();
     connect(sel, SIGNAL(creaScacchi()), this, SIGNAL(nuovaPartitaScacchi()));
 }
