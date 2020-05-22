@@ -238,7 +238,10 @@ void MainWindow::selezionaFileSalvataggio()
 {
     QString filename = QFileDialog::getSaveFileName(this, "Seleziona file", "", "*.json");
     if(filename != "")
-        emit salvaConNome(filename);
+    {
+	QFileInfo fileinfo(filename);
+        emit salvaConNome(fileinfo.absoluteDir().filePath(fileinfo.completeBaseName() + ".json"));
+    }
 }
 
 void MainWindow::selezionaFileCaricamento()
