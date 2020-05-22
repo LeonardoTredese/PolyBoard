@@ -44,3 +44,7 @@ QLabel#turno {
     color: rgb(58,53,43);
     padding: 20px;
 }
+
+QDialog QLabel {
+    color: rgb(10,10,10);
+}
