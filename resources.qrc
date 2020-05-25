@@ -13,5 +13,6 @@
         <file>resources/chess/icons/king_black.png</file>
         <file>resources/chess/icons/pawn_white.png</file>
         <file>resources/chess/icons/pawn_black.png</file>
+        <file>resources/logo.jpg</file>
     </qresource>
 </RCC>

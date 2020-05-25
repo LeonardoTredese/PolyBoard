@@ -215,12 +215,3 @@ void Controller::caricaPartita(const QString& filename)
     }
 
 }
-
-/*
-
-{
-    1: [['k',2], [12,5]]
-    2: [ID, Pos]
-}
-
-*/

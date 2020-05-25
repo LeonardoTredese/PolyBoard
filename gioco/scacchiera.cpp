@@ -145,7 +145,7 @@ bool Scacchiera::iterator::operator!=(const iterator& it) const { return p != it
 
 //##################################### CONST ITERATOR ###############################################
 Scacchiera::const_iterator::const_iterator(const Pedina** _p): p(_p) {}
-Scacchiera::const_iterator::const_iterator(const iterator& it) : p(const_cast<const Pedina**>(it.p)) {} // TODO: trovare soluzione
+Scacchiera::const_iterator::const_iterator(const iterator& it) : p(it.p) {}
 Scacchiera::const_iterator& Scacchiera::const_iterator::operator++()
 {
     ++p;
@@ -168,8 +168,8 @@ Scacchiera::const_iterator Scacchiera::const_iterator::operator--(int)
     --p;
     return cit;
 }
-const Pedina*& Scacchiera::const_iterator::operator*() const { return *p; }
-const Pedina** Scacchiera::const_iterator::operator->() const { return p; }
+const Pedina* const& Scacchiera::const_iterator::operator*() const { return *p; }
+const Pedina* const* Scacchiera::const_iterator::operator->() const { return p; }
 bool Scacchiera::const_iterator::operator==(const const_iterator& cit) const { return p == cit.p; }
 bool Scacchiera::const_iterator::operator!=(const const_iterator& cit) const { return p != cit.p; }
 

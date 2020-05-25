@@ -4,6 +4,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent), mainLayout(new QVBoxLayout(this)), gridLayout(new QGridLayout()),
       turno(new QLabel()), menuPartita(nullptr), save(nullptr), save_name(nullptr)
 {
+    setWindowIcon(QIcon(":/resources/logo.jpg"));
     addMenu();   
     gridLayout->setSizeConstraint(QLayout::SetFixedSize);
     mainLayout->addLayout(gridLayout);
