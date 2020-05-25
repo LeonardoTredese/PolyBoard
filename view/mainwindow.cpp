@@ -90,6 +90,7 @@ void MainWindow::addChessboard(int width, int height)
     menuPartita->setEnabled(true);
     save->setEnabled(true);
     save_name->setEnabled(true);
+    setEnabled(true);
 }
 
 void MainWindow::resizeEvent(QResizeEvent *event)
@@ -132,6 +133,8 @@ void MainWindow::pulisciFinestra()
 void MainWindow::nuovaPartita()
 {
     SelettoreGioco* sel = new SelettoreGioco();
+    setEnabled(false);
+    connect(sel, SIGNAL(finestraChiusa()), this, SLOT(abilitaFinestra()));
     connect(sel, SIGNAL(creaScacchi()), this, SIGNAL(nuovaPartitaScacchi()));
 }
 
@@ -255,4 +258,9 @@ void MainWindow::selezionaFileCaricamento()
 void MainWindow::erroreFile()
 {
     dialogAvviso("Errore nel caricamento del file", false);
+}
+
+void MainWindow::abilitaFinestra()
+{
+   setEnabled(true);
 }

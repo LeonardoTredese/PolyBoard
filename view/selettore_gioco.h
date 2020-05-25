@@ -14,8 +14,10 @@ class SelettoreGioco : public QWidget
     QButtonGroup *gruppoGiochi;
 public:
     explicit SelettoreGioco(QWidget *parent = nullptr);
+    void closeEvent(QCloseEvent* event);
 signals:
     void creaScacchi() const;
+    void finestraChiusa();
 };
 
 #endif // SELETTORE_H

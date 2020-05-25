@@ -66,6 +66,7 @@ private slots:
     void nuovaPartita();
     void mostraPareggio();
     void selezionaFileCaricamento();
+    void abilitaFinestra();
 public slots:
     void selezionaFileSalvataggio();
 signals:

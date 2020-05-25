@@ -24,3 +24,8 @@ SelettoreGioco::SelettoreGioco(QWidget *parent) : QWidget(parent), mainLayout(ne
 //ed emetterà il segnale "creaNuovoGioco", il quale passa
 //il nuovo gioco alla MainWindow.
 
+void SelettoreGioco::closeEvent(QCloseEvent *event)
+{
+    QWidget::closeEvent(event);
+    emit finestraChiusa();
+}
