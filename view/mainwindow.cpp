@@ -197,7 +197,7 @@ void MainWindow::aggiungiPedina(const Posizione& pos, const ID& pedina, const Ti
 
 void MainWindow::pulisciCella(const Posizione& pos)
 {
-    ChessButton* button = dynamic_cast<ChessButton*>(gridLayout->itemAt(pos.x+pos.y*boardWidth)->widget());
+    ChessButton* button = static_cast<ChessButton*>(gridLayout->itemAt(pos.x+pos.y*boardWidth)->widget());
     button->setIcon(QIcon());
 }
 
