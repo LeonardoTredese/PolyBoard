@@ -1,3 +1,3 @@
 #include "pedinascacchi.h"
-//COSTRUTTORE
-PedinaScacchi::PedinaScacchi(Colore _colore): Pedina(_colore){}
+
+PedinaScacchi::PedinaScacchi(Colore colore, bool primaMossa): Pedina(colore, primaMossa){}

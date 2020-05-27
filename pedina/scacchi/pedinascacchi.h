@@ -6,7 +6,7 @@
 // classe astratta, muovi non definito
 class PedinaScacchi: public Pedina{
 public:
-    PedinaScacchi(Colore _colore);
+    PedinaScacchi(Colore colore_, bool primaMossa_ = true);
     virtual PedinaScacchi* clone() const = 0;
 };
 

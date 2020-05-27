@@ -1,6 +1,6 @@
 #include "re.h"
 
-Re::Re(Colore _colore, bool _primaMossa):PedinaScacchi(_colore), primaMossa(_primaMossa){}
+Re::Re(Colore colore, bool primaMossa) : PedinaScacchi(colore, primaMossa) {}
 
 std::list<Posizione> Re::controlloMossa(const Posizione& inizio, const Posizione& fine, bool eat) const{
     std::list<Posizione> ris;
@@ -17,9 +17,5 @@ Re* Re::clone() const
 
 ID Re::getId() const
 {
-    return ID('K', getColore(), primaMossa);
+    return ID('K', getColore(), getPrimaMossa());
 }
-
-void Re::pedinaMossa() { primaMossa = false; }
-
-bool Re::getPrimaMossa() const { return primaMossa; }

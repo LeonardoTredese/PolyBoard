@@ -19,7 +19,6 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::addMenu()
 {
-    // Creare la barra dei menu, poi il menu e infine le azioni
     QMenuBar* menubar = new QMenuBar(this);
     //MENU FILE
     QMenu* file = new QMenu("File",menubar);

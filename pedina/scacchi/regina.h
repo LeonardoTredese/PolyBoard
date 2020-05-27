@@ -5,7 +5,7 @@
 
 class Regina: public MovimentoCroce, public MovimentoDiagonale{
 public:
-    Regina(Colore _colore);
+    Regina(Colore colore, bool primaMossa=true);
     virtual std::list<Posizione> controlloMossa(const Posizione& inizio, const Posizione& fine, bool eat=false) const;
     virtual Regina* clone() const;
     virtual ID getId() const;

@@ -1,7 +1,7 @@
 #include "pedone.h"
 
-Pedone::Pedone(Colore _colore, bool _primaMossa)
-    : PedinaScacchi(_colore), primaMossa(_primaMossa){}
+Pedone::Pedone(Colore colore, bool primaMossa)
+    : PedinaScacchi(colore, primaMossa){}
 
 std::list<Posizione> Pedone::controlloMossa(const Posizione& inizio, const Posizione& fine, bool eat) const
 {
@@ -16,14 +16,14 @@ std::list<Posizione> Pedone::controlloMossa(const Posizione& inizio, const Posiz
     {
         if(getColore()==bianco)
         {
-            if(inizio.x == fine.x && ((primaMossa && (fine.y == inizio.y-1||fine.y==inizio.y-2))
-                || (!primaMossa && fine.y==inizio.y-1)))
+            if(inizio.x == fine.x && ((getPrimaMossa() && (fine.y == inizio.y-1||fine.y==inizio.y-2))
+                || (!getPrimaMossa() && fine.y==inizio.y-1)))
                 ris.push_back(fine);
         }
         else
         {
-            if(inizio.x == fine.x && ((primaMossa && (fine.y == inizio.y+1 || fine.y == inizio.y+2))
-                || (!primaMossa && fine.y == inizio.y+1)))
+            if(inizio.x == fine.x && ((getPrimaMossa() && (fine.y == inizio.y+1 || fine.y == inizio.y+2))
+                || (!getPrimaMossa() && fine.y == inizio.y+1)))
                 ris.push_back(fine);
         }    
     }
@@ -37,7 +37,5 @@ Pedone* Pedone::clone() const
 
 ID Pedone::getId() const
 {
-    return ID('P', getColore(), primaMossa);
+    return ID('P', getColore(), getPrimaMossa());
 }
-
-void Pedone::pedinaMossa(){ if(primaMossa) primaMossa=false; }

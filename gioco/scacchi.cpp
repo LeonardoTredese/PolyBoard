@@ -175,21 +175,21 @@ void Scacchi::cambioTurno()
 
 bool Scacchi::arrocco(const Posizione& re, const Posizione& finale)
 {
-    Re* r = dynamic_cast<Re*>(tavolo[re]);
-    if (!r || !r->getPrimaMossa())
+    Pedina *r = tavolo[re];
+    if (!r || r->getId().getTipo() != 'K' || !r->getPrimaMossa())
         return false;
     //controllo posizione torre
-    Torre* t;
+    Pedina* t;
     int c;  //c serve per gestire i possibili movimenti nel for per il re, indica la direzione di movimento del re
     if(finale == re+Posizione(2,0))
     {//torre destra
-        t=dynamic_cast<Torre*>(tavolo[re + Posizione(3,0)]);
+        t = tavolo[re + Posizione(3,0)];
         c = 1;
     }
     else
-        if (finale == re + Posizione(-2,0))
+        if (finale == re + Posizione(-2,0) && tavolo.isFree(re+Posizione(-3,0)))
         {//torre sinistra
-            t = dynamic_cast<Torre*>(tavolo[re + Posizione(-4,0)]);
+            t = tavolo[re + Posizione(-4,0)];
             c = -1;
         }
         else
@@ -202,8 +202,8 @@ bool Scacchi::arrocco(const Posizione& re, const Posizione& finale)
     bool canMove(true);
     //qualunque colore sia il re si sposta a sinistra o destra
     //int c = (finale == re + Posizione(2,0)) ? 1 : -1; // indica se stai andando a destra (1) o a sinistra (-1)
-    int i=0;
-    for(; canMove && i<2; i++)
+    int i = 0;
+    for(i=0; canMove && i<2; i++)
     {
         if(tavolo.move(re+(Posizione(c,0)*i), re+(Posizione(c,0)*(i+1)), false))  //sposto il re di una mossa per volta
            canMove = !scaccoAlRe(tavolo[re+(Posizione(c,0)*(i+1))]->getColore());
@@ -213,15 +213,15 @@ bool Scacchi::arrocco(const Posizione& re, const Posizione& finale)
     // se canMove è a true significa che li il re può stare, quindi muove la torre e termina
     if(canMove)
     {
-        tavolo.move(c==1 ? re+Posizione(3,0) : re+Posizione(-4,0) , re+Posizione(c,0));
+        tavolo.move(c==1 ? re+Posizione(3,0) : re+Posizione(-4,0) , re+Posizione(c,0));  // movimento torre
         r->pedinaMossa();
         t->pedinaMossa();
         return true;
     }
     else
     {//arrocco non possibile effettuo il rollback della posizione
-        if(i > 0)
-            tavolo.move(re+Posizione(c*i,0), re);
+        if(i > 1)
+            tavolo.move(re+Posizione(c*(i-1),0), re, false);
         return false;
     }
 }
@@ -254,8 +254,8 @@ bool Scacchi::verificaPromozionePedone(const Posizione& pos) const
 {
     if(pos.y == 0  || pos.y == height-1)
     {
-        Pedone* p = dynamic_cast<Pedone*>(tavolo[pos]);
-        if(p)
+        Pedina* p = tavolo[pos];
+        if(p && p->getId().getTipo() == 'P')
             return true;
     }
     return false;

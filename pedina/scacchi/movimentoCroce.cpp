@@ -1,7 +1,7 @@
 #include "movimentoCroce.h"
 
 
-MovimentoCroce::MovimentoCroce(Colore _colore):PedinaScacchi(_colore){}
+MovimentoCroce::MovimentoCroce(Colore colore, bool primaMossa) : PedinaScacchi(colore, primaMossa){}
 
 std::list<Posizione> MovimentoCroce::controlloMossa(const Posizione& inizio, const Posizione& fine, bool eat) const
 {

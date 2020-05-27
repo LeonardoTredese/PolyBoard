@@ -1,7 +1,7 @@
 #include "regina.h"
 
-Regina::Regina(Colore _colore)
-    : PedinaScacchi(_colore), MovimentoCroce(_colore), MovimentoDiagonale(_colore){}
+Regina::Regina(Colore colore, bool primaMossa)
+    : PedinaScacchi(colore, primaMossa), MovimentoCroce(colore, primaMossa), MovimentoDiagonale(colore, primaMossa){}
 
 std::list<Posizione> Regina::controlloMossa(const Posizione& inizio, const Posizione& fine, bool eat) const
 {
@@ -16,5 +16,5 @@ Regina* Regina::clone() const
 
 ID Regina::getId() const
 {
-    return ID('Q', getColore());
+    return ID('Q', getColore(), getPrimaMossa());
 }

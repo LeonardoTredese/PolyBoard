@@ -5,7 +5,7 @@
 class Cavallo: public PedinaScacchi
 {
 public:
-    Cavallo(Colore _colore);
+    Cavallo(Colore colore, bool primaMossa = true);
     virtual std::list<Posizione> controlloMossa(const Posizione& inizio, const Posizione& fine, bool eat=false) const;
     virtual Cavallo* clone() const;
     virtual ID getId() const;

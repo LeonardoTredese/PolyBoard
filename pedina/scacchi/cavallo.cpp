@@ -1,6 +1,6 @@
 #include "cavallo.h"
 
-Cavallo::Cavallo(Colore _colore):PedinaScacchi(_colore){}
+Cavallo::Cavallo(Colore colore, bool primaMossa) : PedinaScacchi(colore, primaMossa){}
 
 std::list<Posizione> Cavallo::controlloMossa(const Posizione& inizio, const Posizione& fine, bool eat) const
 {
@@ -18,5 +18,5 @@ Cavallo* Cavallo::clone()const
 
 ID Cavallo::getId() const
 {
-    return ID('N', getColore());
+    return ID('N', getColore(), getPrimaMossa());
 }

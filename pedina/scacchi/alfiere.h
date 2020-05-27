@@ -5,7 +5,7 @@
 class Alfiere: public MovimentoDiagonale
 {
 public:
-    Alfiere(Colore _colore);
+    Alfiere(Colore _colore, bool primaMossa = true);
     virtual Alfiere* clone() const;
     virtual ID getId()const;
 };

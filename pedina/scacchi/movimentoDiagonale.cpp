@@ -1,6 +1,6 @@
 #include "movimentoDiagonale.h"
 
-MovimentoDiagonale::MovimentoDiagonale(Colore colore) : PedinaScacchi(colore) {} 
+MovimentoDiagonale::MovimentoDiagonale(Colore colore, bool primaMossa) : PedinaScacchi(colore, primaMossa) {} 
 
 std::list<Posizione> MovimentoDiagonale::controlloMossa(const Posizione& inizio, const Posizione& fine, bool eat) const
 {

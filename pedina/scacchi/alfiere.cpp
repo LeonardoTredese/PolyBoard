@@ -1,6 +1,6 @@
  #include "alfiere.h"
 
-Alfiere::Alfiere(Colore _colore):PedinaScacchi(_colore), MovimentoDiagonale(_colore){}
+Alfiere::Alfiere(Colore colore, bool primaMossa) : PedinaScacchi(colore, primaMossa), MovimentoDiagonale(colore, primaMossa) {}
 
 Alfiere* Alfiere::clone() const
 {
@@ -9,5 +9,5 @@ Alfiere* Alfiere::clone() const
 
 ID Alfiere::getId() const
 {
-    return ID('B', getColore());
+    return ID('B', getColore(), getPrimaMossa());
 }

@@ -4,7 +4,7 @@
 class MovimentoCroce : virtual public PedinaScacchi
 {
 public:
-    MovimentoCroce(Colore _colore);
+    MovimentoCroce(Colore colore, bool primaMossa = true);
     virtual MovimentoCroce* clone()const = 0;
     virtual std::list<Posizione> controlloMossa(const Posizione& inizio, const Posizione& fine, bool eat=false) const;
 };

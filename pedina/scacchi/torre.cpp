@@ -1,6 +1,6 @@
 #include "torre.h"
 
-Torre::Torre(Colore _colore, bool _primaMossa): PedinaScacchi(_colore), MovimentoCroce(_colore), primaMossa(_primaMossa) {}
+Torre::Torre(Colore colore, bool primaMossa): PedinaScacchi(colore, primaMossa), MovimentoCroce(colore, primaMossa) {}
 
 Torre* Torre::clone() const
 {
@@ -9,9 +9,5 @@ Torre* Torre::clone() const
 
 ID Torre::getId() const
 {
-    return ID('R', getColore(), primaMossa);
+    return ID('R', getColore(), getPrimaMossa());
 }
-
-void Torre::pedinaMossa() { primaMossa = false; }
-
-bool Torre::getPrimaMossa() const { return primaMossa; }
