@@ -36,10 +36,11 @@ public:
     class iterator
     {
         friend class Scacchiera::const_iterator;
+        friend class Scacchiera;
         private:
             Pedina** p;
-        public:
             iterator(Pedina** _p);
+        public:
             iterator& operator++();
             iterator operator++(int);
             iterator& operator--();
@@ -55,7 +56,6 @@ public:
     private:
         const Pedina* const* p;  // puntatore non costante a puntatore costante a Pedina costante
     public:
-        const_iterator(const Pedina** _p);
         const_iterator(const iterator& it);
         const_iterator& operator++();
         const_iterator operator++(int);

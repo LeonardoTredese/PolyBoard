@@ -41,7 +41,7 @@ Scacchiera& Scacchiera::operator=(const Scacchiera& s)
 
 Pedina* Scacchiera::operator[](const Posizione& p) const
 {
-    return elementAt(p); // tavolo[Posizione(x,y)] ?= tavolo[x,y]
+    return elementAt(p);
 }
 
 int Scacchiera::getWidth() const { return width; }
@@ -76,8 +76,8 @@ bool Scacchiera::move(const Posizione& from, const Posizione& to, bool force)  /
             remove(to); // con questo isFree(to) è sicuramente true
         if(isFree(to))
         {
-            elementAt(to)=elementAt(from);
-            elementAt(from)=nullptr;
+            elementAt(to) = elementAt(from);
+            elementAt(from) = nullptr;
             return true;
         }
     }
@@ -144,7 +144,6 @@ bool Scacchiera::iterator::operator==(const iterator& it) const { return p == it
 bool Scacchiera::iterator::operator!=(const iterator& it) const { return p != it.p; }
 
 //##################################### CONST ITERATOR ###############################################
-Scacchiera::const_iterator::const_iterator(const Pedina** _p): p(_p) {}
 Scacchiera::const_iterator::const_iterator(const iterator& it) : p(it.p) {}
 Scacchiera::const_iterator& Scacchiera::const_iterator::operator++()
 {
