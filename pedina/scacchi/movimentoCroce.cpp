@@ -5,7 +5,6 @@ MovimentoCroce::MovimentoCroce(Colore colore, bool primaMossa) : PedinaScacchi(c
 
 std::list<Posizione> MovimentoCroce::controlloMossa(const Posizione& inizio, const Posizione& fine, bool eat) const
 {
-    //return ((xF == xI && yF != yI) || (yF == yI && xF != xI));
     Posizione *direzione(nullptr);
     if(inizio.x == fine.x)
     {

@@ -4,7 +4,6 @@ MovimentoDiagonale::MovimentoDiagonale(Colore colore, bool primaMossa) : PedinaS
 
 std::list<Posizione> MovimentoDiagonale::controlloMossa(const Posizione& inizio, const Posizione& fine, bool eat) const
 {
-    //return (xF+yF==xI+yI || (xF-yF==xI-yI));
     Posizione *direzione=nullptr;
     if(fine.x-fine.y == inizio.x-inizio.y)
     {//diagonale \ inclinata verso sinistra
