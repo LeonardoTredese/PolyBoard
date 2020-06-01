@@ -29,7 +29,7 @@ public:
     bool isFree(const Posizione& p) const;    //ritorna true sse nella posizione (x,y) non vi è nessuna pedina
     Posizione find(const Pedina* p) const;
 
-    // PRE: posizioni è una lista di posizioni valide non vuota e ultima posizione è quella di arrivo
+    // PRE: l'ultima posizione della lista di posizioni è quella di arrivo
     bool traiettoriaLibera(const list<Posizione>& posizioni) const;
     //POST: ritorna true sse tutte le posizioni, tranne l'ultima sono libere.
     class const_iterator;
