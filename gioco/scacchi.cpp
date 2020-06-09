@@ -74,7 +74,7 @@ bool Scacchi::mossa(const Posizione& posIniziale, const Posizione& posFinale)
         if(backup)
             backupFine = tavolo[posFinale]->clone();
         tavolo.move(posIniziale, posFinale);
-        if(scaccoAlRe(pedinaSel->getColore()))
+        if(scaccoAlRe(giocatore_corrente))
         {
             tavolo.move(posFinale, posIniziale);
             if(backup)
