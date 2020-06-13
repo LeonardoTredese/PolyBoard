@@ -43,6 +43,7 @@ void Controller::inizializzaPedine(const TipoGioco& tipoGioco)
                 view->aggiungiPedina(Posizione(x,y), *idPedina, tipoGioco);
             else
                 view->pulisciCella(Posizione(x,y));
+            delete idPedina;
         }
 }
 
@@ -150,6 +151,7 @@ void Controller::salvaConNome(const QString& filename)
                 QJsonArray *id = new QJsonArray({current->getTipo(), current->getColore(), current->getPrimaMossa()}), *pos = new QJsonArray({x, y});
                 json.insert(QString::number(i++), QJsonArray({*id, *pos}));
             }
+            delete current;
         }
     fileCaricato = filename;
     QFile jsonFile(fileCaricato);
