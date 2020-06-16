@@ -9,10 +9,10 @@ Controller::Controller(QObject *parent)
     // viene raccolto dallo slot createNewGame(Gioco*) del controller.
     connect(view, SIGNAL(nuovaPartitaScacchi()), this, SLOT(creaScacchi()));
     connect(view, SIGNAL(casellaSelezionata(Posizione)), this, SLOT(raccogliPosizione(Posizione)));
-    connect(view, SIGNAL(promozioneScacchi(char)),this,SLOT(promozioneScacchi(char)));
+    connect(view, SIGNAL(promozioneScacchi(char)), this, SLOT(promozioneScacchi(char)));
     connect(view, SIGNAL(resetFinestra()), this, SLOT(resetPartita()));
     connect(view, SIGNAL(terminaPartita()), this, SLOT(resetPartita()));
-    connect(view, SIGNAL(resa()),this,SLOT(resaDichiarata()));
+    connect(view, SIGNAL(resa()), this, SLOT(resaDichiarata()));
     connect(view, SIGNAL(salvaConNome(const QString&)), this, SLOT(salvaConNome(const QString&)));
     connect(view, SIGNAL(salva()), this, SLOT(salvaPartita()));
     connect(view, SIGNAL(carica(const QString&)), this, SLOT(caricaPartita(const QString&)));
