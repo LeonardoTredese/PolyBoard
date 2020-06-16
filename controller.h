@@ -10,8 +10,8 @@
 #include <QFile>
 #include "view/mainwindow.h"
 #include "view/selettore_gioco.h"
-#include "gioco/gioco.h"
-#include "gioco/scacchi.h"
+#include "model/gioco.h"
+#include "model/scacchi.h"
 #include "posizione.h"
 #include "tipogioco.h"
 

@@ -19,11 +19,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 # Input
 HEADERS += colore.h \
-           gioco/gioco.h \
+           model/gioco.h \
            pedina/id.h \
            posizione.h \
-           gioco/scacchi.h \
-           gioco/scacchiera.h \
+           model/scacchi.h \
+           model/scacchiera.h \
            view/chessbutton.h \
            view/mainwindow.h \
            pedina/pedina.h \
@@ -41,11 +41,11 @@ HEADERS += colore.h \
            tipogioco.h \
            view/selettore_promozione_scacchi.h
 SOURCES += \
-           gioco/gioco.cpp \
+           model/gioco.cpp \
            pedina/id.cpp \
            posizione.cpp \
-           gioco/scacchi.cpp \
-           gioco/scacchiera.cpp \
+           model/scacchi.cpp \
+           model/scacchiera.cpp \
            main.cpp \
            view/chessbutton.cpp \
            view/mainwindow.cpp \
