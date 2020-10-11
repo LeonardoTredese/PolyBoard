@@ -3,6 +3,7 @@ os: linux
 dist: focal
 
 before_install:
+- sudo apt-get install qt5-default
 - sudo apt-get build-dep qt5-default
 - sudo apt-get install libxcb-xinerama0-dev 
  
