@@ -1,6 +1,6 @@
 language: C++
 os: linux
-dist: focal
+dist: xenial
 
 before_install:
  - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
